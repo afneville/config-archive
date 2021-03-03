@@ -39,7 +39,7 @@ alias commit="git commit -m"
 alias gpom="git add . && git commit -m \"automated backup\" && git push origin master"
 
 export PYTHONPATH=/home/alex/python/packages/
-export PATH=$PATH:$HOME/.emacs.d/bin:/opt/lampp:$HOME/.local/bin:$HOME/.config/composer/vendor/bin
+export PATH=$PATH:$HOME/.emacs.d/bin:/opt/lampp:$HOME/.local/bin:$HOME/.config/composer/vendor/bin:$HOME/scripts
 export VISUAL=nvim
 export EDITOR=nvim
 

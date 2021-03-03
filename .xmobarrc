@@ -1,0 +1,47 @@
+Config { 
+
+     font =         "xft:Ubuntu Mono:size=11:antialias=true",
+     additionalFonts= ["xft:FontAwesome:pixelsize=18",
+                       "xft:all-the-icons:pixelsize=18"]
+     bgColor =      "#222222",
+     fgColor =      "#bbbbbb",
+     position =     Top,
+     border =       BottomB,
+     borderColor =  "#646464",
+
+     sepChar =  "%"   -- delineator between plugin names and straight text,
+     alignSep = "}{"  -- separator between left-right alignment,
+
+     lowerOnStart =     True    -- send to bottom of window stack on start,
+     hideOnStart =      False   -- start with window unmapped (hidden),
+     allDesktops =      True    -- show on all desktops,
+     overrideRedirect = True    -- set the Override Redirect flag (Xlib),
+     pickBroadest =     False   -- choose widest display (multi-monitor),
+     persistent =       True    -- enable/disable hiding (True = disabled),
+
+     commands = 
+
+        [
+          Run Battery        [ "--template" , "<acstatus>",
+                               "--Low"      , "10",
+                               "--High"     , "80",      
+                               "--low"      , "red",
+                               "--normal"   , "orange",
+                               "--high"     , "green",
+
+                               "--", 
+                                       -- discharging status
+                                         "-o"	, "<fn=1>\xf241</fn> <left>%",
+                                       -- AC "on" status
+                                         "-O"	, "<fn=1>\xf1e6</fn> <left>%",
+                                       -- charged status
+                                         "-i"	, "<fn=1>\xf240</fn> <left>%"
+                             ] 60,
+
+          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y   <fn=1>\xf017</fn> %T" "date" 10
+
+
+        ],
+
+     template = " }{ %date%   %battery%  "
+}

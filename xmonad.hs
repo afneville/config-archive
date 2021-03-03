@@ -7,16 +7,11 @@ import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
-import XMonad.Hooks.SetWMName
-import Graphics.X11.ExtraTypes.XF86
 import XMonad.Util.EZConfig
 import XMonad.Layout.Spacing
-import XMonad.Layout.Gaps
 
-import XMonad.Layout.Grid
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Spiral
-import XMonad.Layout.SimpleFloat
+import XMonad.Hooks.SetWMName
+import Graphics.X11.ExtraTypes.XF86
 
 -- import XMonad.Actions.Volume
 myTerminal      = "alacritty"
@@ -27,7 +22,7 @@ myFocusFollowsMouse = True
 myClickJustFocuses :: Bool
 myClickJustFocuses = False
 
-myBorderWidth   = 1
+myBorderWidth   = 2
 
 myModMask       = mod4Mask
 
@@ -49,82 +44,58 @@ myFocusedBorderColor = "#487aff"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-    -- launch a terminal
-    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
+    [ 
+      ((modm,               xK_Return), spawn $ XMonad.terminal conf),
+      ((modm,               xK_p     ), spawn "rofi -show run"),
+      ((modm,               xK_s     ), spawn "firefox"),
+      ((modm,               xK_f     ), spawn "pcmanfm"),
+      --((modm,               xK_e     ), spawn "emacsclient --no-wait --create-frame"), this is for use with emacs in a client server manner
+      ((modm,               xK_e     ), spawn "emacs"),
+      ((modm,               xK_g     ), spawn "screenshot"),
+      ((modm .|. shiftMask, xK_g     ), spawn "screenshot save"),
+ 
+     -- close focused window,
+      ((modm,               xK_c     ), kill),
+ 
+     -- Manipulate layouts
+      ((modm,               xK_space ), sendMessage NextLayout),
+      ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf), -- Reset to default
+ 
+     -- Resize viewed windows to the correct size,
+      ((modm,               xK_n     ), refresh),
+ 
+     -- Move focus between windows
+      ((modm,               xK_Tab   ), windows W.focusDown),
+      ((modm,               xK_j     ), windows W.focusDown),
+      ((modm,               xK_k     ), windows W.focusUp  ),
+      ((modm,               xK_m     ), windows W.focusMaster  ),
+ 
+     -- Swap position of focused windows
+      ((modm .|. shiftMask,               xK_j     ), windows W.swapDown  ),
+      ((modm .|. shiftMask,               xK_k     ), windows W.swapUp    ),
+ 
+     -- Shrink the master area,
+      ((modm,               xK_h     ), sendMessage Shrink),
+ 
+     -- Expand the master area,
+      ((modm,               xK_l     ), sendMessage Expand),
+ 
+     -- Push window back into tiling,
+      ((modm,               xK_t     ), withFocused $ windows . W.sink),
+ 
+     -- Change the number of windows in the master area
+      ((modm              , xK_comma ), sendMessage (IncMasterN 1)),
+      ((modm              , xK_period), sendMessage (IncMasterN (-1))),
 
-    -- launch dmenu
-    , ((modm,               xK_p     ), spawn "rofi -show run")
-
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
-
-    --launch firefox
-    , ((modm,               xK_s     ), spawn "firefox")
-
-    --launch pcmanfm
-    , ((modm,               xK_f     ), spawn "pcmanfm")
-
-    --launch emacs , ((modm,               xK_e     ), spawn "emacs")
-    , ((modm,               xK_e     ), spawn "emacs")
-    , ((modm,               xK_g     ), spawn "screenshot")
-    , ((modm .|. shiftMask, xK_g     ), spawn "screenshot save")
-
-    -- close focused window
-    , ((modm,               xK_c     ), kill)
-
-     -- Rotate through the available layout algorithms
-    , ((modm,               xK_space ), sendMessage NextLayout)
-
-    --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-
-    -- Resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
-
-    -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-
-    -- Move focus to the next window
-    --, ((modm,               xK_j     ), windows W.focusDown)
-
-    -- Move focus to the previous window
-    --, ((modm,               xK_k     ), windows W.focusUp  )
-
-    -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
-
-    -- Swap the focused window with the next window
-    , ((modm,               xK_j     ), windows W.swapDown  )
-
-    -- Swap the focused window with the previous window
-    , ((modm,               xK_k     ), windows W.swapUp    )
-
-    -- Shrink the master area
-    , ((modm,               xK_h     ), sendMessage Shrink)
-
-    -- Expand the master area
-    , ((modm,               xK_l     ), sendMessage Expand)
-
-    -- Push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-
-    -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-
-    -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-
-    --, ((modm              , xK_b     ), sendMessage ToggleStruts)
-
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+      -- Exit and restart hotkeys.
+      ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)),
+      ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart"),
     
-    -- Audio Volume
+     -- Audio Volume
 
-    , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-    , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%")
-    , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
+      ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+      ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%"),
+      ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
 
 
     ]
@@ -175,11 +146,11 @@ myLayout = avoidStruts (tiled ||| Full)
 ------------------------------------------------------------------------
 --xmobar setup
 
-myBar = "xmobar"
+--myBar = "xmobar"
 
-myPP = xmobarPP { ppCurrent = xmobarColor "#50fa7b" "" . wrap "[" "]" }
+--myPP = xmobarPP { ppCurrent = xmobarColor "#50fa7b" "" . wrap "[" "]" }
 
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+--toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
 
 
@@ -214,10 +185,17 @@ myLogHook = return ()
 ------------------------------------------------------------------------
 myStartupHook = do
 
-    -- spawnOnce "nitrogen --restore &"
+    spawnOnce "hsetroot -solid \"#333333\""
+    spawnOnce "picom &"
+    spawnOnce "xsetroot -cursor_name left_ptr &"
+    spawnOnce "xrandr_script"
+    --spawnOnce "emacs --daemon"
     setWMName "LG3D"
 ------------------------------------------------------------------------
-main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
+main = do
+
+    xmproc <- spawnPipe "xmobar /home/alex/.xmobarrc"
+    xmonad $ docks myConfig
 --main = xmonad myConfig
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -241,7 +219,7 @@ myConfig = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook = spacingRaw False (Border 0 0 0 0) True (Border 0 0 0 0) True $ myLayout,
+        layoutHook = spacingRaw False (Border 0 10 0 10) True (Border 10 0 10 0) True $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,

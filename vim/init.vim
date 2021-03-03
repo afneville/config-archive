@@ -1,18 +1,13 @@
 call plug#begin('~/.local/share/nvim/plugged') 
-""Plug 'vim-airline/vim-airline'
-""Plug 'vim-airline/vim-airline-themes'
+
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'mattn/emmet-vim'
 Plug 'jremmen/vim-ripgrep' 
-"Plug 'ycm-core/YouCompleteMe'
 Plug 'itchyny/lightline.vim'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-"Plug 'rakr/vim-one'
 Plug 'rafi/awesome-vim-colorschemes'
-"Plug 'wadackel/vim-dogrun'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
 Plug 'vimwiki/vimwiki'
 Plug 'arzg/vim-colors-xcode'
 Plug 'sainnhe/edge'
@@ -25,7 +20,6 @@ Plug 'romgrk/doom-one.vim'
 Plug 'rakr/vim-one'
 Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'jeaye/color_coded'
 
 call plug#end()
 
@@ -91,9 +85,13 @@ highlight MatchParen cterm=none ctermbg=darkgrey ctermfg=blue
 set mouse=a
 nnoremap <M-t> :Texplore<return>
 nnoremap <C-p> :vs \| ter<return>A
-nnoremap <leader>t :NERDTreeFocus<CR>
-nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>ff :NERDTreeFocus<CR>
+nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>l :set number!<CR>
 inoremap ii <esc>
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wl <C-w>l
 
 
