@@ -186,9 +186,9 @@ myLogHook = return ()
 myStartupHook = do
 
     spawnOnce "hsetroot -solid \"#333333\""
-    spawnOnce "picom &"
     spawnOnce "xsetroot -cursor_name left_ptr &"
     spawnOnce "xrandr_script"
+    --spawnOnce "picom &"
     --spawnOnce "emacs --daemon"
     setWMName "LG3D"
 ------------------------------------------------------------------------

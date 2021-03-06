@@ -1,6 +1,6 @@
 Config { 
 
-     font =         "xft:Ubuntu Mono:size=11:antialias=true",
+     font =         "xft:Ubuntu Mono:size=12:antialias=true",
      additionalFonts= ["xft:FontAwesome:pixelsize=18",
                        "xft:all-the-icons:pixelsize=18"]
      bgColor =      "#222222",
@@ -38,10 +38,10 @@ Config {
                                          "-i"	, "<fn=1>\xf240</fn> <left>%"
                              ] 60,
 
-          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y   <fn=1>\xf017</fn> %T" "date" 10
+          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y  <fn=1>\xf017</fn> %T" "date" 10
 
 
         ],
 
-     template = " }{ %date%   %battery%  "
+     template = " }{ %date%  %battery% "
 }

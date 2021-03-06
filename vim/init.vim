@@ -20,6 +20,8 @@ Plug 'romgrk/doom-one.vim'
 Plug 'rakr/vim-one'
 Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'liuchengxu/space-vim-dark'
+"Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -33,7 +35,7 @@ let g:user_emmet_leader_key='<C-Z>'
 let mapleader = " "
 ""let g:netrw_browse_split=0
 let g:netrw_banner=0
-source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/coc.vim
 autocmd FileType vimwiki let b:coc_suggest_disable = 1
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
