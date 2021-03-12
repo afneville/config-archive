@@ -1,6 +1,6 @@
 Config { 
 
-     font =         "xft:Ubuntu Mono:size=12:antialias=true",
+     font =         "xft:Mononoki Nerd Font:size=13:antialias=true",
      additionalFonts= ["xft:FontAwesome:pixelsize=18",
                        "xft:all-the-icons:pixelsize=18"]
      bgColor =      "#222222",

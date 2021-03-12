@@ -6,8 +6,9 @@
  ;; If there is more than one, they won't work right.
  '(company-box-doc-enable nil)
  '(evil-want-keybinding nil)
+ '(lsp-enable-snippet nil)
  '(package-selected-packages
-   '(evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
+   '(nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -46,10 +47,15 @@
 ;; Font and theme settings
 (set-face-attribute 'default nil :font "Roboto Mono" :height 130)
 (load-theme 'doom-one t)
-;; display line numbers.
-(column-number-mode)
+
+;; display line numbers, also using nlinum in order to control width.
+(use-package nlinum
+  :config
+  (setq nlinum-format "%3d "))
+;;(column-number-mode)
 ;;(global-display-line-numbers-mode t) ;; this will enable line numbers globaly.
-(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode t)))
+(add-hook 'prog-mode-hook (lambda () (nlinum-mode t)))
+
 ;; disable line wrapping and and improve scrolling.
 (setq-default truncate-lines t)
 (setq scroll-conservatively 101)
@@ -128,6 +134,13 @@
   :init
   (ivy-rich-mode 1))
 
+;; use system shell path
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 
 ;; =============================================================================================================================
 ;; Create an accelerator key like doom emacs ===================================================================================
@@ -145,7 +158,7 @@
    "ff" '(counsel-find-file :which-key "quick-find")
    "ft" '(treemacs :which-key "toggle treemacs")
    "fp" '(projectile-switch-project :which-key "open project")
-   "fd" '(counsel-find-file :which-key "dired-mode"))
+   "fd" '(dired-jump :which-key "dired-mode"))
   (alex/leader-keys
     "a" '(:ignore t :which-key "actions")
     "at" '(counsel-load-theme :which-key "load-theme")
@@ -170,21 +183,24 @@
     "ck" '(clipboard-kill-ring :which-key "cut")
     "cp" '(clipboard-yank :which-key "paste"))
   (alex/leader-keys
-   "o" '(:ignore t :which-key "org mode")
-   "os" '(org-schedule :which-key "schedule")
-   "od" '(org-deadline :which-key "deadline")
-   "oa" '(org-agenda :which-key "agenda")
-   "ol" '(org-agenda-list :which-key "agenda list")
-   "or" '(org-mode-restart :which-key "reload"))
+    "o" '(:ignore t :which-key "org mode")
+    "os" '(org-schedule :which-key "schedule")
+    "od" '(org-deadline :which-key "deadline")
+    "oa" '(org-agenda :which-key "agenda")
+    "ol" '(org-agenda-list :which-key "agenda list")
+    "or" '(org-mode-restart :which-key "reload"))
   (alex/leader-keys
-   "s" '(swiper :which-key "search this file")
-   "j" '(next-buffer :which-key "next buffer")
-   "k" '(previous-buffer :which-key "previous buffer"))
+    "s" '(swiper :which-key "search this file")
+    "m" '(magit-status :which-key "magit")
+    "j" '(next-buffer :which-key "next buffer")
+    "k" '(previous-buffer :which-key "previous buffer"))
 
   (alex/leader-keys
     "t" '(term :which-key "term"))
 
-  )
+  (alex/leader-keys
+    "m" '(magit-status :which-key "magit"))
+)
 ;; This package is useful if you want to make a quick menu
 (use-package hydra)
 
@@ -202,6 +218,7 @@
 
 (require 'evil)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(setq x-select-enable-clipboard nil)
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -251,11 +268,28 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 ;; =========================================================================================================================
+;;  Set up dires mode ======================================================================================================
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+
+;; =========================================================================================================================
 ;;  Set up Org mode ========================================================================================================
 
 (defun alex/org-mode-setup ()
   (org-indent-mode)
-  (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
+  (variable-pitch-mode 0) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
 
 ;; This section is copied from the internet. It sets up different font faces and uses a variable width font.
@@ -274,7 +308,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'regular :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -320,6 +354,8 @@
 (setq lsp-signature-render-documentation nil)
 (setq lsp-modeline-code-actions-enable nil)
 (setq lsp-modeline-diagnostics-enable nil)
+(setq lsp-log-io nil)
+(setq lsp-restart 'auto-restart)
 
 
 ;; Basic lsp congig
@@ -328,6 +364,8 @@
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c l")
+  :hook
+  (web-mode . lsp-deferred)
   :config
   (lsp-enable-which-key-integration t))
 (require 'lsp-mode)
@@ -372,8 +410,31 @@
 
 (add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
 
+;; Json & Web setup
+
+ (use-package json-mode)
+ (use-package web-mode
+   :mode
+   ("\\.js\\'" . web-mode)
+   ("\\.jsx\\'" . web-mode)
+   ("\\.ts\\'" . web-mode)
+   ("\\.tsx\\'" . web-mode)
+   ("\\.html\\'" . web-mode)
+   :commands web-mode)
+
+;; lua mode for configuring awesome
+
+(use-package lua-mode
+  :hook (lua-mode-hook . lua-mode))
+
+
 ;; Put the above config into practice for python mode
 
-(use-package python-mode
-  :ensure nil
-  :hook (python-mode . lsp-deferred))
+;(use-package python-mode
+ ; :ensure nil
+  ;:hook (python-mode . lsp-deferred))
+(add-hook 'python-mode-hook 'lsp-deferred)
+;; C and C++
+(add-hook 'c++-mode-hook 'lsp-deferred)
+;; javascript
+
