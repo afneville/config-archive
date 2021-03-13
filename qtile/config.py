@@ -95,9 +95,13 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
     ])
-
+# 0: unfocused colour 1: blue for focus 2: green for stack 
+window_colours = ['#adb1b5', '#51afef', '#98be65']
+# 0: grey for the bar background 1: yellow for clock. 2: blue for tags 3: red for mem widget 4: green for cpu
+bar_colours = ['#222222', '#dcc143', '#5f8bcb', '#d95a2a', '#99dc43', '#a952e8']
+my_border_width=1
 layouts = [
-    layout.Columns(border_focus_stack='#d75f5f', border_on_single=True, margin=[5, 0, 0, 5]),
+    layout.Columns(border_width=my_border_width, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_normal_stack=window_colours[2], border_on_single=True, margin=[5, 5, 0, 0]),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -118,20 +122,30 @@ widget_defaults = dict(
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-colours = ['#222222', '#eeae61', '#adb1b5']
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(disable_drag=True, font="ubuntu", use_mouse_wheel=False, highlight_method="block", inactive=colours[2], rounded=False, hide_unused=True),
+                widget.GroupBox(disable_drag=True, font="ubuntu", use_mouse_wheel=False, highlight_method="block", this_current_screen_border=bar_colours[2], this_screen_border=bar_colours[2], inactive=bar_colours[0], rounded=False, hide_unused=True),
                 widget.Spacer(),
-                widget.Clock(format='%d-%m-%Y %H:%M:%S'),
+                widget.CPU(format='{freq_current}ghz', background=bar_colours[5], foreground=bar_colours[0]),
+                widget.TextBox(" "),
+                widget.CPU(format='{load_percent}%', background=bar_colours[4], foreground=bar_colours[0]),
+                widget.TextBox(" "),
+                widget.Memory(format='{MemUsed: .0f} MB', background=bar_colours[3], foreground=bar_colours[0]),
+                #widget.TextBox(" "),
+                #widget.CheckUpdates(no_update_string="Updates: 0", custom_command="expac -S -H M '%k\t%n' $(pacman -Qqu) | sort -sh", background=bar_colours[2], foreground=bar_colours[0], colour_have_updates=bar_colours[0], colour_no_updates=bar_colours[0]),
+                widget.TextBox(" "),
+                widget.Clock(format='%d-%m-%Y %H:%M:%S', background=bar_colours[1], foreground=bar_colours[0]),
+                widget.TextBox(" "),
+                #widget.WindowCount(),
+                #widget.CurrentLayoutIcon(scale=0.8),
             ],
             24,
-            background=colours[0]
+            background=bar_colours[0]
         ),
         bottom=bar.Gap(5),
-        right=bar.Gap(5),
+        left=bar.Gap(5),
     ),
 ]
 

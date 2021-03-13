@@ -218,7 +218,7 @@
 
 (require 'evil)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(setq x-select-enable-clipboard nil)
+;;(setq x-select-enable-clipboard nil)
 (use-package evil
   :init
   (setq evil-want-integration t)
