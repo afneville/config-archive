@@ -58,7 +58,7 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
+    Key([mod], "t", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout(), desc="Toggle between layouts"),
@@ -77,6 +77,10 @@ keys = [
 
     Key([mod], "q", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    # Sound
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -10%")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +10%")),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -98,7 +102,7 @@ for i in groups:
 # 0: unfocused colour 1: blue for focus 2: green for stack 
 window_colours = ['#adb1b5', '#51afef', '#98be65']
 # 0: grey for the bar background 1: yellow for clock. 2: blue for tags 3: red for mem widget 4: green for cpu
-bar_colours = ['#222222', '#dcc143', '#5f8bcb', '#d95a2a', '#99dc43', '#a952e8']
+bar_colours = ['#222222', '#dcc143', '#3d7abc', '#d95a2a', '#99dc43', '#a952e8']
 my_border_width=1
 layouts = [
     layout.Columns(border_width=my_border_width, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_normal_stack=window_colours[2], border_on_single=True, margin=[5, 5, 0, 0]),

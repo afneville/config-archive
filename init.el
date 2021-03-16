@@ -8,18 +8,18 @@
  '(evil-want-keybinding nil)
  '(lsp-enable-snippet nil)
  '(package-selected-packages
-   '(nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
+   '(company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
-
+ '(org-ellipsis ((t (:foreground "dark gray" :underline nil)))))
+;(custom-set-faces
 
 ;; =============================================================================================================================
-;; This section is all about stopping the silly default behaviour of emacs.
+;; This section is all about stopping the silly default behaviour of emacs. ====================================================
 ;;(server-start) ;; needed for daemon mode
 ;; disable gui elements.
 
@@ -64,6 +64,8 @@
 		term-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (setq visual-line-mode t))))
+
+
 
 ;; =============================================================================================================================
 ;;  Install doom emacs themes and modelines ===================================================================================
@@ -219,32 +221,48 @@
 (require 'evil)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;;(setq x-select-enable-clipboard nil)
+;;(setq interprogram-cut-function nil)
+;;(setq interprogram-paste-function nil)
+(setq save-interprogram-paste-before-kill t)
 (use-package evil
   :init
   (setq evil-want-integration t)
   ;;(setq evil-want-keybinding nil) ;; Should be set above.
-  (setq evil-want-fine-undo t)  
+  (setq evil-want-fine-undo 'fine)  
   ;;(setq evil-want-C-u-scroll t)
   ;;:hook (evil-mode . alex/evil-hook)
   :config
   (evil-mode 1)
+  (evil-set-undo-system 'undo-tree)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
-  (evil-set-initial-state 'term-mode 'emacs))
+  (evil-set-initial-state 'term-mode 'insert))
 
 (use-package evil-collection
   :after evil
   :ensure t
   :custom
-  (evil-collection-company-use-tng nil)
+  (evil-collection-want-unimpaired-p t)
+  (evil-collection-company-use-tng t)
   (evil-collection-calendar-want-org-bindings t)
   :config
   (evil-collection-init))
 
+(use-package undo-tree
+  :after evil
+  :config
+  (global-undo-tree-mode))
+
+(defun alex/evil-write ()
+    (interactive)  
+    (save-buffer)
+    (kill-this-buffer))
+(evil-ex-define-cmd "wq" 'alex/evil-write)
+(evil-ex-define-cmd "q" 'kill-this-buffer)
 ;; =========================================================================================================================
 ;;  Set up projectile for managing my projects =============================================================================
 
@@ -322,7 +340,10 @@
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
   :config
-  (setq org-ellipsis " ▾")
+
+  (setq org-ellipsis " ")
+  ;;(setq org-ellipsis " ⤵")
+  ;;(setq org-ellipsis " ")
   (setq org-indent-indentation-per-level 2)
   (setq org-hide-emphasis-markers t)
   (setq org-agenda-files '("~/vc_projects/org/Agenda.org"))
@@ -375,11 +396,15 @@
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
-  :bind (:map company-active-map
-      ("<tab>" . company-complete-selection))
+  :config
+  (setq company-selection-wrap-around t)
+
+  ;:bind (:map company-active-map
+  ;    ("<tab>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 0.0)
+  (company-tng-configure-default))
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "C-j") #'company-select-next)
   (define-key company-active-map (kbd "C-k") #'company-select-previous))
@@ -388,7 +413,13 @@
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
-
+;; tabnine mode.
+(use-package company-tabnine :ensure t)
+(require 'company-tabnine)
+(add-to-list 'company-backends #'company-tabnine)
+(add-hook 'prog-mode-hook (lambda () (company-mode t)))
+(add-hook 'prog-mode-hook (lambda () (company-tabnine t)))
+;;(add-hook 'prog-mode-hook 'lsp-deferred)
 ;; Yasnippets
 
 (use-package yasnippet)
@@ -410,17 +441,18 @@
 
 (add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
 
+
 ;; Json & Web setup
 
- (use-package json-mode)
- (use-package web-mode
-   :mode
-   ("\\.js\\'" . web-mode)
-   ("\\.jsx\\'" . web-mode)
-   ("\\.ts\\'" . web-mode)
-   ("\\.tsx\\'" . web-mode)
-   ("\\.html\\'" . web-mode)
-   :commands web-mode)
+(use-package json-mode)
+(use-package web-mode
+  :mode
+  ("\\.js\\'" . web-mode)
+  ("\\.jsx\\'" . web-mode)
+  ("\\.ts\\'" . web-mode)
+  ("\\.tsx\\'" . web-mode)
+  ("\\.html\\'" . web-mode)
+  :commands web-mode)
 
 ;; lua mode for configuring awesome
 
@@ -436,5 +468,5 @@
 (add-hook 'python-mode-hook 'lsp-deferred)
 ;; C and C++
 (add-hook 'c++-mode-hook 'lsp-deferred)
-;; javascript
+(add-hook 'c-mode-hook 'lsp-deferred)
 
