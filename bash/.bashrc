@@ -47,7 +47,7 @@ alias stop="systemctl stop"
 alias restart="systemctl restart"
 
 export PYTHONPATH=/home/alex/python/packages/
-export PATH=$PATH:$HOME/.emacs.d/bin:/opt/lampp:$HOME/.local/bin:$HOME/.config/composer/vendor/bin:$HOME/vc_projects/scripts
+export PATH=$PATH:$HOME/.local/bin:$HOME/code/scripts
 export VISUAL=nvim
 export EDITOR=nvim
 
