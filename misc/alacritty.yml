@@ -479,7 +479,7 @@ background_opacity: 1.0
 key_bindings:
   - { key: Paste,                                action: Paste          }
   - { key: Copy,                                 action: Copy           }
-  - { key: C,         mods: Control|Shift,             chars: "\x03"          }
+  - { key: C,         mods: Control,             chars: "\x03"          }
   - { key: L,         mods: Control,             action: ClearLogNotice }
 #  - { key: L,         mods: Control, mode: ~Vi,  chars: "\x0c"          }
   - { key: PageUp,    mods: Shift,   mode: ~Alt, action: ScrollPageUp,  }
@@ -536,8 +536,8 @@ key_bindings:
   #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
 
   # (Windows, Linux, and BSD only)
-  - { key: V,        mods: Control,           action: Paste            }
-  - { key: C,        mods: Control,           action: Copy             }
+  - { key: V,        mods: Control|Shift,           action: Paste            }
+  - { key: C,        mods: Control|Shift,           action: Copy             }
   #- { key: F,        mods: Control|Shift,           action: SearchForward    }
   #- { key: B,        mods: Control|Shift,           action: SearchBackward   }
   #- { key: C,        mods: Control|Shift, mode: Vi, action: ClearSelection   }

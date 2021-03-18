@@ -105,7 +105,7 @@ window_colours = ['#adb1b5', '#51afef', '#98be65']
 bar_colours = ['#222222', '#dcc143', '#3d7abc', '#d95a2a', '#99dc43', '#a952e8']
 my_border_width=1
 layouts = [
-    layout.Columns(border_width=my_border_width, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_normal_stack=window_colours[2], border_on_single=True, margin=[5, 5, 0, 0]),
+    layout.Columns(border_width=my_border_width, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_normal_stack=window_colours[2], border_on_single=True, margin=[0, 0, 0, 0]),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -148,8 +148,8 @@ screens = [
             24,
             background=bar_colours[0]
         ),
-        bottom=bar.Gap(5),
-        left=bar.Gap(5),
+        #bottom=bar.Gap(5),
+        #left=bar.Gap(5),
     ),
 ]
 
