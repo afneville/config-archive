@@ -21,6 +21,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-box-doc-enable nil)
+ '(company-box-scrollbar nil)
  '(evil-want-keybinding nil)
  '(lsp-enable-snippet nil)
  '(package-selected-packages
@@ -61,8 +62,8 @@
   :config
   (setq explicit-shell-file-name "bash"))
 ;; Font and theme settings
-(set-face-attribute 'default nil :font "Roboto Mono" :height 130)
-(load-theme 'doom-one t)
+(set-face-attribute 'default nil :font "Roboto Mono" :height 130) ;
+(load-theme 'doom-dark+ t)
 
 ;; display line numbers, also using nlinum in order to control width.
 (use-package nlinum
@@ -74,6 +75,8 @@
 
 ;; disable line wrapping and and improve scrolling.
 (setq-default truncate-lines t)
+; set the character showing line truncation to a space instead of the default dollar sign.
+(set-display-table-slot standard-display-table 'truncation 32)
 (setq scroll-conservatively 101)
 ;; Enable line wrapping in certain modes.
 (dolist (mode '(org-mode-hook
@@ -160,6 +163,7 @@
    "f" '(:ignore t :which-key "files")
    "ff" '(counsel-find-file :which-key "quick-find")
    "ft" '(treemacs :which-key "toggle treemacs")
+   "fs" '(lsp-treemacs-symbols :which-key "toggle lsp symbols")
    "fp" '(projectile-switch-project :which-key "open project")
    "fd" '(dired-jump :which-key "dired-mode"))
   (alex/leader-keys
@@ -195,8 +199,8 @@
   (alex/leader-keys
     "s" '(swiper :which-key "search this file")
     "m" '(magit-status :which-key "magit")
-    "j" '(next-buffer :which-key "next buffer")
-    "k" '(previous-buffer :which-key "previous buffer"))
+    "j" '(counsel-ibuffer :which-key "switch buffer")
+    "k" '(counsel-buffer :which-key "switch buffer"))
 
   (alex/leader-keys
     "t" '(term :which-key "term"))
@@ -367,7 +371,7 @@
 ;; =========================================================================================================================
 ;; LSP language server setup ===============================================================================================
 
-;; Disable certain lsp settings.
+; Disable certain lsp settings.
 
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-ui-doc-mode 0)
@@ -379,8 +383,7 @@
 (setq lsp-log-io nil)
 (setq lsp-restart 'auto-restart)
 
-
-;; Basic lsp congig
+; Basic lsp congig
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
@@ -392,58 +395,52 @@
   (lsp-enable-which-key-integration t))
 (require 'lsp-mode)
 
-;; Set up company mode when lsp-mode is active
+; Set up company mode when lsp-mode is active
 
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :config
   (setq company-selection-wrap-around t)
-
   ;:bind (:map company-active-map
   ;    ("<tab>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
+  ; this line is for tab and go completion
   (company-tng-configure-default))
 (with-eval-after-load 'company
+  ; also use my prefered keys for selection
   (define-key company-active-map (kbd "C-j") #'company-select-next)
   (define-key company-active-map (kbd "C-k") #'company-select-previous))
 
-(use-package company-box ;; This package adds some icons in company mode.
+(use-package company-box ; This package adds some icons in company mode.
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
-;; tabnine mode.
-(use-package company-tabnine :ensure t)
-(require 'company-tabnine)
-(add-to-list 'company-backends #'company-tabnine)
-(add-hook 'prog-mode-hook (lambda () (company-mode t)))
-(add-hook 'prog-mode-hook (lambda () (company-tabnine t)))
-;;(add-hook 'prog-mode-hook 'lsp-deferred)
-;; Yasnippets
 
-(use-package yasnippet)
-(use-package yasnippet-snippets)
-(yas-reload-all)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
+; tabnine mode for smart completion
+ ;(use-package company-tabnine :ensure t)
+ ;(require 'company-tabnine)
+ ;(add-to-list 'company-backends #'company-tabnine)
+ ;(add-hook 'prog-mode-hook (lambda () (company-mode t)))
+; uncomment for tabnine completion
+;;(add-hook 'prog-mode-hook (lambda () (company-tabnine t)))
 
-;; Treemacs file explorer
-(use-package lsp-treemacs
-  :after lsp)
+; use all of the above completion in prog mode
+(add-hook 'prog-mode-hook 'lsp-deferred)
+(use-package lsp-jedi
+  :ensure t
+  :config
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-disabled-clients 'pyls)
+    (add-to-list 'lsp-enabled-clients 'jedi)))
+; For more fine control, use these hooks
+;(add-hook 'python-mode-hook 'lsp-deferred)
+;(add-hook 'c++-mode-hook 'lsp-deferred)
+;(add-hook 'c-mode-hook 'lsp-deferred)
 
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
-(use-package treemacs-all-the-icons
-  :after treemacs)
-(use-package treemacs-evil
-  :after treemacs)
-
-(add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
-
-
-;; Json & Web setup
+; Json & Web setup
 
 (use-package json-mode)
 (use-package web-mode
@@ -455,19 +452,28 @@
   ("\\.html\\'" . web-mode)
   :commands web-mode)
 
-;; lua mode for configuring awesome
+; lua mode for configuring awesome window manager
 
 (use-package lua-mode
   :hook (lua-mode-hook . lua-mode))
 
+; Yasnippets
 
-;; Put the above config into practice for python mode
+(use-package yasnippet)
+(use-package yasnippet-snippets)
+(yas-reload-all)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
 
-;(use-package python-mode
- ; :ensure nil
-  ;:hook (python-mode . lsp-deferred))
-(add-hook 'python-mode-hook 'lsp-deferred)
-;; C and C++
-(add-hook 'c++-mode-hook 'lsp-deferred)
-(add-hook 'c-mode-hook 'lsp-deferred)
+; Treemacs file explorer
 
+(use-package lsp-treemacs
+  :after lsp)
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+(use-package treemacs-all-the-icons
+  :after treemacs)
+(use-package treemacs-evil
+  :after treemacs)
+
+(add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
