@@ -13,8 +13,8 @@ PS1='\[\e[34m\]\w\[\e[36m\] $: \[\e[00m\]'
 
 alias grep='grep --color=auto'
 alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
-alias exa='exa -lag'
-alias ls='exa -lag'
+alias ls='/usr/bin/exa -1a --group-directories-first'
+alias tree='/usr/bin/exa -T'
 alias ..='cd ..'
 alias ...='cd ../..'
 

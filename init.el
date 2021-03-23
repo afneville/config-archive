@@ -309,10 +309,11 @@
 
 ;; =========================================================================================================================
 ;;  Set up Org mode ========================================================================================================
+(setq org-cycle-separator-lines 2)
 
 (defun alex/org-mode-setup ()
   (org-indent-mode)
-  (variable-pitch-mode 0) ;; If you want fancy variable width fonts.
+  (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
 
 ;; This section is copied from the internet. It sets up different font faces and uses a variable width font.
@@ -331,7 +332,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Ubuntu" :weight 'regular :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -428,41 +429,39 @@
 ;;(add-hook 'prog-mode-hook (lambda () (company-tabnine t)))
 
 ; use all of the above completion in prog mode
-(add-hook 'prog-mode-hook 'lsp-deferred)
+;(add-hook 'prog-mode-hook 'lsp-deferred)
 (use-package lsp-jedi
-  :ensure t
-  :config
-  (with-eval-after-load "lsp-mode"
-    (add-to-list 'lsp-disabled-clients 'pyls)
-    (add-to-list 'lsp-enabled-clients 'jedi)))
+  :ensure t)
+  ;:config
+  ;(with-eval-after-load "lsp-mode"
+  ;  (add-to-list 'lsp-disabled-clients 'pyls)
+  ;  (add-to-list 'lsp-enabled-clients 'clang)
+  ;  (add-to-list 'lsp-enabled-clients 'jedi)))
 ; For more fine control, use these hooks
-;(add-hook 'python-mode-hook 'lsp-deferred)
-;(add-hook 'c++-mode-hook 'lsp-deferred)
-;(add-hook 'c-mode-hook 'lsp-deferred)
+(add-hook 'python-mode-hook 'lsp-deferred)
+(add-hook 'c++-mode-hook 'lsp-deferred)
+(add-hook 'c-mode-hook 'lsp-deferred)
 
 ; Json & Web setup
+;(use-package web-mode
+;  :ensure t
+;  :mode (("\\.js\\'" . web-mode))
+;  :commands web-mode)
 
-(use-package json-mode)
 (use-package web-mode
-  :mode
-  ("\\.js\\'" . web-mode)
-  ("\\.jsx\\'" . web-mode)
-  ("\\.ts\\'" . web-mode)
-  ("\\.tsx\\'" . web-mode)
-  ("\\.html\\'" . web-mode)
-  :commands web-mode)
+  :mode "\\.js\\'"
+  :hook (web-mode . lsp-deferred))
 
 ; lua mode for configuring awesome window manager
-
 (use-package lua-mode
   :hook (lua-mode-hook . lua-mode))
 
 ; Yasnippets
 
-(use-package yasnippet)
-(use-package yasnippet-snippets)
-(yas-reload-all)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
+;(use-package yasnippet)
+;(use-package yasnippet-snippets)
+;(yas-reload-all)
+;(add-hook 'prog-mode-hook #'yas-minor-mode)
 
 ; Treemacs file explorer
 
