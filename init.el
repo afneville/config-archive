@@ -1,4 +1,4 @@
-;; =============================================================================================================================
+; =============================================================================================================================
 ;; Package sources: ===============================================================================
 
 (require 'package)
@@ -24,15 +24,19 @@
  '(company-box-scrollbar nil)
  '(evil-want-keybinding nil)
  '(lsp-enable-snippet nil)
+ '(org-directory "~/code
+/org")
  '(package-selected-packages
-   '(yasnippet company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
+   '(toc-org evil-org yasnippet company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-ellipsis ((t (:foreground "dark gray" :underline nil)))))
+ '(fixed-pitch ((t (:family "Roboto Mono" :height 130))))
+ '(org-ellipsis ((t (:foreground "dark gray" :underline nil))))
+ '(variable-pitch ((t (:family "Roboto" :height 150)))))
 ;(custom-set-faces
 
 ;; =============================================================================================================================
@@ -63,7 +67,7 @@
   (setq explicit-shell-file-name "bash"))
 ;; Font and theme settings
 (set-face-attribute 'default nil :font "Roboto Mono" :height 130) ;
-(load-theme 'doom-dark+ t)
+(load-theme 'doom-one t)
 
 ;; display line numbers, also using nlinum in order to control width.
 (use-package nlinum
@@ -191,10 +195,11 @@
     "cp" '(clipboard-yank :which-key "paste"))
   (alex/leader-keys
     "o" '(:ignore t :which-key "org mode")
-    "os" '(org-schedule :which-key "schedule")
-    "od" '(org-deadline :which-key "deadline")
-    "oa" '(org-agenda :which-key "agenda")
-    "ol" '(org-agenda-list :which-key "agenda list")
+    ;"os" '(org-schedule :which-key "schedule")
+    ;"od" '(org-deadline :which-key "deadline")
+    ;"oa" '(org-agenda :which-key "agenda")
+    "ol" '(org-store-link :which-key "store link")
+    "oi" '(org-insert-last-stored-link :which-key "insert link")
     "or" '(org-mode-restart :which-key "reload"))
   (alex/leader-keys
     "s" '(swiper :which-key "search this file")
@@ -216,6 +221,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (global-set-key (kbd "C-u") 'tab-to-tab-stop)
+(global-set-key (kbd "C-j") 'counsel-ibuffer)
 
 ;;(setq indent-line-function 'insert-tab)
 
@@ -243,9 +249,11 @@
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "C-j") 'counsel-ibuffer)
+  (evil-define-key 'normal org-mode-map "C-j" 'counsel-ibuffer)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
-  (evil-set-initial-state 'term-mode 'insert))
+  (evil-set-initial-state 'term-mode 'normal))
 
 (use-package evil-collection
   :after evil
@@ -291,7 +299,7 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 ;; =========================================================================================================================
-;;  Set up dires mode ======================================================================================================
+;;  Set up dired mode ======================================================================================================
 
 (use-package dired
   :ensure nil
@@ -309,7 +317,13 @@
 
 ;; =========================================================================================================================
 ;;  Set up Org mode ========================================================================================================
+(require 'org)
+(define-key org-mode-map (kbd "C-j") nil)
+(use-package toc-org)
+(add-hook 'org-mode-hook 'toc-org-mode)
+
 (setq org-cycle-separator-lines 2)
+(require 'org-tempo)
 
 (defun alex/org-mode-setup ()
   (org-indent-mode)
@@ -323,7 +337,11 @@
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-  ;; Set faces for heading levels
+  ;(custom-theme-set-faces
+   ;'user
+   ;'(variable-pitch ((t ( :family "Roboto" :height 150))))
+   ;'(fixed-pitch ((t ( :family "Roboto Mono" :height 130)))))
+
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
@@ -332,7 +350,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Ubuntu" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height 150))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -346,13 +364,12 @@
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
   :config
-
   (setq org-ellipsis " ")
   ;;(setq org-ellipsis " ⤵")
   ;;(setq org-ellipsis " ")
   (setq org-indent-indentation-per-level 2)
   (setq org-hide-emphasis-markers t)
-  (setq org-agenda-files '("~/vc_projects/org/Agenda.org"))
+  (setq org-agenda-files '("~/code/org/Agenda.org"))
   (alex/org-font-setup))
 ;; This package allows to define custom bullet points like doom emacs.
 (use-package org-bullets

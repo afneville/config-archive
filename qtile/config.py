@@ -73,8 +73,7 @@ keys = [
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch emacs"),
     Key([mod], "f", lazy.spawn("pcmanfm"), desc="Launch a file browser"),
     Key([mod], "s", lazy.spawn("firefox"), desc="Launch a web browser"),
-    Key([mod], "g", lazy.spawn("screenshot"), desc="Take a screenshot and copy it to clipboard"),
-    Key([mod, "shift"], "g", lazy.spawn("screenshot save"), desc="Take a screenshot and save to file system"),
+    Key([mod], "g", lazy.spawn("spectacle"), desc="Take a screenshot."),
     #Key([mod], "b", lazy.spawn("qutebrowser"), desc="Launch a web browser"),
 
     # Session controls
