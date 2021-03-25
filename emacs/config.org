@@ -1,5 +1,5 @@
 #+TITLE: Emacs Literate Configuration File
-#+PROPERTY: header-args:emacs-lisp :tangle ~/code/dotfiles/emacs/new_init.el
+#+PROPERTY: header-args:emacs-lisp :tangle ~/code/dotfiles/emacs/init.el
 
 * Initial Setup
 ** Initialisation Timer
@@ -97,6 +97,7 @@ Emacs has a 'default' look and feel which needs to end now.
 #+end_src
 
 * Appearance 
+
 ** Font Settings
 
 Set the font to Roboto Mono and choose a sensible font size.
@@ -149,7 +150,7 @@ In some other modes I would prefer that the lines are wrapped.
 
 Install all the decorations from doom emacs.
 Make sure to use: =M-x RET all-the-icons-install-fonts RET= to install all the icons.
-Im also setting the doom modeline height to its minimum value.
+I am also setting the doom modeline height to a sensible value.
 
 #+begin_src emacs-lisp
 
@@ -157,7 +158,7 @@ Im also setting the doom modeline height to its minimum value.
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 30)))
+  :custom ((doom-modeline-height 35)))
 (use-package doom-themes)
 (load-theme 'doom-one t)
 
@@ -236,6 +237,21 @@ Make sure that emacs is using the correct path for your preffered shell
 
 #+end_src
 
+** Tabbing
+
+Inserting tabs (usually 4 spaces) can be difficult in emacs. 
+I have bound =C-u= to insert 4 spaces for me.
+This is more useful than scrolling upwards as it would do in vim.
+
+#+begin_src emacs-lisp
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(global-set-key (kbd "C-u") 'tab-to-tab-stop)
+
+#+end_src
+
+* Keybindings
 ** Leader Key
 
 General is a very useful way of setting up a leader key like in vim and other ditrobutions of Emacs.
@@ -260,7 +276,8 @@ General is a very useful way of setting up a leader key like in vim and other di
   (alex/leader-keys
     "a" '(:ignore t :which-key "actions")
     "at" '(counsel-load-theme :which-key "load-theme")
-    "ae" '(eval-buffer :which-key "eval-buffer"))
+    "ae" '(eval-buffer :which-key "eval-buffer")
+    "al" '(load-file :which-key "load-file"))
   (alex/leader-keys
     "b" '(:ignore t :which-key "buffers")
     "bk" '(kill-this-buffer :which-key "kill this buffer")
@@ -301,20 +318,6 @@ General is a very useful way of setting up a leader key like in vim and other di
 )
 ;; This package is useful if you want to make a quick menu
 (use-package hydra)
-
-#+end_src
-
-** Tabbing
-
-Inserting tabs (usually 4 spaces) can be difficult in emacs. 
-I have bound =C-u= to insert 4 spaces for me.
-This is more useful than scrolling upwards as it would do in vim.
-
-#+begin_src emacs-lisp
-
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(global-set-key (kbd "C-u") 'tab-to-tab-stop)
 
 #+end_src
 
