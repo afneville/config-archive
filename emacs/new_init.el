@@ -1,3 +1,25 @@
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                     (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+(require 'package)
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
+			 ("org" . "http://orgmode.org/elpa/")
+			 ("elpa" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(unless (package-installed-p 'use-package)
+ (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
 ;; Auto generated stuff, see my config below
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -5,23 +27,22 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-box-doc-enable nil)
+ '(company-box-scrollbar nil)
  '(evil-want-keybinding nil)
  '(lsp-enable-snippet nil)
+ '(org-directory "~/code
+/org")
  '(package-selected-packages
-   '(company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
+   '(toc-org evil-org yasnippet company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-ellipsis ((t (:foreground "dark gray" :underline nil)))))
-;(custom-set-faces
-
-;; =============================================================================================================================
-;; This section is all about stopping the silly default behaviour of emacs. ====================================================
-;;(server-start) ;; needed for daemon mode
-;; disable gui elements.
+ '(fixed-pitch ((t (:family "Roboto Mono" :height 130))))
+ '(org-ellipsis ((t (:foreground "dark gray" :underline nil))))
+ '(variable-pitch ((t (:family "Roboto" :height 150)))))
 
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -39,65 +60,39 @@
 ;; stop autosave files being created
 (setq auto-save-default nil)
 (setq make-backup-files nil)
-;; Better term behaviour
 
 (use-package term
   :config
   (setq explicit-shell-file-name "bash"))
-;; Font and theme settings
-(set-face-attribute 'default nil :font "Roboto Mono" :height 130)
-(load-theme 'doom-one t)
 
-;; display line numbers, also using nlinum in order to control width.
+(setq scroll-conservatively 101)
+
+(set-face-attribute 'default nil :font "Roboto Mono" :height 130) ;
+
 (use-package nlinum
   :config
   (setq nlinum-format "%3d "))
-;;(column-number-mode)
-;;(global-display-line-numbers-mode t) ;; this will enable line numbers globaly.
+
 (add-hook 'prog-mode-hook (lambda () (nlinum-mode t)))
 
-;; disable line wrapping and and improve scrolling.
 (setq-default truncate-lines t)
-(setq scroll-conservatively 101)
-;; Enable line wrapping in certain modes.
+(set-display-table-slot standard-display-table 'truncation 32)
+
 (dolist (mode '(org-mode-hook
 		term-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (setq visual-line-mode t))))
 
-
-
-;; =============================================================================================================================
-;;  Install doom emacs themes and modelines ===================================================================================
-;; use: M-x all-the-icons-install-fonts to make sure that the icons get installed.
-
 (use-package all-the-icons)
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :custom ((doom-modeline-height 30)))
 (use-package doom-themes)
+(load-theme 'doom-one t)
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-
-;; =============================================================================================================================
-;; Package sources: ===============================================================================
-
-(require 'package)
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			 ("org" . "http://orgmode.org/elpa/")
-			 ("elpa" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-(unless (package-installed-p 'use-package)
- (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-;; =============================================================================================================================
-;; Counsel, Ivy and other general utilities. ====================================================================
 
 (use-package counsel
   :bind (("M-x" .  counsel-M-x)
@@ -136,16 +131,10 @@
   :init
   (ivy-rich-mode 1))
 
-;; use system shell path
-
 (use-package exec-path-from-shell
   :ensure t
   :config
   (exec-path-from-shell-initialize))
-
-
-;; =============================================================================================================================
-;; Create an accelerator key like doom emacs ===================================================================================
 
 (use-package general
   :after evil
@@ -159,6 +148,7 @@
    "f" '(:ignore t :which-key "files")
    "ff" '(counsel-find-file :which-key "quick-find")
    "ft" '(treemacs :which-key "toggle treemacs")
+   "fs" '(lsp-treemacs-symbols :which-key "toggle lsp symbols")
    "fp" '(projectile-switch-project :which-key "open project")
    "fd" '(dired-jump :which-key "dired-mode"))
   (alex/leader-keys
@@ -186,40 +176,33 @@
     "cp" '(clipboard-yank :which-key "paste"))
   (alex/leader-keys
     "o" '(:ignore t :which-key "org mode")
-    "os" '(org-schedule :which-key "schedule")
-    "od" '(org-deadline :which-key "deadline")
-    "oa" '(org-agenda :which-key "agenda")
-    "ol" '(org-agenda-list :which-key "agenda list")
+    ;"os" '(org-schedule :which-key "schedule")
+    ;"od" '(org-deadline :which-key "deadline")
+    ;"oa" '(org-agenda :which-key "agenda")
+    "ob" '(org-babel-tangle :which-key "export blocks")
+    "ol" '(org-store-link :which-key "store link")
+    "oi" '(org-insert-last-stored-link :which-key "insert link")
     "or" '(org-mode-restart :which-key "reload"))
   (alex/leader-keys
     "s" '(swiper :which-key "search this file")
     "m" '(magit-status :which-key "magit")
-    "j" '(next-buffer :which-key "next buffer")
-    "k" '(previous-buffer :which-key "previous buffer"))
-
+    "j" '(counsel-ibuffer :which-key "switch buffer")
+    "k" '(counsel-buffer :which-key "switch buffer"))
   (alex/leader-keys
     "t" '(term :which-key "term"))
-
   (alex/leader-keys
     "m" '(magit-status :which-key "magit"))
 )
 ;; This package is useful if you want to make a quick menu
 (use-package hydra)
 
-;; General key bindings
-
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (global-set-key (kbd "C-u") 'tab-to-tab-stop)
 
-;;(setq indent-line-function 'insert-tab)
-
-
-;; =============================================================================================================================
-;; Evil Vim emulation :) =======================================================================================================
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (require 'evil)
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;;(setq x-select-enable-clipboard nil)
 ;;(setq interprogram-cut-function nil)
 ;;(setq interprogram-paste-function nil)
@@ -227,10 +210,8 @@
 (use-package evil
   :init
   (setq evil-want-integration t)
-  ;;(setq evil-want-keybinding nil) ;; Should be set above.
   (setq evil-want-fine-undo 'fine)  
-  ;;(setq evil-want-C-u-scroll t)
-  ;;:hook (evil-mode . alex/evil-hook)
+  ;(setq evil-want-C-u-scroll t); Use this option if you want C-u to scroll. I do not.
   :config
   (evil-mode 1)
   (evil-set-undo-system 'undo-tree)
@@ -238,9 +219,10 @@
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "C-j") 'counsel-ibuffer)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
-  (evil-set-initial-state 'term-mode 'insert))
+  (evil-set-initial-state 'term-mode 'normal))
 
 (use-package evil-collection
   :after evil
@@ -263,8 +245,6 @@
     (kill-this-buffer))
 (evil-ex-define-cmd "wq" 'alex/evil-write)
 (evil-ex-define-cmd "q" 'kill-this-buffer)
-;; =========================================================================================================================
-;;  Set up projectile for managing my projects =============================================================================
 
 (use-package projectile
   :diminish projectile-mode
@@ -278,15 +258,9 @@
     (setq projectile-project-search-path '("~/code")))
   (setq projectile-switch-project-action #'projectile-dired))
 
-;; =========================================================================================================================
-;;  Use magit to interact with git projects =============================================================================
-
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-;; =========================================================================================================================
-;;  Set up dires mode ======================================================================================================
 
 (use-package dired
   :ensure nil
@@ -301,23 +275,16 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
-
-;; =========================================================================================================================
-;;  Set up Org mode ========================================================================================================
-
 (defun alex/org-mode-setup ()
   (org-indent-mode)
-  (variable-pitch-mode 0) ;; If you want fancy variable width fonts.
+  (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
 
-;; This section is copied from the internet. It sets up different font faces and uses a variable width font.
 (defun alex/org-font-setup ()
-  ;; Replace list hyphen with dot
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-  ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
@@ -326,7 +293,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height 150))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -337,24 +304,36 @@
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
+(require 'org)
+
+(setq org-cycle-separator-lines 2)
+
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
   :config
-
   (setq org-ellipsis " ")
   ;;(setq org-ellipsis " ⤵")
   ;;(setq org-ellipsis " ")
   (setq org-indent-indentation-per-level 2)
   (setq org-hide-emphasis-markers t)
-  (setq org-agenda-files '("~/vc_projects/org/Agenda.org"))
+  (setq org-agenda-files '("~/code/org/agenda.org"))
   (alex/org-font-setup))
+
+(use-package toc-org)
+(add-hook 'org-mode-hook 'toc-org-mode)
+
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
+
 ;; This package allows to define custom bullet points like doom emacs.
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-;;(add-hook 'org-mode-hook 'org-indent-mode)
 
 (defun alex/org-mode-visual-fill ()
   (setq visual-fill-column-width 180
@@ -363,10 +342,6 @@
 
 (use-package visual-fill-column
   :hook (org-mode . alex/org-mode-visual-fill))
-;; =========================================================================================================================
-;; LSP language server setup ===============================================================================================
-
-;; Disable certain lsp settings.
 
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-ui-doc-mode 0)
@@ -378,9 +353,6 @@
 (setq lsp-log-io nil)
 (setq lsp-restart 'auto-restart)
 
-
-;; Basic lsp congig
-
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init
@@ -391,46 +363,49 @@
   (lsp-enable-which-key-integration t))
 (require 'lsp-mode)
 
-;; Set up company mode when lsp-mode is active
-
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :config
   (setq company-selection-wrap-around t)
-
-  ;:bind (:map company-active-map
-  ;    ("<tab>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
+  ; this line is for tab and go completion
   (company-tng-configure-default))
 (with-eval-after-load 'company
+  ; also use my prefered keys for selection
   (define-key company-active-map (kbd "C-j") #'company-select-next)
   (define-key company-active-map (kbd "C-k") #'company-select-previous))
 
-(use-package company-box ;; This package adds some icons in company mode.
+(use-package company-box ; This package adds some icons in company mode.
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
-;; tabnine mode.
-(use-package company-tabnine :ensure t)
-(require 'company-tabnine)
-(add-to-list 'company-backends #'company-tabnine)
-(add-hook 'prog-mode-hook (lambda () (company-mode t)))
-(add-hook 'prog-mode-hook (lambda () (company-tabnine t)))
-;;(add-hook 'prog-mode-hook 'lsp-deferred)
-;; Yasnippets
 
-(use-package yasnippet)
-(use-package yasnippet-snippets)
-(yas-reload-all)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
+;(use-package company-tabnine :ensure t)
+;(require 'company-tabnine)
+;(add-to-list 'company-backends #'company-tabnine)
+;(add-hook 'prog-mode-hook (lambda () (company-mode t)))
+;;(add-hook 'prog-mode-hook (lambda () (company-tabnine t)))
 
-;; Treemacs file explorer
+(use-package lsp-jedi
+  :ensure t)
+
+(add-hook 'python-mode-hook 'lsp-deferred)
+(add-hook 'c++-mode-hook 'lsp-deferred)
+(add-hook 'c-mode-hook 'lsp-deferred)
+
+(use-package web-mode
+  :mode "\\.js\\'"
+  :hook (web-mode . lsp-deferred))
+
+; lua mode for configuring awesome window manager
+(use-package lua-mode
+  :hook (lua-mode-hook . lua-mode))
+
 (use-package lsp-treemacs
   :after lsp)
-
 (use-package treemacs-projectile
   :after (treemacs projectile)
   :ensure t)
@@ -440,33 +415,3 @@
   :after treemacs)
 
 (add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
-
-
-;; Json & Web setup
-
-(use-package json-mode)
-(use-package web-mode
-  :mode
-  ("\\.js\\'" . web-mode)
-  ("\\.jsx\\'" . web-mode)
-  ("\\.ts\\'" . web-mode)
-  ("\\.tsx\\'" . web-mode)
-  ("\\.html\\'" . web-mode)
-  :commands web-mode)
-
-;; lua mode for configuring awesome
-
-(use-package lua-mode
-  :hook (lua-mode-hook . lua-mode))
-
-
-;; Put the above config into practice for python mode
-
-;(use-package python-mode
- ; :ensure nil
-  ;:hook (python-mode . lsp-deferred))
-(add-hook 'python-mode-hook 'lsp-deferred)
-;; C and C++
-(add-hook 'c++-mode-hook 'lsp-deferred)
-(add-hook 'c-mode-hook 'lsp-deferred)
-
