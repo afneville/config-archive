@@ -38,10 +38,10 @@ fi
 
 emacs --daemon &
 
-hsetroot -solid "#333333"
-#xrandr_script
-exec qtile
-#exec xmonad
+#hsetroot -solid "#333333"
+xrandr_script
+#exec qtile
+exec xmonad
 #exec dwm
 
 #export DESKTOP_SESSION=plasma 

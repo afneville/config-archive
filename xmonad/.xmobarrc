@@ -1,6 +1,6 @@
 Config { 
 
-     font =         "xft:Mononoki Nerd Font:size=13:antialias=true",
+     font =         "xft:Roboto Mono:size=13:antialias=true",
      additionalFonts= ["xft:FontAwesome:pixelsize=18",
                        "xft:all-the-icons:pixelsize=18"]
      bgColor =      "#222222",
@@ -18,10 +18,11 @@ Config {
      overrideRedirect = True    -- set the Override Redirect flag (Xlib),
      pickBroadest =     False   -- choose widest display (multi-monitor),
      persistent =       True    -- enable/disable hiding (True = disabled),
-
+     iconRoot = "/home/alex/.xmonad/"  -- default: ".",
      commands = 
 
         [
+          Run StdinReader,
           Run Battery        [ "--template" , "<acstatus>",
                                "--Low"      , "10",
                                "--High"     , "80",      
@@ -43,5 +44,5 @@ Config {
 
         ],
 
-     template = " }{ %date%  %battery% "
+     template = "<icon=haskell.xpm/> %StdinReader%}{ %date%  %battery% "
 }

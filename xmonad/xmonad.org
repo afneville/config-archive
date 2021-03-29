@@ -1,4 +1,14 @@
--- Base
+#+TITLE: Xmonad Literate Configuration File
+#+PROPERTY: header-args:haskell :tangle ~/code/dotfiles/xmonad/xmonad.hs
+
+* Import Section
+
+I copied all of these imports from the internet, just to be on the safe side.
+There is unlikely to be a feature not included in these import statements.
+
+#+begin_src haskell
+
+ -- Base
 import XMonad
 import System.Directory
 import System.IO (hPutStrLn)
@@ -78,6 +88,14 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
+#+end_src
+
+* Default Variables
+
+Setting some basic variables here will come in handy later.
+
+#+begin_src haskell
+
 myFont :: String
 myFont = "xft:Source Code Pro:regular:size=16:antialias=true:hinting=true"
 
@@ -112,134 +130,177 @@ altMask = mod1Mask         -- Setting this for use in xprompts
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
+#+end_src
+
+* Startup Hook
+
+#+begin_src haskell
+
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
           spawnOnce "nitrogen --restore" -- emacs daemon for the emacsclient
           setWMName "LG3D"
 
---Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
-mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing i = spacingRaw False (Border 0 5 0 5) True (Border 5 0 5 0) True
--- Below is a variation of the above except no borders are applied
--- if fewer than two windows. So a single window has no gaps.
--- mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
--- mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+#+end_src
 
--- Defining a bunch of layouts, many that I don't use.
--- limitWindows n sets maximum number of windows displayed for layout.
--- mySpacing n sets the gap size around the windows.
-tall     = renamed [Replace "tall"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 12
-           $ mySpacing 8
-           $ ResizableTall 1 (3/100) (1/2) []
+* Layouts
 
-monocle  = renamed [Replace "monocle"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 8
-           $ limitWindows 20 Full
+Layouts which I am using:
+
+#+begin_src haskell
+
+  --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
+  mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+  mySpacing i = spacingRaw False (Border 0 5 0 5) True (Border 5 0 5 0) True
+  -- Below is a variation of the above except no borders are applied
+  -- if fewer than two windows. So a single window has no gaps.
+  -- mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+  -- mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+
+  -- Defining a bunch of layouts, many that I don't use.
+  -- limitWindows n sets maximum number of windows displayed for layout.
+  -- mySpacing n sets the gap size around the windows.
+  tall     = renamed [Replace "tall"]
+             $ windowNavigation
+             $ addTabs shrinkText myTabTheme
+             -- $ subLayout [] (smartBorders Simplest)
+             $ limitWindows 12
+             $ mySpacing 8
+             $ ResizableTall 1 (3/100) (1/2) []
+
+  monocle  = renamed [Replace "monocle"]
+             $ windowNavigation
+             $ addTabs shrinkText myTabTheme
+             -- $ subLayout [] (smartBorders Simplest)
+             $ mySpacing 8
+             $ limitWindows 20 Full
 
 
--- setting colors for tabs layout and tabs sublayout.
-myTabTheme = def { fontName            = myFont
-                 , activeColor         = "#46d9ff"
-                 , inactiveColor       = "#313846"
-                 , activeBorderColor   = "#46d9ff"
-                 , inactiveBorderColor = "#282c34"
-                 , activeTextColor     = "#282c34"
-                 , inactiveTextColor   = "#d0d0d0"
-                 }
+  -- setting colors for tabs layout and tabs sublayout.
+  myTabTheme = def { fontName            = myFont
+                   , activeColor         = "#46d9ff"
+                   , inactiveColor       = "#313846"
+                   , activeBorderColor   = "#46d9ff"
+                   , inactiveBorderColor = "#282c34"
+                   , activeTextColor     = "#282c34"
+                   , inactiveTextColor   = "#d0d0d0"
+                   }
 
--- Theme for showWName which prints current workspace when you change workspaces.
-myShowWNameTheme :: SWNConfig
-myShowWNameTheme = def
-    { swn_font              = "xft:Ubuntu:bold:size=40"
-    , swn_fade              = 0.5
-    , swn_bgcolor           = "#1c1f24"
-    , swn_color             = "#ffffff"
-    }
+  -- Theme for showWName which prints current workspace when you change workspaces.
+  myShowWNameTheme :: SWNConfig
+  myShowWNameTheme = def
+      { swn_font              = "xft:Ubuntu:bold:size=40"
+      , swn_fade              = 0.5
+      , swn_bgcolor           = "#1c1f24"
+      , swn_color             = "#ffffff"
+      }
 
--- The layout hook
--- myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
-             where
-               myDefaultLayout =     tall
-                                 -- ||| magnify
-                                 ||| noBorders monocle
-                                 -- ||| floats
-                                 -- ||| noBorders tabs
-                                 -- ||| grid
-                                 -- ||| spirals
-                                 -- ||| threeCol
-                                 -- ||| threeRow
+  -- The layout hook
+  -- myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
+  myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+               where
+                 myDefaultLayout =     tall
+                                   -- ||| magnify
+                                   ||| noBorders monocle
+                                   -- ||| floats
+                                   -- ||| noBorders tabs
+                                   -- ||| grid
+                                   -- ||| spirals
+                                   -- ||| threeCol
+                                   -- ||| threeRow
 
--- magnify  = renamed [Replace "magnify"]
-           -- $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           -- $ magnifier
-           -- $ limitWindows 12
-           -- $ mySpacing 8
-           -- $ ResizableTall 1 (3/100) (1/2) []
--- threeCol = renamed [Replace "threeCol"]
-           -- $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           -- $ limitWindows 7
-           -- $ ThreeCol 1 (3/100) (1/2)
--- threeRow = renamed [Replace "threeRow"]
-           -- $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           -- $ limitWindows 7
-           -- -- Mirror takes a layout and rotates it by 90 degrees.
-           -- -- So we are applying Mirror to the ThreeCol layout.
-           -- $ Mirror
-           -- $ ThreeCol 1 (3/100) (1/2)
--- tabs     = renamed [Replace "tabs"]
-           -- -- I cannot add spacing to this layout because it will
-           -- -- add spacing between window and tabs which looks bad.
-           -- $ tabbed shrinkText myTabTheme
--- grid     = renamed [Replace "grid"]
-           -- $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           -- $ limitWindows 12
-           -- $ mySpacing 0
-           -- $ mkToggle (single MIRROR)
-           -- $ Grid (16/10)
--- floats   = renamed [Replace "floats"]
-           -- $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           -- $ limitWindows 20 simplestFloat
--- 
--- spirals  = renamed [Replace "spirals"]
-           -- $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
-           -- $ mySpacing' 8
-           -- $ spiral (6/7)
+#+end_src
+
+Layouts which I am not using:
+
+#+begin_src haskell
+
+ -- magnify  = renamed [Replace "magnify"]
+            -- $ windowNavigation
+            -- $ addTabs shrinkText myTabTheme
+            -- $ subLayout [] (smartBorders Simplest)
+            -- $ magnifier
+            -- $ limitWindows 12
+            -- $ mySpacing 8
+            -- $ ResizableTall 1 (3/100) (1/2) []
+ -- threeCol = renamed [Replace "threeCol"]
+            -- $ windowNavigation
+            -- $ addTabs shrinkText myTabTheme
+            -- $ subLayout [] (smartBorders Simplest)
+            -- $ limitWindows 7
+            -- $ ThreeCol 1 (3/100) (1/2)
+ -- threeRow = renamed [Replace "threeRow"]
+            -- $ windowNavigation
+            -- $ addTabs shrinkText myTabTheme
+            -- $ subLayout [] (smartBorders Simplest)
+            -- $ limitWindows 7
+            -- -- Mirror takes a layout and rotates it by 90 degrees.
+            -- -- So we are applying Mirror to the ThreeCol layout.
+            -- $ Mirror
+            -- $ ThreeCol 1 (3/100) (1/2)
+ -- tabs     = renamed [Replace "tabs"]
+            -- -- I cannot add spacing to this layout because it will
+            -- -- add spacing between window and tabs which looks bad.
+            -- $ tabbed shrinkText myTabTheme
+ -- grid     = renamed [Replace "grid"]
+            -- $ windowNavigation
+            -- $ addTabs shrinkText myTabTheme
+            -- $ subLayout [] (smartBorders Simplest)
+            -- $ limitWindows 12
+            -- $ mySpacing 0
+            -- $ mkToggle (single MIRROR)
+            -- $ Grid (16/10)
+ -- floats   = renamed [Replace "floats"]
+            -- $ windowNavigation
+            -- $ addTabs shrinkText myTabTheme
+            -- $ subLayout [] (smartBorders Simplest)
+            -- $ limitWindows 20 simplestFloat
+ -- 
+ -- spirals  = renamed [Replace "spirals"]
+            -- $ windowNavigation
+            -- $ addTabs shrinkText myTabTheme
+            -- $ subLayout [] (smartBorders Simplest)
+            -- $ mySpacing' 8
+            -- $ spiral (6/7)
+#+end_src
+
+* Workspaces
+
+#+begin_src haskell
 
 myWorkspaces = ["gen", "www", "ps1", "vim", "emc", "sys", "doc"]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
-myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
-myManageHook = composeAll
-     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
-     -- I'm doing it this way because otherwise I would have to write out the full
-     -- name of my workspaces, and the names would very long if using clickable workspaces.
-     [ 
-     ]
+#+end_src
+
+* Manage Hook
+
+#+begin_src haskell
+
+  myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
+  myManageHook = composeAll
+       -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
+       -- I'm doing it this way because otherwise I would have to write out the full
+       -- name of my workspaces, and the names would very long if using clickable workspaces.
+       [ 
+       ] 
+
+#+end_src
+
+* Log Hook
+
+#+begin_src haskell
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
+
+#+end_src
+
+* Keys
+
+#+begin_src haskell
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -325,6 +386,12 @@ myKeys =
         , ("<XF86Eject>", spawn "screenshot")
         ]
 
+#+end_src
+
+* Main
+
+#+begin_src haskell
+
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
@@ -362,3 +429,6 @@ main = do
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
         } `additionalKeysP` myKeys
+
+#+end_src
+

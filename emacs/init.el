@@ -30,11 +30,11 @@
  '(company-box-scrollbar nil)
  '(evil-want-keybinding nil)
  '(lsp-enable-snippet nil)
- '(org-startup-folded t)
  '(org-directory "~/code
 /org")
+ '(org-startup-folded t)
  '(package-selected-packages
-   '(toc-org evil-org yasnippet company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
+   '(haskell-mode toc-org evil-org yasnippet company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
  '(projectile-mode t nil (projectile)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -439,7 +439,11 @@
 
 ; lua mode for configuring awesome window manager
 (use-package lua-mode
-  :hook (lua-mode-hook . lua-mode))
+       :hook (lua-mode-hook . lua-mode))
+   ; Haskell mode for configuring xmonad window manager
+
+ (use-package haskell-mode
+       :hook (haskell-mode-hook .haskell-mode))
 
 (use-package lsp-treemacs
   :after lsp)

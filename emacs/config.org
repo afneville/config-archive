@@ -644,7 +644,7 @@ This prevents text being pushed right up against the side.
 
 #+end_src
 
-* Completion
+* Completion and Highlighting
 
 =lsp-mode= can provide completions and other code actions from a language server running in background.
 
@@ -751,9 +751,17 @@ Use any language server needed and start =lsp-mode= in certain =prog-mode= buffe
   :mode "\\.js\\'"
   :hook (web-mode . lsp-deferred))
 
-; lua mode for configuring awesome window manager
-(use-package lua-mode
-  :hook (lua-mode-hook . lua-mode))
+#+end_src
+
+#+begin_src emacs-lisp
+
+      ; lua mode for configuring awesome window manager
+ (use-package lua-mode
+        :hook (lua-mode-hook . lua-mode))
+    ; Haskell mode for configuring xmonad window manager
+
+  (use-package haskell-mode
+        :hook (haskell-mode-hook .haskell-mode))
 
 #+end_src
 
