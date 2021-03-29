@@ -1,11 +1,11 @@
-(defun efs/display-startup-time ()
+(defun alex/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
            (format "%.2f seconds"
                    (float-time
                      (time-subtract after-init-time before-init-time)))
            gcs-done))
 
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+(add-hook 'emacs-startup-hook #'alex/display-startup-time)
 
 (require 'package)
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -30,6 +30,7 @@
  '(company-box-scrollbar nil)
  '(evil-want-keybinding nil)
  '(lsp-enable-snippet nil)
+ '(org-startup-folded t)
  '(org-directory "~/code
 /org")
  '(package-selected-packages
@@ -43,6 +44,7 @@
  '(fixed-pitch ((t (:family "Roboto Mono" :height 130))))
  '(org-ellipsis ((t (:foreground "dark gray" :underline nil))))
  '(variable-pitch ((t (:family "Roboto" :height 150)))))
+(setq org-agenda-diary-file "~/code/org/agenda.org")
 
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -66,8 +68,38 @@
   (setq explicit-shell-file-name "bash"))
 
 (setq scroll-conservatively 101)
+(setq scroll-margin 1)
+(setq redisplay-dont-pause t)
+(setq jit-lock-defer-time 0)
+;(setq fast-but-imprecise-scrolling t)
 
-(set-face-attribute 'default nil :font "Roboto Mono" :height 130) ;
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+
+;(require 'smooth-scrolling)
+;(use-package smooth-scrolling)
+;(smooth-scrolling-mode 1)
+
+(defun alex/font-faces ()
+  (set-face-attribute 'default nil :font "Roboto Mono" :height 130)
+  (set-face-attribute 'fixed-pitch nil :font "Roboto Mono" :height 130)
+  (set-face-attribute 'variable-pitch nil :font "Roboto" :height 150 :weight 'regular))
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+               (with-selected-frame frame
+                  (alex/font-faces))))
+    (alex/font-faces))
+
+(defun alex/daemon-setup (frame)
+  (modify-frame-parameters frame
+                           '((vertical-scroll-bars . nil)
+                             (cursor-color . "dodger blue")
+                             (horizontal-scroll-bars . nil))))
+
+(add-hook 'after-make-frame-functions 'alex/daemon-setup)
 
 (use-package nlinum
   :config
@@ -88,6 +120,8 @@
   :ensure t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 35)))
+(setq doom-modeline-enable-word-count nil)
+(setq doom-modeline-buffer-encoding nil)
 (use-package doom-themes)
 (load-theme 'doom-one t)
 
@@ -306,15 +340,13 @@
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 (require 'org)
-
 (setq org-cycle-separator-lines 2)
 
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
   :config
-  (setq org-ellipsis " ")
+  ;(setq org-ellipsis " ")
   ;;(setq org-ellipsis " ⤵")
-  ;;(setq org-ellipsis " ")
   (setq org-indent-indentation-per-level 2)
   (setq org-hide-emphasis-markers t)
   (setq org-agenda-files '("~/code/org/agenda.org"))
@@ -329,12 +361,16 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python")))
 
-;; This package allows to define custom bullet points like doom emacs.
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp .t)
+   (python . t)))
+
+;(use-package org-bullets
+;  :after org
+;  :hook (org-mode . org-bullets-mode)
+;  :custom
+;  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (defun alex/org-mode-visual-fill ()
   (setq visual-fill-column-width 180
@@ -379,10 +415,10 @@
   (define-key company-active-map (kbd "C-j") #'company-select-next)
   (define-key company-active-map (kbd "C-k") #'company-select-previous))
 
-(use-package company-box ; This package adds some icons in company mode.
-  :after company
-  :diminish
-  :hook (company-mode . company-box-mode))
+;(use-package company-box ; This package adds some icons in company mode.
+;  :after company
+;  :diminish
+;  :hook (company-mode . company-box-mode))
 
 ;(use-package company-tabnine :ensure t)
 ;(require 'company-tabnine)
