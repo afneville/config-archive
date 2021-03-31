@@ -50,7 +50,7 @@ alias stop="systemctl stop"
 alias restart="systemctl restart"
 
 export PYTHONPATH=/home/alex/python/packages/
-export PATH=$PATH:$HOME/.local/bin:$HOME/code/scripts
+export PATH=$PATH:$HOME/.local/bin:$HOME/code/scripts:$HOME/.emacs.d/bin
 export VISUAL=nvim
 export EDITOR=nvim
 

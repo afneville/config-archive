@@ -21,6 +21,8 @@ Plug 'rakr/vim-one'
 Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'liuchengxu/space-vim-dark'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+"Plug 'vim-python/python-syntax'
 "Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
@@ -33,7 +35,7 @@ let g:lightline = {
 let g:user_emmet_mode='a'
 let g:user_emmet_leader_key='<C-Z>'
 let mapleader = " "
-""let g:netrw_browse_split=0
+let g:netrw_browse_split=0
 let g:netrw_banner=0
 source $HOME/.config/nvim/coc.vim
 autocmd FileType vimwiki let b:coc_suggest_disable = 1
@@ -75,25 +77,22 @@ set modelines=0
 set laststatus=0
 set t_Co=256
 colorscheme edge
-"for transparency:
-"hi background=dark
 highlight LineNr ctermfg=darkgrey
 highlight VertSplit ctermbg=none
 highlight VertSplit ctermfg=darkgrey
 highlight MatchParen cterm=none ctermbg=darkgrey ctermfg=blue
-"highlight TabLine ctermfg=none ctermbg=none
 
 " keyboard and mouse "
 set mouse=a
-nnoremap <M-t> :Texplore<return>
-nnoremap <C-p> :vs \| ter<return>A
+nnoremap <leader>t :Texplore<return>
+nnoremap <leader>p :vs \| ter<return>A
 nnoremap <leader>ff :NERDTreeFocus<CR>
 nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>l :set number!<CR>
+nnoremap <leader>r :set relativenumber!<CR>
+nnoremap <leader>% :source %<CR>
 inoremap ii <esc>
 nnoremap <leader>wh <C-w>h
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
 nnoremap <leader>wl <C-w>l
-
-

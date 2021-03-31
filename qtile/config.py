@@ -70,7 +70,8 @@ keys = [
 
     Key([mod], "p", lazy.spawn("rofi -show run"), desc="Spawn a command using a prompt widget"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "e", lazy.spawn("emacsclient -c"), desc="Launch emacs"),
+    #Key([mod], "e", lazy.spawn("emacsclient -c"), desc="Launch emacs"),
+    Key([mod], "e", lazy.spawn("emacs"), desc="Launch emacs"),
     Key([mod], "f", lazy.spawn("pcmanfm"), desc="Launch a file browser"),
     Key([mod], "s", lazy.spawn("firefox"), desc="Launch a web browser"),
     Key([mod], "g", lazy.spawn("spectacle"), desc="Take a screenshot."),

@@ -4,6 +4,8 @@
 * Initial Setup
 ** Initialisation Timer
 
+Time exactly how long it takes to load emacs.
+
 #+begin_src emacs-lisp
 
 (defun alex/display-startup-time ()
@@ -123,7 +125,7 @@ These settings help make scrolling more manageable.
 
 #+end_src
 
-* Appearance 
+* Appearance
 ** Font Settings
 
  Create a function that will set all of our faces.
@@ -255,7 +257,7 @@ These are the packages which make fuzzy-finding possible while navigating emacs.
   :diminish
   :bind (("C-s" . swiper)
          :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)	
+         ("TAB" . ivy-alt-done)
          ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
@@ -281,7 +283,7 @@ These are the packages which make fuzzy-finding possible while navigating emacs.
 
 #+end_src
 
-** Shell Path 
+** Shell Path
 
 Make sure that emacs is using the correct path for your preffered shell
 
@@ -296,7 +298,7 @@ Make sure that emacs is using the correct path for your preffered shell
 
 ** Tabbing
 
-Inserting tabs (usually 4 spaces) can be difficult in emacs. 
+Inserting tabs (usually 4 spaces) can be difficult in emacs.
 I have bound =C-u= to insert 4 spaces for me.
 This is more useful than scrolling upwards as it would do in vim.
 
@@ -403,7 +405,7 @@ In =prog-mode= this has no effect, but in org mode it makes the keys work like a
 (use-package evil
   :init
   (setq evil-want-integration t)
-  (setq evil-want-fine-undo 'fine)  
+  (setq evil-want-fine-undo 'fine)
   ;(setq evil-want-C-u-scroll t); Use this option if you want C-u to scroll. I do not.
   :config
   (evil-mode 1)
@@ -452,7 +454,7 @@ In order to stop the =:q= command closing emacs, rebind using =evil-ex-define-cm
 #+begin_src emacs-lisp
 
 (defun alex/evil-write ()
-    (interactive)  
+    (interactive)
     (save-buffer)
     (kill-this-buffer))
 (evil-ex-define-cmd "wq" 'alex/evil-write)
@@ -787,4 +789,3 @@ Use the treemacs file explorer including:
 
 (add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
 #+end_src
-

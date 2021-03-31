@@ -1,5 +1,8 @@
 import XMonad
+import XMonad.Config.Desktop
 import Data.Monoid
+import XMonad.Core
+import System.IO (hPutStrLn)
 import System.Exit
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
@@ -13,7 +16,12 @@ import XMonad.Layout.Spacing
 import XMonad.Hooks.SetWMName
 import Graphics.X11.ExtraTypes.XF86
 
+import XMonad.Layout.ShowWName
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.WorkspaceHistory
 -- import XMonad.Actions.Volume
+
 myTerminal      = "alacritty"
 
 myFocusFollowsMouse :: Bool
@@ -35,11 +43,21 @@ myModMask       = mod4Mask
 -- 
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["WWW","PS1","VIM","EMC","DOC","{ }",">>>","PCM","SYS"]
+myWorkspaces = ["gen", "www", "ps1", "dev", "sys", "doc"]
+-- myWorkspaces = ["1", "2", "3", "4", "5", "6", "7"]
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
+--myWorkspaces    = ["WWW","PS1","VIM","EMC","DOC","{ }",">>>","PCM","SYS"]
 
 myNormalBorderColor  = "#007777"
 myFocusedBorderColor = "#487aff"
 
+myShowWNameTheme :: SWNConfig
+myShowWNameTheme = def
+    { swn_font              = "xft:Ubuntu:bold:size=40"
+    , swn_fade              = 0.5
+    , swn_bgcolor           = "#1c1f24"
+    , swn_color             = "#ffffff"
+    }
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
@@ -87,6 +105,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
       ((modm              , xK_comma ), sendMessage (IncMasterN 1)),
       ((modm              , xK_period), sendMessage (IncMasterN (-1))),
 
+--      ((modm .|. controlMask, xK_h), sendMessage $ pullGroup L),
+--      ((modm .|. controlMask, xK_l), sendMessage $ pullGroup R),
+--      ((modm .|. controlMask, xK_k), sendMessage $ pullGroup U),
+--      ((modm .|. controlMask, xK_j), sendMessage $ pullGroup D),
+--
+--      ((modm .|. controlMask, xK_m), withFocused (sendMessage . MergeAll)),
+--      ((modm .|. controlMask, xK_u), withFocused (sendMessage . UnMerge)),
+--
+--      ((modm .|. controlMask, xK_period), onGroup W.focusUp'),
+--      ((modm .|. controlMask, xK_comma), onGroup W.focusDown'),
       -- Exit and restart hotkeys.
       ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)),
       ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart"),
@@ -129,6 +157,9 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     ]
 
 ------------------------------------------------------------------------
+--myLayout = windowNavigation $ subTabbed $
+--                      Tall 1 (3/100) (1/2) 
+
 myLayout = avoidStruts (tiled ||| Full)
   where
      -- default tiling algorithm partitions the screen into two panes
@@ -180,8 +211,10 @@ myManageHook = composeAll
 myEventHook = mempty
 
 ------------------------------------------------------------------------
-myLogHook = return ()
 
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook fadeAmount
+    where fadeAmount = 1.0
 ------------------------------------------------------------------------
 myStartupHook = do
 
@@ -194,8 +227,8 @@ myStartupHook = do
 ------------------------------------------------------------------------
 main = do
 
-    xmproc <- spawnPipe "xmobar /home/alex/.xmobarrc"
-    xmonad $ docks myConfig
+    xmproc <- spawnPipe "xmobar /home/alex/.xmonad/.xmobarrc"
+    -- xmonad $ docks myConfig
 --main = xmonad myConfig
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -203,7 +236,8 @@ main = do
 --
 -- No need to modify this.
 --
-myConfig = def {
+    xmonad $ def
+        {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -219,9 +253,24 @@ myConfig = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook = spacingRaw False (Border 0 10 0 10) True (Border 10 0 10 0) True $ myLayout,
+        -- layoutHook = spacingRaw False (Border 0 10 0 10) True (Border 10 0 10 0) True $ myLayout,
+        layoutHook         = spacingRaw False (Border 0 5 0 5) True (Border 5 0 5 0) True $ showWName' myShowWNameTheme $ myLayout,
+        --layoutHook = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
+        --logHook            = myLogHook,
+        logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
+                        { ppOutput = \x -> hPutStrLn xmproc x
+                       -- { ppOutput = hPutStrLn h
+                        , ppCurrent = xmobarColor "#98be65" "" . wrap "" ""           -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#98be65" ""             -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "" "" -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""    -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 0               -- Title of active window in xmobar
+                        , ppSep =  " | "                    -- Separators in xmobar
+                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
+                        --, ppExtras  = [windowCount]                                     -- # of windows current workspace
+                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                        },
         startupHook        = myStartupHook
     }

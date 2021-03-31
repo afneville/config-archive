@@ -1,7 +1,7 @@
 Config { 
 
-     font =         "xft:Roboto Mono:size=13:antialias=true",
-     additionalFonts= ["xft:FontAwesome:pixelsize=18",
+     font =         "xft:Roboto Mono:size=11:antialias=true",
+     additionalFonts= ["xft:FontAwesome:pixelsize=15",
                        "xft:all-the-icons:pixelsize=18"]
      bgColor =      "#222222",
      fgColor =      "#bbbbbb",
@@ -39,10 +39,11 @@ Config {
                                          "-i"	, "<fn=1>\xf240</fn> <left>%"
                              ] 60,
 
-          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y  <fn=1>\xf017</fn> %T" "date" 10
+          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y | <fn=1>\xf017</fn> %T" "date" 10
 
 
         ],
 
-     template = "<icon=haskell.xpm/> %StdinReader%}{ %date%  %battery% "
+     template = " <icon=haskell.xpm/> %StdinReader%}{ %date% | %battery% "
+     -- template = " <icon=haskell.xpm/> }{ %date% | %battery% "
 }
