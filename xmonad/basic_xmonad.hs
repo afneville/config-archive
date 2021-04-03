@@ -236,7 +236,7 @@ main = do
 --
 -- No need to modify this.
 --
-    xmonad $ def
+    xmonad $ docks def
         {
       -- simple stuff
         terminal           = myTerminal,
