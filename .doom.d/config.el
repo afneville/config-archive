@@ -41,6 +41,7 @@
  doom-modeline-enable-word-count nil
  doom-modeline-buffer-encoding nil
  org-cycle-separator-lines 2
+ org-startup-folded t
 
 )
 
@@ -53,22 +54,21 @@
 
 (defun alex/org-mode-setup ()
   (org-indent-mode)
-  (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
+  ;;(variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
-
 (defun alex/org-font-setup ()
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
-
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
+;;
+  ;; (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  ;; (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  ;; (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+  ;; (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  ;; (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  ;; (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  ;; (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
+;;
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
   :config
@@ -76,8 +76,13 @@
   ;;(setq org-ellipsis " ⤵")
   (setq org-indent-indentation-per-level 2)
   (setq org-hide-emphasis-markers t)
-  (setq org-agenda-files '("~/code/org/agenda.org"))
-  (alex/org-font-setup))
+  (setq org-agenda-files '("~/code/org/agenda.org")))
+
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

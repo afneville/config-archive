@@ -30,7 +30,7 @@ call plug#end()
 " Plugin related stuff"
 let g:NERDTreeMinimalUI = v:true
 let g:lightline = {
-    \ 'colorscheme': 'seoul256',
+    \ 'colorscheme': 'jellybeans',
     \ }
 let g:user_emmet_mode='a'
 let g:user_emmet_leader_key='<C-Z>'
@@ -74,9 +74,9 @@ set splitbelow
 
 " apperance 
 set modelines=0
-set laststatus=0
+set laststatus=2
 set t_Co=256
-colorscheme edge
+colorscheme codedark
 highlight LineNr ctermfg=darkgrey
 highlight VertSplit ctermbg=none
 highlight VertSplit ctermfg=darkgrey
