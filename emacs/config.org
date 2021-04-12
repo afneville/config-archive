@@ -623,11 +623,11 @@ And with =org-babel= we can run those code blocks.
 
 #+begin_src emacs-lisp
 
-;(use-package org-bullets
-;  :after org
-;  :hook (org-mode . org-bullets-mode)
-;  :custom
-;  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 #+end_src
 

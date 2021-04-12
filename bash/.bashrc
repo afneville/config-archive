@@ -14,18 +14,15 @@ PS1='\[\e[34m\]\w\[\e[36m\] $: \[\e[00m\]'
 alias grep='grep --color=auto'
 alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
 alias ls='/usr/bin/exa -1a --group-directories-first'
-alias lsl='/usr/bin/exa -la --group-directories-first'
+alias lsl='/usr/bin/exa -lag --group-directories-first'
 alias tree='/usr/bin/exa -T'
 alias ..='cd ..'
 alias ...='cd ../..'
-
 alias locate='updatedb && locate'
 alias volume='alsamixer'
 alias nm='nm-connection-editor'
 
-alias install="pacman -S"
-alias update="sudo pacman -Syu"
-alias please="doas"
+alias hello='echo hello'
 #alias rm="rm -i"
 #alias mv="mv -i"
 #alias vim="nvim"
@@ -34,8 +31,14 @@ alias off="doas poweroff"
 alias restart="doas reboot now"
 
 alias web="cd /srv/http/"
-alias vc="cd ~/vc_projects"
+alias code="cd ~/code/"
+alias test="cd /sandbox/"
 # shopt -s autocd
+
+alias g="git"
+alias p="python3"
+alias s="systemctl"
+alias v="nvim"
 
 alias clone="git clone"
 alias push="git push"

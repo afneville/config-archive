@@ -10,7 +10,7 @@ nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>l :set number!<CR>
 nnoremap <leader>r :set relativenumber!<CR>
 nnoremap <leader>% :source %<CR>
-inoremap ii <esc>
+"inoremap ii <esc>
 nnoremap <leader>wh <C-w>h
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k

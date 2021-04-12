@@ -27,6 +27,9 @@
 ;(package! builtin-package :disable t)
 
 (package! git-gutter :disable t)
+(package! lsp-ui :disable t)
+(package! org-bullets)
+(package! lsp-jedi)
 
 
 ;; You can override the recipe of a built in package without having to specify

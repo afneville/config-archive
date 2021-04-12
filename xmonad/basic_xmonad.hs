@@ -218,10 +218,11 @@ myLogHook = fadeInactiveLogHook fadeAmount
 ------------------------------------------------------------------------
 myStartupHook = do
 
-    spawnOnce "hsetroot -solid \"#333333\""
+    --spawnOnce "hsetroot -solid \"#333333\""
+    spawnOnce "nitrogen --restore"
     spawnOnce "xsetroot -cursor_name left_ptr &"
     spawnOnce "xrandr_script"
-    --spawnOnce "picom &"
+    spawnOnce "picom &"
     --spawnOnce "emacs --daemon"
     setWMName "LG3D"
 ------------------------------------------------------------------------
