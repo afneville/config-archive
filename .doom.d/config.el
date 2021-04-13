@@ -64,8 +64,10 @@
 (map! :leader
       :desc "switch buffer"
       "b s" #'counsel-ibuffer
-      :desc "highlights"
+      :desc "toggle line highlighting (current buffer)"
       "t h" #'hl-line-mode
+      :desc "toggle line highlighting"
+      "t H" #'global-hl-line-mode
       :desc "Insert line above"
       "i k"   #'+evil/insert-newline-above
       :desc "Insert line below"

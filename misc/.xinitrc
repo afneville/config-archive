@@ -39,10 +39,12 @@ fi
 #emacs --daemon &
 
 #hsetroot -solid "#333333"
-#xrandr_script
+nitrogen --restore
+xrandr_script.sh
+xsetroot -name " $(whoami) @ $(hostname) "
 #exec qtile
-exec xmonad
-#exec dwm
+#exec xmonad
+exec dwm
 #exec awesome
 
 #export DESKTOP_SESSION=plasma 

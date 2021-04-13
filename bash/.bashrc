@@ -32,7 +32,10 @@ alias restart="doas reboot now"
 
 alias web="cd /srv/http/"
 alias code="cd ~/code/"
+alias config="cd ~/code/dotfiles"
+alias dwm="cd ~/code/suckless_tools/dwm"
 alias test="cd /sandbox/"
+alias nea="cd ~/code/nea"
 # shopt -s autocd
 
 alias g="git"
