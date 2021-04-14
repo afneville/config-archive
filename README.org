@@ -1,0 +1,36 @@
+#+TITLE: Dotfiles Repository
+#+AUTHOR: Alexander Neville
+
+* Introduction
+
+This repository is for storing some configuration files I have for all sorts of software. The layout of this repository does not reflect the layout of my home directory, I just use this repository for storage of certain important files. Some of these files are written from scratch, some are automatically generated and some are more or less default configurations. I keep these files even if they are fairly generic as I will not have to go and find defualt configurations elsewhere.
+
+* Configurations
+
+These are the configuration files which I have:
+
+** Emacs
+
+I have a configuration for vanilla emacs, including a 'literate' org file and i also have a configuration for doom emacs, a very good configuration framework which you can find here:  https://github.com/hlissner/doom-emacs
+I would really reccomend doom emacs, simply because it is very well optimized and I find it much more performant than a vanilla configuration.
+
+** Window Managers
+
+I have configured a few X window managers a little bit, including: xmonad, qtile and awesome. i also have a dwm 'configuration' in another repository.
+
+** Vim/Neovim
+
+I followed some tutorials on the internet to create a Neovim configuration including CoC completion: https://github.com/neoclide/coc.nvim
+
+** Shell
+
+I use a few aliases in bash which i keep in =.bashrc=. I would like to try zsh at some point.
+
+** Apache
+
+It can save time to keep this configured httpd (apache) config for arch linux
+
+** Misc
+
+I also have some other files which I like to keep including terminal emulator (alacritty) config.
+Other files include thinds like =.xinitrc= and =.Xresources=, not very exciting.

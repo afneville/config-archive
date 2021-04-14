@@ -11,8 +11,8 @@
 
 
 (defun alex/set-margins ()
-  (setq left-margin-width 5)
-  (setq right-margin-width 5))
+  (setq left-margin-width 2)
+  (setq right-margin-width 2))
 
 (defun alex/set-big-margins ()
   (setq left-margin-width 8)
