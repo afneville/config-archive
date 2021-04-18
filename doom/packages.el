@@ -30,7 +30,9 @@
 (package! lsp-ui :disable t)
 (package! org-bullets)
 (package! lsp-jedi)
-
+(package! mixed-pitch)
+(package! spacemacs-theme)
+(package! company-lsp)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe

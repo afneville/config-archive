@@ -13,3 +13,6 @@ let g:coc_global_extensions = [
     \ 'coc-clangd',
     \ 'coc-python',
   \ ]
+
+" Disable completion in vimwiki
+autocmd FileType vimwiki let b:coc_suggest_disable = 1

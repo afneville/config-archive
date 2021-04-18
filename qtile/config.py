@@ -23,12 +23,19 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import os
+import subprocess
 
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+
+def test_func(arg, two, three):
+
+    pass
+
 
 mod = "mod4"
 terminal = "alacritty"
@@ -73,8 +80,8 @@ keys = [
     #Key([mod], "e", lazy.spawn("emacsclient -c"), desc="Launch emacs"),
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch emacs"),
     Key([mod], "f", lazy.spawn("pcmanfm"), desc="Launch a file browser"),
-    Key([mod], "s", lazy.spawn("firefox"), desc="Launch a web browser"),
-    Key([mod], "g", lazy.spawn("spectacle"), desc="Take a screenshot."),
+    Key([mod], "s", lazy.spawn("brave"), desc="Launch a web browser"),
+    #Key([mod], "g", subprocess.run(["screenshot.sh"])   desc="Take a screenshot."),
     #Key([mod], "b", lazy.spawn("qutebrowser"), desc="Launch a web browser"),
 
     # Session controls
@@ -97,24 +104,25 @@ for i in groups:
             desc="Switch to group {}".format(i.name)),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
+        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+            # desc="Switch to & move focused window to group {}".format(i.name)),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+            desc="move focused window to group {}".format(i.name)),
     ])
 # 0: unfocused colour 1: blue for tiling focus 2: black for fullscreen focus.
 window_colours = ['#adb1b5', '#51afef', '#000000']
 # 0: grey for the bar background 1: yellow for clock. 2: blue for tags 3: red for mem widget 4: green for cpu 5: purple 6: dull white for inactive tags
 bar_colours = ['#222222', '#dcc143', '#3d7abc', '#d95a2a', '#99dc43', '#a952e8', '#b1adad']
-my_border_width=1
+#my_border_width=1
+
 layouts = [
-    layout.Columns(border_width=my_border_width, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_on_single=True, margin=[5, 5, 0, 0]),
-    #layout.Max(),
+    layout.Columns(border_width=1, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_on_single=True, margin=[5, 5, 0, 0]),
+    # layout.Max(),
     # Try more layouts by unleashing below layouts.
     # I am going to use the stack layout to emulate fullscreen
-    layout.Stack(border_focus=window_colours[2], num_stacks=1, margin=[5, 5, 0, 0]),
+    layout.Stack(border_width=1, border_focus=window_colours[2], num_stacks=1, margin=[5, 5, 0, 0]),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
@@ -127,7 +135,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='ubuntu',
+    font='Mononoki Nerd Font',
     fontsize=16,
     padding=3,
 )
@@ -136,7 +144,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(disable_drag=True, font="ubuntu", use_mouse_wheel=False, highlight_method="block", this_current_screen_border=bar_colours[2], this_screen_border=bar_colours[2], inactive=bar_colours[6], rounded=False, hide_unused=False),
+                widget.GroupBox(disable_drag=True, font="mononoki nerd font", use_mouse_wheel=False, highlight_method="block", this_current_screen_border=bar_colours[2], this_screen_border=bar_colours[2], inactive=bar_colours[6], rounded=False, hide_unused=False),
                 #widget.Spacer(),
                 #widget.Clock(format='%d-%m-%Y %H:%M:%S', background=bar_colours[0], foreground=bar_colours[6]),
                 #widget.Spacer(),
@@ -154,10 +162,12 @@ screens = [
                 #widget.CurrentLayoutIcon(scale=0.7),
             ],
             24,
+            opacity=0.8,
             background=bar_colours[0]
         ),
-        bottom=bar.Gap(5),
+        #bottom=bar.Bar([], 5 ,opacity=0.0),
         left=bar.Gap(5),
+        bottom=bar.Gap(5)
     ),
 ]
 
@@ -175,7 +185,7 @@ dgroups_app_rules = []  # type: List
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
