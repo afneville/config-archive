@@ -36,12 +36,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-#emacs --daemon &
+emacs --daemon &
 hsetroot -solid "#333333"
 #nitrogen --restore
 picom -m 1 &
 xrandr_script.sh
 xsetroot -name " $(whoami) @ $(hostname) "
+xfce4-power-manager &
 
 #exec qtile
 exec xmonad
