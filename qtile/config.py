@@ -32,11 +32,6 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
-def test_func(arg, two, three):
-
-    pass
-
-
 mod = "mod4"
 terminal = "alacritty"
 
@@ -111,18 +106,21 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
             desc="move focused window to group {}".format(i.name)),
     ])
-# 0: unfocused colour 1: blue for tiling focus 2: black for fullscreen focus.
-window_colours = ['#adb1b5', '#51afef', '#000000']
+# 0: unfocused colour 1: blue for tiling focus 2: black for fullscreen focus. 3: optional grey colour for borders.
+window_colours = ['#adb1b5', '#51afef', '#000000', '#333333']
 # 0: grey for the bar background 1: yellow for clock. 2: blue for tags 3: red for mem widget 4: green for cpu 5: purple 6: dull white for inactive tags
 bar_colours = ['#222222', '#dcc143', '#3d7abc', '#d95a2a', '#99dc43', '#a952e8', '#b1adad']
 #my_border_width=1
 
 layouts = [
-    layout.Columns(border_width=1, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_on_single=True, margin=[5, 5, 0, 0]),
+    # For gaps use these layouts.
+    #layout.Columns(border_width=1, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_on_single=True, margin=[5, 5, 0, 0]),
+    #layout.Stack(border_width=1, border_focus=window_colours[2], num_stacks=1, margin=[5, 5, 0, 0]),#fullscreen emulation
+    layout.Columns(border_width=2, border_focus=window_colours[3], border_focus_stack=window_colours[3], border_normal=window_colours[2], border_on_single=True),
+    layout.Stack(border_width=0, border_focus=window_colours[2], num_stacks=1),#fullscreen emulation
+    # I am going to use the stack layout to emulate fullscreen
     # layout.Max(),
     # Try more layouts by unleashing below layouts.
-    # I am going to use the stack layout to emulate fullscreen
-    layout.Stack(border_width=1, border_focus=window_colours[2], num_stacks=1, margin=[5, 5, 0, 0]),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
@@ -165,9 +163,11 @@ screens = [
             opacity=0.8,
             background=bar_colours[0]
         ),
+        # For easy toggling
         #bottom=bar.Bar([], 5 ,opacity=0.0),
-        left=bar.Gap(5),
-        bottom=bar.Gap(5)
+        # For even gaps, put some space to the left and at the bottom.
+        # left=bar.Gap(5),
+        # bottom=bar.Gap(5)
     ),
 ]
 

@@ -37,15 +37,20 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 #emacs --daemon &
-#hsetroot -solid "#333333"
+hsetroot -solid "#333333"
+#nitrogen --restore
 picom -m 1 &
-nitrogen --restore
 xrandr_script.sh
 xsetroot -name " $(whoami) @ $(hostname) "
-exec qtile
-#exec xmonad
+
+#exec qtile
+exec xmonad
 #exec dwm
 #exec awesome
 
 #export DESKTOP_SESSION=plasma 
 #exec startplasma-x11
+
+#export XDG_SESSION_TYPE=x11
+#export GDK_BACKEND=x11
+#exec gnome-session

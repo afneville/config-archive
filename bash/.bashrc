@@ -11,6 +11,7 @@
 #PS1='\[\e[33m\]\A \[\e[01;36m\]\u \[\e[00m\]at \[\e[01;32m\]\h \[\e[00m\]in \[\e[01;34m\]\w \[\e[33m\]\$: \[\e[00m\]'
 PS1='\[\e[34m\]\w\[\e[36m\] $: \[\e[00m\]'
 
+# General:
 alias grep='grep --color=auto'
 alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
 alias ls='/usr/bin/exa -1a --group-directories-first'
@@ -21,15 +22,24 @@ alias ...='cd ../..'
 alias locate='updatedb && locate'
 alias volume='alsamixer'
 alias nm='nm-connection-editor'
-
-alias hello='echo hello'
-#alias rm="rm -i"
-#alias mv="mv -i"
-#alias vim="nvim"
-#alias sudo="doas"
 alias off="doas poweroff"
 alias restart="doas reboot now"
 
+
+alias hello='echo hi'
+
+# I have trouble with "clear"
+alias cleaer="clear"
+alias cler="clear"
+alias claer="clear"
+
+# Safe Commands:
+#alias rm="rm -i"
+#alias mv="mv -i"
+#alias vim="nvim"
+
+
+# Directories:
 alias web="cd /srv/http/"
 alias code="cd ~/code/"
 alias config="cd ~/code/dotfiles"
