@@ -66,7 +66,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+myFont = "xft:Ubuntu:regular:size=9:antialias=true:hinting=true"
 
 myEmojiFont :: String
 myEmojiFont = "xft:JoyPixels:regular:size=9:antialias=true:hinting=true"
@@ -148,24 +148,20 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    , gs_font         = myFont
                    }
 
-myAppGrid = [ ("Audacity", "audacity")
-                 , ("Deadbeef", "deadbeef")
+myAppGrid = [ ("Brave", "brave")
+                 , ("Terminal", "alacritty")
                  , ("Emacs", "emacsclient -c -a emacs")
                  , ("Firefox", "firefox")
-                 , ("Geany", "geany")
-                 , ("Geary", "geary")
-                 , ("Gimp", "gimp")
-                 , ("Kdenlive", "kdenlive")
-                 , ("LibreOffice Impress", "loimpress")
-                 , ("LibreOffice Writer", "lowriter")
-                 , ("OBS", "obs")
-                 , ("PCManFM", "pcmanfm")
+                 , ("Qutebrowser", "qutebrowser")
+                 , ("Discord", "discord")
+                 , ("Word", "lowriter")
+                 , ("Office", "libreoffice")
+                 , ("CAD", "librecad")
+                 , ("Files", "pcmanfm")
                  ]
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnMocp findMocp manageMocp
-                , NS "calculator" spawnCalc findCalc manageCalc
                 ]
   where
     spawnTerm  = myTerminal ++ " -t scratchpad"
@@ -176,22 +172,6 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMocp  = myTerminal ++ " -t mocp -e mocp"
-    findMocp   = title =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w 
-    spawnCalc  = "qalculate-gtk"
-    findCalc   = className =? "Qalculate-gtk"
-    manageCalc = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.5
-                 w = 0.4
-                 t = 0.75 -h
-                 l = 0.70 -w
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -207,9 +187,9 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 -- mySpacing n sets the gap size around the windows.
 tall     = renamed [Replace "tall"]
            $ windowNavigation
-           $ smartBorders
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
+           -- $ withBorder myBorderWidth
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 5
            $ ResizableTall 1 (3/100) (1/2) []
@@ -296,15 +276,14 @@ myShowWNameTheme = def
     }
 
 -- The layout hook
--- myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
---                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange
-               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+             $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
                myDefaultLayout =     withBorder myBorderWidth tall
                                  ||| full
                                  ||| noBorders monocle
-                                 ||| noBorders tabs
+                                 -- ||| noBorders tabs
+                                 ||| tabs
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces = ["dev1", "dev2", "www", "doc", "sys"]
@@ -369,6 +348,7 @@ myKeys =
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
         , ("M-s", spawn (myBrowser))
+        , ("M-e", spawn (myEmacs))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 
     -- Kill windows
@@ -392,10 +372,9 @@ myKeys =
         , ("M-S-d", decScreenSpacing 4)         -- Decrease screen spacing
         , ("M-S-i", incScreenSpacing 4)         -- Increase screen spacing
 
-    -- Grid Select (CTR-g followed by a key)
-        , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
-        , ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
-        , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
+        , ("M-g", spawnSelected' myAppGrid)                 -- grid select favorite apps
+        , ("M-<Tab>", goToSelected $ mygridConfig myColorizer)  -- goto selected window
+        , ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)  -- Move focus to the master window
@@ -409,10 +388,10 @@ myKeys =
         , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
     -- Layouts
-        , ("M-<Tab>", sendMessage NextLayout)           -- Switch to next layout
+        , ("M-S-<Space>", sendMessage NextLayout)           -- Switch to next layout
         , ("M-C-M1-<Up>", sendMessage Arrange)
         , ("M-C-M1-<Down>", sendMessage DeArrange)
-        , ("M-S-<Space>", sendMessage ToggleStruts)     -- Toggles struts
+        -- , ("M-S-<Space>", sendMessage ToggleStruts)     -- Toggles struts
         , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS)  -- Toggles noborder
         , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
@@ -444,7 +423,7 @@ myKeys =
     -- Toggle show/hide these programs.  They run on a hidden workspace.
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
-        , ("C-s t", namedScratchpadAction myScratchPads "terminal")
+        , ("M-r", namedScratchpadAction myScratchPads "terminal")
 
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
     -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
