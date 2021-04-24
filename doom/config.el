@@ -32,8 +32,8 @@
 ;; font string. You generally only need these two:
 (setq
 
- doom-font (font-spec :family "Roboto Mono" :weight 'regular :size 16)
- doom-variable-pitch-font (font-spec :family "Roboto" :size 18)
+ doom-font (font-spec :family "Roboto Mono" :weight 'regular :size 16 :height 1.0)
+ doom-variable-pitch-font (font-spec :family "Roboto" :size 18 :height 1.5)
  doom-theme 'doom-one
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -120,7 +120,7 @@
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   (org-indent-mode)
-  ;(variable-pitch-mode 1) ;; If you want fancy variable width fonts.
+  (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
 
 (use-package org
@@ -136,11 +136,11 @@
 ;  :custom
 ;  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-;(use-package! mixed-pitch
-;   :hook (org-mode . mixed-pitch-mode)
-;   :config
-;   (setq mixed-pitch-set-heigth t)
-;   (set-face-attribute 'variable-pitch nil :size 18))
+(use-package! mixed-pitch
+   :hook (org-mode . mixed-pitch-mode)
+   :config
+   (setq mixed-pitch-set-heigth t)
+   (set-face-attribute 'variable-pitch nil :height 140))
 
 (after! org
 

@@ -1,9 +1,10 @@
 Config { 
 
-     font =         "xft:Roboto Mono:size=11:antialias=true",
+     font =         "xft:Ubuntu Mono:size=13:antialias=true",
      additionalFonts= ["xft:FontAwesome:pixelsize=15",
                        "xft:all-the-icons:pixelsize=18"]
-     bgColor =      "#222222",
+     --bgColor =      "#222222",
+     bgColor =      "#282c34",
      fgColor =      "#bbbbbb",
      position =     Top,
      border =       BottomB,

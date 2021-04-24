@@ -72,50 +72,39 @@ myEmojiFont :: String
 myEmojiFont = "xft:JoyPixels:regular:size=9:antialias=true:hinting=true"
 
 myModMask :: KeyMask
-myModMask = mod4Mask        -- Sets modkey to super/windows key
+myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "alacritty"    -- Sets default terminal
+myTerminal = "alacritty"
 
 myBrowser :: String
-myBrowser = "brave"  -- Sets qutebrowser as browser
+myBrowser = "brave"
 
 myEmacs :: String
-myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
+myEmacs = "emacsclient -c -a 'emacs' "
 
 myEditor :: String
-myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
--- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
+myEditor = "emacsclient -c -a 'emacs' "
+-- myEditor = myTerminal ++ " -e nvim "
 
 myBorderWidth :: Dimension
-myBorderWidth = 2           -- Sets border width for windows
+myBorderWidth = 1
 
 myNormColor :: String
-myNormColor   = "#282c34"   -- Border color of normal windows
+myNormColor   = "#282c34"
 
 myFocusColor :: String
-myFocusColor  = "#46d9ff"   -- Border color of focused windows
+myFocusColor  = "#46d9ff"
 
 altMask :: KeyMask
-altMask = mod1Mask          -- Setting this for use in xprompts
+altMask = mod1Mask
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myStartupHook :: X ()
 myStartupHook = do
-          --spawnOnce "lxsession &"
-          --spawnOnce "~/.fehbg &"  -- set last saved wallpaper
-          -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- set random wallpaper
-          --spawnOnce "picom &"
-          --spawnOnce "nm-applet &"
-          --spawnOnce "volumeicon &"
-          --spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
-          --spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-          --spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
-          -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
-          -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
-          -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh for wallpaper setter
+          -- spawnOnce "nitrogen --restore &"
           setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
@@ -140,24 +129,29 @@ mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
 spawnSelected' :: [(String, String)] -> X ()
 spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
     where conf = def
-                   { gs_cellheight   = 40
-                   , gs_cellwidth    = 200
-                   , gs_cellpadding  = 6
+                   { gs_cellheight   = 50
+                   , gs_cellwidth    = 150
+                   , gs_cellpadding  = 10
                    , gs_originFractX = 0.5
                    , gs_originFractY = 0.5
                    , gs_font         = myFont
                    }
 
-myAppGrid = [ ("Brave", "brave")
-                 , ("Terminal", "alacritty")
+myAppGrid = [
+                   ("Terminal", "alacritty")
                  , ("Emacs", "emacsclient -c -a emacs")
+                 , ("Neovim", "alacritty -e nvim")
+                 , ("Top", "alacritty -e top")
+                 , ("Brave", "brave")
                  , ("Firefox", "firefox")
                  , ("Qutebrowser", "qutebrowser")
                  , ("Discord", "discord")
+                 , ("Files", "pcmanfm")
                  , ("Word", "lowriter")
                  , ("Office", "libreoffice")
                  , ("CAD", "librecad")
-                 , ("Files", "pcmanfm")
+                 , ("Network", "nm-connection-editor")
+                 , ("Appearance", "lxappearance")
                  ]
 
 myScratchPads :: [NamedScratchpad]
@@ -168,28 +162,18 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     findTerm   = title =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
                where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+                 h = 0.6
+                 w = 0.6
+                 t = 0.8 -h
+                 l = 0.8 -w
 
---Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
--- Below is a variation of the above except no borders are applied
--- if fewer than two windows. So a single window has no gaps.
-mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
-
--- Defining a bunch of layouts, many that I don't use.
--- limitWindows n sets maximum number of windows displayed for layout.
--- mySpacing n sets the gap size around the windows.
 tall     = renamed [Replace "tall"]
            $ windowNavigation
-           -- $ withBorder myBorderWidth
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 5
            $ ResizableTall 1 (3/100) (1/2) []
@@ -266,10 +250,9 @@ myTabTheme = def { fontName            = myFont
                  , inactiveTextColor   = "#d0d0d0"
                  }
 
--- Theme for showWName which prints current workspace when you change workspaces.
 myShowWNameTheme :: SWNConfig
 myShowWNameTheme = def
-    { swn_font              = "xft:Ubuntu:bold:size=60"
+    { swn_font              = "xft:Ubuntu:bold:size=40"
     , swn_fade              = 1.0
     , swn_bgcolor           = "#1c1f24"
     , swn_color             = "#ffffff"
@@ -287,63 +270,30 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces = ["dev1", "dev2", "www", "doc", "sys"]
-myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
-
-clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
-    where i = fromJust $ M.lookup ws myWorkspaceIndices
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     -- 'doFloat' forces a window to float.  Useful for dialog boxes and such.
-     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
-     -- I'm doing it this way because otherwise I would have to write out the full
-     -- name of my workspaces and the names would be very long if using clickable workspaces.
      [ className =? "confirm"         --> doFloat
      , className =? "file_progress"   --> doFloat
      , className =? "dialog"          --> doFloat
      , className =? "download"        --> doFloat
-     , className =? "error"           --> doFloat
-     , className =? "Gimp"            --> doFloat
      , className =? "notification"    --> doFloat
-     , className =? "pinentry-gtk-2"  --> doFloat
-     , className =? "splash"          --> doFloat
-     , className =? "toolbar"         --> doFloat
-     , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     , title =? "Mozilla Firefox"   --> doShift ( myWorkspaces !! 1 )
-     , className =? "brave-browser" --> doShift ( myWorkspaces !! 1 )
-     , className =? "qutebrowser"   --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"           --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"           --> doShift ( myWorkspaces !! 8 )
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+     -- Browsers go to workspace 3 (www), except qutebrowser which can be summoned on any workspace.
+     , className =? "Brave-browser" --> doShift ( myWorkspaces !! 2 )
+     , className =? "firefox" --> doShift ( myWorkspaces !! 2 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
-        [ ("M-C-r", spawn "xmonad --recompile")  -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart")    -- Restarts xmonad
-        , ("M-S-q", io exitSuccess)              -- Quits xmonad
+        [ ("M-C-r", spawn "xmonad --recompile")
+        , ("M-S-r", spawn "xmonad --restart")
+        , ("M-S-q", io exitSuccess)
+        , ("M-b", spawn "killall xmobar")
 
-    -- Run Prompt
-    -- M-p was the default keybinding.  I've changed it to M-S-RET because I will use
-    -- M-p as part of the keychord for the other dmenu script bindings. 
-        , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
-
-    -- Other Dmenu Prompts
-    -- In Xmonad and many tiling window managers, M-p is the default keybinding to
-    --  launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-        , ("M-p", spawn "rofi -show run")  -- pick color from our scheme
-         --, ("M-p c", spawn "/home/dt/dmscripts/dcolors")  -- pick color from our scheme
-         --, ("M-p e", spawn "/home/dt/dmscripts/dmconf")   -- edit config files
-         --, ("M-p i", spawn "/home/dt/dmscripts/dmscrot")  -- screenshots (images)
-         --, ("M-p k", spawn "/home/dt/dmscripts/dmkill")   -- kill processes
-         --, ("M-p m", spawn "/home/dt/dmscripts/dman")     -- manpages
-         --, ("M-p o", spawn "/home/dt/dmscripts/dmqute")   -- qutebrowser bookmarks/history
-         --, ("M-p p", spawn "passmenu")                    -- passmenu
-         --, ("M-p q", spawn "/home/dt/dmscripts/dmlogout") -- logout menu
-         --, ("M-p r", spawn "/home/dt/dmscripts/dmred")    -- reddio (a reddit viewer)
-         --, ("M-p s", spawn "/home/dt/dmscripts/dmsearch") -- search various search engines
+        , ("M-p", spawn "rofi -show run")
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
@@ -374,7 +324,7 @@ myKeys =
 
         , ("M-g", spawnSelected' myAppGrid)                 -- grid select favorite apps
         , ("M-<Tab>", goToSelected $ mygridConfig myColorizer)  -- goto selected window
-        , ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
+        --, ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)  -- Move focus to the master window
@@ -430,16 +380,14 @@ myKeys =
         , ("M-<F1>", spawn "sxiv -r -q -t -o ~/wallpapers/*")
         , ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
-    -- Emacs (CTRL-e followed by a key)
-        , ("C-e e", spawn myEmacs)                 -- start emacs
-        , ("C-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))   -- list buffers
-        , ("C-e d", spawn (myEmacs ++ ("--eval '(dired nil)'"))) -- dired
-        , ("C-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))    -- eshell
+        , ("C-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
+        , ("C-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
+        , ("C-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
 
     -- Multimedia Keys
         , ("<XF86AudioMute>",   spawn "amixer set Master toggle")
-        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 10%- unmute")
+        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 10%+ unmute")
         , ("<XF86Eject>", spawn "screenshot.sh")
         ]
     -- The following lines are needed for named scratchpads.
@@ -476,9 +424,9 @@ main = do
               { ppOutput = \x -> hPutStrLn xmproc x                          -- xmobar on monitor 1
               , ppCurrent = xmobarColor "#98be65" ""            -- Current workspace
               , ppVisible = xmobarColor "#98be65" ""              -- Visible but not current workspace
-              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" -- Hidden workspaces
+              , ppHidden = xmobarColor "#82AAFF" "" . wrap "" "" -- Hidden workspaces
               , ppHiddenNoWindows = xmobarColor "#c792ea" ""     -- Hidden workspaces (no windows)
-              , ppTitle = xmobarColor "#b3afc2" "" . shorten 60               -- Title of active window
+              , ppTitle = xmobarColor "#b3afc2" "" . shorten 0               -- Title of active window
               , ppSep =  "<fc=#666666> | </fc>"                    -- Separator character
               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
               , ppExtras  = [windowCount]                                     -- # of windows current workspace

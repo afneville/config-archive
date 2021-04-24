@@ -1,6 +1,7 @@
 #
 # ~/.bashrc
 #
+
 colorscript -e 5
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -25,8 +26,9 @@ alias nm='nm-connection-editor'
 alias off="doas poweroff"
 alias restart="doas reboot now"
 
-
-alias hello='echo hi'
+# Fun
+alias hello="echo hi"
+alias say="figlet"
 
 # I have trouble with "clear"
 alias cleaer="clear"
@@ -48,11 +50,13 @@ alias test="cd /sandbox/"
 alias nea="cd ~/code/nea"
 # shopt -s autocd
 
+# Utilities
 alias g="git"
 alias p="python3"
 alias s="systemctl"
 alias v="nvim"
 
+# Git
 alias clone="git clone"
 alias push="git push"
 alias pull="git pull"
@@ -60,6 +64,7 @@ alias add="git add"
 alias commit="git commit -m"
 alias gpom="git add . && git commit -m \"automated backup\" && git push origin main"
 
+# Systemctl
 alias status="systemctl status"
 alias start="systemctl start"
 alias stop="systemctl stop"

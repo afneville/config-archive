@@ -33,6 +33,7 @@
 (package! mixed-pitch)
 (package! spacemacs-theme)
 (package! company-lsp)
+;;(package! asm-mode)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
