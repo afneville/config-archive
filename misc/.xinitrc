@@ -42,6 +42,7 @@ hsetroot -solid "#334050"
 picom -m 1 &
 xrandr_script.sh
 xsetroot -name " $(whoami) @ $(hostname) "
+xsetroot -cursor_name left_ptr
 xfce4-power-manager &
 
 #exec qtile

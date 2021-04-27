@@ -88,12 +88,12 @@
   (setq left-margin-width 10)
   (setq right-margin-width 10))
 
-(defun alex/set-up-prog-mode ()
-  (setq left-margin-width 2)
-  (setq right-margin-width 2))
+;; (defun alex/set-up-prog-mode ()
+;;   (setq left-margin-width 2)
+;;   (setq right-margin-width 2))
 
 (add-hook 'text-mode-hook 'alex/set-up-text-mode)
-(add-hook 'prog-mode-hook 'alex/set-up-prog-mode)
+;(add-hook 'prog-mode-hook 'alex/set-up-prog-mode)
 
 (custom-set-faces!
   '(font-lock-comment-face :slant italic))
@@ -130,11 +130,11 @@
   (setq org-hide-emphasis-markers t)
   (setq org-agenda-files '("~/notes/agenda.org")))
 
-;(use-package org-bullets
-;  :after org
-;  :hook (org-mode . org-bullets-mode)
-;  :custom
-;  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(use-package org-bullets
+ :after org
+ :hook (org-mode . org-bullets-mode)
+ :custom
+ (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (use-package! mixed-pitch
    :hook (org-mode . mixed-pitch-mode)
@@ -167,8 +167,6 @@
   ;  '(org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   ;  '(org-checkbox nil :inherit 'fixed-pitch)))
   )
-
-
 
 (use-package projectile
   :diminish projectile-mode

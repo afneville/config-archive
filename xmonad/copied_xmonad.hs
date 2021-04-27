@@ -139,7 +139,9 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 
 myAppGrid = [
                    ("Terminal", "alacritty")
-                 , ("Emacs", "emacsclient -c -a emacs")
+                 , ("G-terminal", "gnome-terminal")
+                 , ("EmacsClient", "emacsclient -c -a emacs")
+                 , ("Emacs", "emacs")
                  , ("Neovim", "alacritty -e nvim")
                  , ("Top", "alacritty -e top")
                  , ("Brave", "brave")
@@ -152,6 +154,7 @@ myAppGrid = [
                  , ("CAD", "librecad")
                  , ("Network", "nm-connection-editor")
                  , ("Appearance", "lxappearance")
+                 , ("Power", "xfce4-power-manager-settings")
                  ]
 
 myScratchPads :: [NamedScratchpad]
@@ -287,29 +290,28 @@ myManageHook = composeAll
 
 myKeys :: [(String, X ())]
 myKeys =
-    -- Xmonad
-        [ ("M-C-r", spawn "xmonad --recompile")
+        [
+    -- Xmonad actions
+          ("M-C-r", spawn "xmonad --recompile")
         , ("M-S-r", spawn "xmonad --restart")
         , ("M-S-q", io exitSuccess)
         , ("M-b", spawn "killall xmobar")
 
         , ("M-p", spawn "rofi -show run")
 
-    -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
         , ("M-s", spawn (myBrowser))
         , ("M-e", spawn (myEmacs))
-        , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 
     -- Kill windows
         , ("M-c", kill1)     -- Kill the currently focused client
         , ("M-S-c", killAll)   -- Kill all windows on current workspace
 
     -- Workspaces
-        , ("M-.", nextScreen)  -- Switch focus to next monitor
-        , ("M-,", prevScreen)  -- Switch focus to prev monitor
-        , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-        , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+        -- , ("M-.", nextScreen)  -- Switch focus to next monitor
+        -- , ("M-,", prevScreen)  -- Switch focus to prev monitor
+        , ("M-S-n", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
+        , ("M-S-p", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -322,7 +324,7 @@ myKeys =
         , ("M-S-d", decScreenSpacing 4)         -- Decrease screen spacing
         , ("M-S-i", incScreenSpacing 4)         -- Increase screen spacing
 
-        , ("M-g", spawnSelected' myAppGrid)                 -- grid select favorite apps
+        , ("M-a", spawnSelected' myAppGrid)                 -- grid select favorite apps
         , ("M-<Tab>", goToSelected $ mygridConfig myColorizer)  -- goto selected window
         --, ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
@@ -341,21 +343,13 @@ myKeys =
         , ("M-S-<Space>", sendMessage NextLayout)           -- Switch to next layout
         , ("M-C-M1-<Up>", sendMessage Arrange)
         , ("M-C-M1-<Down>", sendMessage DeArrange)
-        -- , ("M-S-<Space>", sendMessage ToggleStruts)     -- Toggles struts
-        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS)  -- Toggles noborder
+        , ("M-n", sendMessage $ MT.Toggle NOBORDERS)  -- Toggles noborder
         , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
-    -- Increase/decrease windows in the master pane or the stack
         , ("M-S-<Up>", sendMessage (IncMasterN 1))      -- Increase # of clients master pane
         , ("M-S-<Down>", sendMessage (IncMasterN (-1))) -- Decrease # of clients master pane
         , ("M-C-<Up>", increaseLimit)                   -- Increase # of windows
         , ("M-C-<Down>", decreaseLimit)                 -- Decrease # of windows
-
-    -- Window resizing
-        , ("M-h", sendMessage Shrink)                   -- Shrink horiz window width
-        , ("M-l", sendMessage Expand)                   -- Expand horiz window width
-        , ("M-M1-j", sendMessage MirrorShrink)          -- Shrink vert window width
-        , ("M-M1-k", sendMessage MirrorExpand)          -- Exoand vert window width
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
@@ -366,20 +360,21 @@ myKeys =
         , ("M-C-m", withFocused (sendMessage . MergeAll))
         -- , ("M-C-u", withFocused (sendMessage . UnMerge))
         , ("M-C-/", withFocused (sendMessage . UnMergeAll))
-        , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
-        , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
+        , ("M-.", onGroup W.focusUp')    -- Switch focus to next tab
+        , ("M-,", onGroup W.focusDown')  -- Switch focus to prev tab
 
+    -- Window resizing
+        , ("M-M1-h", sendMessage Shrink)                   -- Shrink horiz window width
+        , ("M-M1-l", sendMessage Expand)                   -- Expand horiz window width
+        , ("M-M1-j", sendMessage MirrorShrink)          -- Shrink vert window width
+        , ("M-M1-k", sendMessage MirrorExpand)          -- Exoand vert window width
     -- Scratchpads
-    -- Toggle show/hide these programs.  They run on a hidden workspace.
-    -- When you toggle them to show, it brings them to your current workspace.
-    -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("M-r", namedScratchpadAction myScratchPads "terminal")
 
-    -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
-    -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
-        , ("M-<F1>", spawn "sxiv -r -q -t -o ~/wallpapers/*")
-        , ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
+    -- emacs bindings
+        , ("C-e e", spawn "emacs --daemon")
+        , ("C-e k", spawn "killall emacs")
         , ("C-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
         , ("C-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
         , ("C-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
