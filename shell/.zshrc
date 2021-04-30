@@ -1,23 +1,45 @@
-# Lines configured by zsh-newuser-install
+# history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/alex/.zshrc'
 
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# source my shell aliases
+[ -f "$HOME/code/dotfiles/shell/aliasrc" ] && source "$HOME/code/dotfiles/shell/aliasrc"
+
+# different cursor in different shell modes
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q'
+preexec() { echo -ne '\e[5 q' ;}
+
+# features
+setopt extendedglob
+zstyle :compinstall filename '/home/alex/.zshrc'
+autoload -U colors && colors
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
-
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
-# Prompt
-#PS1='\[\e[34m\]\w\[\e[36m\] $: \[\e[00m\]'
-# Begin copy from arch wiki
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
+
+
+# prompt
+PS1='%B%F{cyan}%0d%f%b %F{yellow}>>%f '
+
+# copied from the arch wiki
 typeset -g -A key
 
 key[Home]="${terminfo[khome]}"
@@ -47,8 +69,6 @@ key[Shift-Tab]="${terminfo[kcbt]}"
 [[ -n "${key[PageDown]}"  ]] && bindkey -- "${key[PageDown]}"   end-of-buffer-or-history
 [[ -n "${key[Shift-Tab]}" ]] && bindkey -- "${key[Shift-Tab]}"  reverse-menu-complete
 
-# Finally, make sure the terminal is in application mode, when zle is
-# active. Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	autoload -Uz add-zle-hook-widget
 	function zle_application_mode_start { echoti smkx }
@@ -56,7 +76,3 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
-
-# source my shell aliases
-
-[ -f "$HOME/code/dotfiles/shell/aliasrc" ] && source "$HOME/code/dotfiles/shell/aliasrc"

@@ -53,8 +53,8 @@
 
 (setq
 
- ispell-program-name "hunspell"
- ispell-local-dictionary "en_GB"
+ ispell-program-name "aspell"
+ ispell-local-dictionary "british-ise"
  org-directory "~/notes"
 
  auto-save-default nil

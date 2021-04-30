@@ -88,7 +88,7 @@ myEditor = "emacsclient -c -a 'emacs' "
 -- myEditor = myTerminal ++ " -e nvim "
 
 myBorderWidth :: Dimension
-myBorderWidth = 1
+myBorderWidth = 2
 
 myNormColor :: String
 myNormColor   = "#282c34"

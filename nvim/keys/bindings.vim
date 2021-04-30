@@ -5,12 +5,11 @@ nnoremap <Space> <NOP>
 
 nnoremap <leader>t :Texplore<return>
 nnoremap <leader>p :vs \| ter<return>A
-nnoremap <leader>ff :NERDTreeFocus<CR>
-nnoremap <leader>ft :NERDTreeToggle<CR>
+nnoremap <leader>ft :Vex <CR>
 nnoremap <leader>l :set number!<CR>
 nnoremap <leader>r :set relativenumber!<CR>
 nnoremap <leader>% :source %<CR>
-"inoremap ii <esc>
+inoremap ii <esc>
 nnoremap <leader>wh <C-w>h
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k

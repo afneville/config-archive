@@ -11,6 +11,8 @@ alias volume='alsamixer'
 alias nm='nm-connection-editor'
 alias off="doas poweroff"
 alias restart="doas reboot now"
+alias server="ssh alex@192.168.1.19"
+alias aliases="nvim ~/code/dotfiles/shell/aliasrc"
 
 # Fun
 alias hello="echo hi"

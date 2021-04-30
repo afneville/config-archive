@@ -12,5 +12,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'joshdick/onedark.vim'
 " Vimwiki
 Plug 'vimwiki/vimwiki'
+Plug 'tomasiser/vim-code-dark'
 
 call plug#end()

@@ -2,7 +2,7 @@ let g:NERDTreeMinimalUI = v:true
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
-source $HOME/.config/nvim/vim-plug/coc.vim
+source $HOME/.config/nvim/vim_plug/coc.vim
 
 let g:coc_global_extensions = [
     \ 'coc-snippets',
