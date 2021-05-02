@@ -27,8 +27,6 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
-
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
@@ -37,21 +35,21 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 emacs --daemon &
-hsetroot -solid "#334050"
+#hsetroot -solid "#334050"
 #nitrogen --restore
-picom -m 1 &
-xrandr_script.sh
+#picom -m 1 &
+#xrandr_script.sh
 xsetroot -name " $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
-xfce4-power-manager &
+#xfce4-power-manager &
 
 #exec qtile
-exec xmonad
+#exec xmonad
 #exec dwm
 #exec awesome
 
-#export DESKTOP_SESSION=plasma 
-#exec startplasma-x11
+export DESKTOP_SESSION=plasma 
+exec startplasma-x11
 
 #export XDG_SESSION_TYPE=x11
 #export GDK_BACKEND=x11

@@ -16,7 +16,7 @@ I would really reccomend doom emacs, simply because it is very well optimized an
 
 ** Window Managers
 
-I have configured a few X window managers a little bit, including: xmonad, qtile and awesome. i also have a dwm 'configuration' in another repository.
+I have configured a few X window managers a little bit, including: xmonad, qtile and awesome. I also have a dwm 'configuration' in another repository.
 
 ** Vim/Neovim
 
@@ -24,7 +24,7 @@ I followed some tutorials on the internet to create a Neovim configuration inclu
 
 ** Shell
 
-I use a few aliases in bash which i keep in =.bashrc=. I would like to try zsh at some point.
+I use a few aliases in shell which i keep in =aliasrc=. These are sourced in both my bash and zsh config. 
 
 ** Apache
 
@@ -32,5 +32,4 @@ It can save time to keep this configured httpd (apache) config for arch linux
 
 ** Misc
 
-I also have some other files which I like to keep including terminal emulator (alacritty) config.
-Other files include thinds like =.xinitrc= and =.Xresources=, not very exciting.
+Other files include things like =.xinitrc= and =.Xresources=, not very exciting.
