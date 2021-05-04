@@ -85,16 +85,16 @@ myEmacs = "emacsclient -c -a 'emacs' "
 
 myEditor :: String
 myEditor = "emacsclient -c -a 'emacs' "
--- myEditor = myTerminal ++ " -e nvim "
+-- myEditor = myTerminal ++ " -e nvim " -- if you want to use neovim etc.
 
 myBorderWidth :: Dimension
-myBorderWidth = 2
+myBorderWidth = 1
 
 myNormColor :: String
-myNormColor   = "#282c34"
+myNormColor   = "#555555"
 
 myFocusColor :: String
-myFocusColor  = "#46d9ff"
+myFocusColor  = "#82AAFF"
 
 altMask :: KeyMask
 altMask = mod1Mask
@@ -178,7 +178,7 @@ tall     = renamed [Replace "tall"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 5
+           $ mySpacing 0
            $ ResizableTall 1 (3/100) (1/2) []
 -- magnify  = renamed [Replace "magnify"]
 --            $ windowNavigation
@@ -198,7 +198,7 @@ monocle  = renamed [Replace "monocle"]
 
 full     = renamed [Replace "full"]
            $ windowNavigation
-           $ mySpacing 5
+           $ mySpacing 0
            $ limitWindows 20 Full
 -- floats   = renamed [Replace "floats"] $ windowNavigation
 --            $ smartBorders
@@ -272,7 +272,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange
                                  ||| tabs
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = ["dev1", "dev2", "www", "doc", "sys"]
+myWorkspaces = ["dev1", "dev2", "www", "chat", "doc", "sys"]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -285,6 +285,7 @@ myManageHook = composeAll
      -- Browsers go to workspace 3 (www), except qutebrowser which can be summoned on any workspace.
      , className =? "Brave-browser" --> doShift ( myWorkspaces !! 2 )
      , className =? "firefox" --> doShift ( myWorkspaces !! 2 )
+     , className =? "discord" --> doShift ( myWorkspaces !! 3 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -310,8 +311,14 @@ myKeys =
     -- Workspaces
         -- , ("M-.", nextScreen)  -- Switch focus to next monitor
         -- , ("M-,", prevScreen)  -- Switch focus to prev monitor
-        , ("M-S-n", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-        , ("M-S-p", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+        , ("M-S-<Down>", shiftTo Next nonNSP >> moveTo Next nonNSP)
+        , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP)
+        , ("M-S-<Up>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
+        , ("M-S-<Left>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
+        , ("M-<Down>", moveTo Next nonNSP)
+        , ("M-<Right>", moveTo Next nonNSP)
+        , ("M-<Up>", moveTo Prev nonNSP)
+        , ("M-<Left>", moveTo Prev nonNSP)
 
     -- Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -319,18 +326,18 @@ myKeys =
         , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
 
     -- Increase/decrease spacing (gaps)
-        , ("M-d", decWindowSpacing 4)           -- Decrease window spacing
-        , ("M-i", incWindowSpacing 4)           -- Increase window spacing
-        , ("M-S-d", decScreenSpacing 4)         -- Decrease screen spacing
-        , ("M-S-i", incScreenSpacing 4)         -- Increase screen spacing
+        , ("M-d", decWindowSpacing 2 >> decScreenSpacing 2)
+        , ("M-i", incWindowSpacing 2 >> incScreenSpacing 2)
 
         , ("M-a", spawnSelected' myAppGrid)                 -- grid select favorite apps
         , ("M-<Tab>", goToSelected $ mygridConfig myColorizer)  -- goto selected window
         --, ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Windows navigation
+        , ("M-h", windows W.focusMaster)  -- Move focus to the master window
         , ("M-m", windows W.focusMaster)  -- Move focus to the master window
         , ("M-j", windows W.focusDown)    -- Move focus to the next window
+        , ("M-l", windows W.focusDown)    -- Move focus to the next window
         , ("M-k", windows W.focusUp)      -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
         , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
@@ -370,7 +377,6 @@ myKeys =
         , ("M-M1-k", sendMessage MirrorExpand)          -- Exoand vert window width
     -- Scratchpads
         , ("M-r", namedScratchpadAction myScratchPads "terminal")
-
 
     -- emacs bindings
         , ("C-e e", spawn "emacs --daemon")

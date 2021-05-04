@@ -182,21 +182,20 @@
 
 (require 'lsp-mode)
 
-;; (setq
+(setq
 
-;;  lsp-headerline-breadcrumb-enable nil
-;;  lsp-ui-doc-mode 0
-;;  lsp-diagnostics-provider :none
-;;  lsp-signature-auto-activate nil
-;;  lsp-signature-render-documentation nil
-;;  lsp-modeline-code-actions-enable nil
-;;  lsp-modeline-diagnostics-enable nil
-;;  lsp-log-io nil
-;;  lsp-restart 'auto-restart
-;;  lsp-enable-snippet nil
-;;  company-lsp-enable-snippet nil
+ lsp-headerline-breadcrumb-enable nil lsp-ui-doc-mode 0
+ lsp-diagnostics-provider :none
+ lsp-signature-auto-activate nil
+ lsp-signature-render-documentation nil
+ lsp-modeline-code-actions-enable nil
+ lsp-modeline-diagnostics-enable nil
+ lsp-log-io nil
+ lsp-restart 'auto-restart
+ lsp-enable-snippet nil
+ company-lsp-enable-snippet nil
 
-;; )
+)
 
 ;; (use-package lsp-mode
 ;;   :commands (lsp lsp-deferred)
@@ -218,8 +217,8 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
   ; this line is for tab and go completion
-  ;(company-tng-configure-default))
-  )
+  (company-tng-configure-default))
+
 
 (with-eval-after-load 'company
    ; also use my prefered keys for selection

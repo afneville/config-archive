@@ -36,20 +36,21 @@ fi
 
 emacs --daemon &
 #hsetroot -solid "#334050"
-#nitrogen --restore
+nitrogen --restore
 #picom -m 1 &
+picom --experimental-backends &
 #xrandr_script.sh
 xsetroot -name " $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
-#xfce4-power-manager &
+xfce4-power-manager &
 
 #exec qtile
-#exec xmonad
+exec xmonad
 #exec dwm
 #exec awesome
 
-export DESKTOP_SESSION=plasma 
-exec startplasma-x11
+#export DESKTOP_SESSION=plasma 
+#exec startplasma-x11
 
 #export XDG_SESSION_TYPE=x11
 #export GDK_BACKEND=x11

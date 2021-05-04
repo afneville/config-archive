@@ -3,7 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
 " File Explorer
-Plug 'scrooloose/NERDTree'
+" Plug 'scrooloose/NERDTree'
 " Auto pairs for '(' '[' '{'
 Plug 'jiangmiao/auto-pairs'
 " For language specific completion

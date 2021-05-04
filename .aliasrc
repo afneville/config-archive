@@ -1,7 +1,7 @@
 # General:
 alias grep='grep --color=auto'
 alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
-alias ls='/usr/bin/exa -1a --group-directories-first'
+alias ls='/usr/bin/exa --group-directories-first'
 alias lsl='/usr/bin/exa -lag --group-directories-first'
 alias tree='/usr/bin/exa -T'
 alias ..='cd ..'
@@ -13,15 +13,11 @@ alias off="doas poweroff"
 alias restart="doas reboot now"
 alias server="ssh alex@192.168.1.19"
 alias aliases="nvim ~/code/dotfiles/shell/aliasrc"
+alias top="htop"
 
 # Fun
-alias hello="echo hi"
+alias hello="figlet hi"
 alias say="figlet"
-
-# I have trouble with "clear"
-alias cleaer="clear"
-alias cler="clear"
-alias claer="clear"
 
 # Safe Commands:
 #alias rm="rm -i"
@@ -43,6 +39,7 @@ alias g="git"
 alias p="python3"
 alias s="systemctl"
 alias v="nvim"
+alias t="htop"
 
 # Git
 alias clone="git clone"

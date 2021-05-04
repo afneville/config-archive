@@ -8,7 +8,7 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # source my shell aliases
-[ -f "$HOME/code/dotfiles/shell/aliasrc" ] && source "$HOME/code/dotfiles/shell/aliasrc"
+[ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 
 # different cursor in different shell modes
 function zle-keymap-select () {
