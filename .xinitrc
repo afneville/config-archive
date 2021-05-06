@@ -36,13 +36,13 @@ fi
 
 emacs --daemon &
 #hsetroot -solid "#334050"
-nitrogen --restore
 #picom -m 1 &
 picom --experimental-backends &
-#xrandr_script.sh
+xrandr_script.sh
+nitrogen --restore
 xsetroot -name " $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
-xfce4-power-manager &
+#xfce4-power-manager &
 
 #exec qtile
 exec xmonad

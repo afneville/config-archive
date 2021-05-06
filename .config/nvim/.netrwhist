@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/alex/code/scripts'
+let g:netrw_dirhist_7='/home/alex/code/dotfiles/.config/nvim'
 let g:netrw_dirhist_6='/home/alex/code/dotfiles/.config/nvim/vim_plug'
 let g:netrw_dirhist_5='/home/alex/code/dotfiles/.config/nvim'
 let g:netrw_dirhist_4='/home/alex'
@@ -8,5 +10,3 @@ let g:netrw_dirhist_2='/home/alex/.config/nvim/general'
 let g:netrw_dirhist_1='/home/alex/.config/nvim'
 let g:netrw_dirhist_0='/home/alex/.config/alacritty'
 let g:netrw_dirhist_9='/home/alex/.config'
-let g:netrw_dirhist_8='/home/alex/code/nea/neural_network'
-let g:netrw_dirhist_7='/home/alex/code/dotfiles/.config/nvim/themes'
