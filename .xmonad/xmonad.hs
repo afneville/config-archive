@@ -90,11 +90,11 @@ myEditor = "emacsclient -c -a 'emacs' "
 myBorderWidth :: Dimension
 myBorderWidth = 1
 
-myNormColor :: String
-myNormColor   = "#555555"
+myNormColour :: String
+myNormColour   = "#555555"
 
-myFocusColor :: String
-myFocusColor  = "#82AAFF"
+myFocusColour :: String
+myFocusColour  = "#82AAFF"
 
 altMask :: KeyMask
 altMask = mod1Mask
@@ -139,11 +139,11 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 
 myAppGrid = [
                    ("Terminal", "alacritty")
-                 , ("G-terminal", "gnome-terminal")
+                 , ("G-Terminal", "gnome-terminal")
                  , ("EmacsClient", "emacsclient -c -a emacs")
                  , ("Emacs", "emacs")
                  , ("Neovim", "alacritty -e nvim")
-                 , ("Top", "alacritty -e top")
+                 , ("Htop", "alacritty -e htop")
                  , ("Brave", "brave")
                  , ("Firefox", "firefox")
                  , ("Qutebrowser", "qutebrowser")
@@ -298,11 +298,14 @@ myKeys =
         , ("M-S-q", io exitSuccess)
         , ("M-b", spawn "killall xmobar")
 
-        , ("M-p", spawn "rofi -show run")
+        -- , ("M-p", spawn "rofi -show run")
+        , ("M-p", spawn "dmenu_run -i -p \"Launch\"")
+        , ("M-C-p c", spawn "edit_config.sh")
+        , ("M-C-p p", spawn "open_project.sh")
 
         , ("M-<Return>", spawn (myTerminal))
         , ("M-s", spawn (myBrowser))
-        , ("M-e", spawn (myEmacs))
+        , ("M-g", spawn ("screenshot.sh"))
 
     -- Kill windows
         , ("M-c", kill1)     -- Kill the currently focused client
@@ -379,11 +382,12 @@ myKeys =
         , ("M-r", namedScratchpadAction myScratchPads "terminal")
 
     -- emacs bindings
-        , ("C-e e", spawn "emacs --daemon")
-        , ("C-e k", spawn "killall emacs")
-        , ("C-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
-        , ("C-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
-        , ("C-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
+        , ("M-e e", spawn (myEmacs))
+        , ("M-e b", spawn "emacs --daemon")
+        , ("M-e k", spawn "killall emacs")
+        , ("M-e i", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
+        , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
+        , ("M-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
 
     -- Multimedia Keys
         , ("<XF86AudioMute>",   spawn "amixer set Master toggle")
@@ -418,8 +422,8 @@ main = do
         , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
-        , normalBorderColor  = myNormColor
-        , focusedBorderColor = myFocusColor
+        , normalBorderColor  = myNormColour
+        , focusedBorderColor = myFocusColour
         , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
               -- the following variables beginning with 'pp' are settings for xmobar.
               { ppOutput = \x -> hPutStrLn xmproc x                          -- xmobar on monitor 1

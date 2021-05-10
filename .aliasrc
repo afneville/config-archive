@@ -12,8 +12,9 @@ alias nm='nm-connection-editor'
 alias off="doas poweroff"
 alias restart="doas reboot now"
 alias server="ssh alex@192.168.1.19"
-alias aliases="nvim ~/code/dotfiles/shell/aliasrc"
+alias aliases="nvim ~/.aliasrc"
 alias top="htop"
+alias x="startx"
 
 # Fun
 alias hello="figlet hi"
@@ -24,7 +25,6 @@ alias say="figlet"
 #alias mv="mv -i"
 #alias vim="nvim"
 
-
 # Directories:
 alias web="cd /srv/http/"
 alias code="cd ~/code/"
@@ -32,6 +32,7 @@ alias config="cd ~/code/dotfiles"
 alias dwm="cd ~/code/suckless_tools/dwm"
 alias test="cd /sandbox/"
 alias nea="cd ~/code/nea"
+alias opt="cd /opt"
 # shopt -s autocd
 
 # Utilities
@@ -40,6 +41,7 @@ alias p="python3"
 alias s="systemctl"
 alias v="nvim"
 alias t="htop"
+alias c="clear"
 
 # Git
 alias clone="git clone"

@@ -29,7 +29,7 @@
 (package! git-gutter :disable t)
 (package! lsp-ui :disable t)
 (package! saveplace :disable t)
-(package! org-bullets)
+;; (package! org-bullets)
 (package! lsp-jedi)
 (package! mixed-pitch)
 (package! spacemacs-theme)

@@ -1,8 +1,7 @@
 Config { 
 
-     font =         "xft:Ubuntu Mono:size=13:antialias=true",
-     additionalFonts= ["xft:FontAwesome:pixelsize=15",
-                       "xft:all-the-icons:pixelsize=18"]
+     font =         "xft:Ubuntu Mono:size=14:antialias=true",
+     additionalFonts= ["xft:FontAwesome:pixelsize=16"]
      --bgColor =      "#222222",
      bgColor =      "#282c34",
      fgColor =      "#bbbbbb",
@@ -45,7 +44,7 @@ Config {
 
         ],
 
-     template = " %StdinReader%}{ %date% | %battery% "
-     -- template = " <icon=haskell.xpm/> %StdinReader%}{ %date% | %battery% "
+     -- template = " %StdinReader%}{ %date% | %battery% "
+     template = " <icon=haskell.xpm/> %StdinReader%}{ %date% | %battery% "
      -- template = " <icon=haskell.xpm/> }{ %date% | %battery% "
 }

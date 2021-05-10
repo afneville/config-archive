@@ -3,6 +3,10 @@ adobe-source-code-pro-fonts
 alacritty
 alsa-utils
 amd-ucode
+arc-gtk-theme
+arc-icon-theme
+aspell
+aspell-en
 autoconf
 automake
 awesome
@@ -39,11 +43,13 @@ m4
 make
 mariadb
 mlocate
+nasm
 neofetch
 neovim
 net-tools
 networkmanager
 nitrogen
+nm-connection-editor
 npm
 openssh
 patch
@@ -54,6 +60,7 @@ pulseaudio
 python-pip
 qt5ct
 qtile
+qutebrowser
 rofi
 sudo
 terminus-font
