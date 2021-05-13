@@ -37,7 +37,7 @@ fi
 emacs --daemon &
 #hsetroot -solid "#334050"
 #picom -m 1 &
-picom --experimental-backends &
+#picom --experimental-backends &
 xrandr_script.sh
 nitrogen --restore
 xsetroot -name " $(whoami) @ $(hostname) "

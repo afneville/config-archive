@@ -1,6 +1,7 @@
-personal_ws-1.1 en 70 
+personal_ws-1.1 en 86 
 ALU
 AQA
+AUR
 Barcodes
 CCD
 CFM
@@ -10,6 +11,7 @@ DAC
 EAN
 EJ
 FDE
+GTK
 IC
 IPv
 JVM
@@ -36,7 +38,9 @@ UTF
 Un
 Vernam
 Von
+Xorg
 ZF
+ZSH
 abc
 barcode
 barcodes
@@ -44,6 +48,7 @@ bitwise
 bytecode
 chr
 ciphertext
+cli
 decrypt
 decrypted
 dir
@@ -51,17 +56,24 @@ distributable
 dll
 eg
 fuser
+gui
+hsetroot
 init
 inkjet
 instantiation
 iterable
 lengthways
 lossy
+lxapperaance
 mariadb
 mro
 mysql
 nf
+nm
+nmcli
+nmtui
 ord
+pcspkr
 performant
 pre
 pseudocode
@@ -69,3 +81,7 @@ py
 str
 substring
 vectorised
+xinit
+xodotool
+xorg
+zsh

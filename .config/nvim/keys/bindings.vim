@@ -5,11 +5,12 @@ nnoremap <Space> <NOP>
 
 nnoremap <leader>t :Texplore<return>
 nnoremap <leader>p :vs \| ter<return>A
-nnoremap <leader>ft :Vex <CR>
+" nnoremap <leader>ft :Vex <CR>
+nnoremap <leader>ft :NERDTreeToggle <CR>
 nnoremap <leader>l :set number!<CR>
 nnoremap <leader>r :set relativenumber!<CR>
 nnoremap <leader>% :source %<CR>
-inoremap ii <esc>
+" inoremap ii <esc>
 nnoremap <leader>wh <C-w>h
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
@@ -34,3 +35,7 @@ nnoremap <M-j>    :resize -2<CR>
 nnoremap <M-k>    :resize +2<CR>
 nnoremap <M-h>    :vertical resize -2<CR>
 nnoremap <M-l>    :vertical resize +2<CR>
+
+" Completion
+
+nnoremap <silent><leader>gd :YcmCompleter GoTo<CR>

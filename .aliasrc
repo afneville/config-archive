@@ -15,6 +15,7 @@ alias server="ssh alex@192.168.1.19"
 alias aliases="nvim ~/.aliasrc"
 alias top="htop"
 alias x="startx"
+alias merge="xrdb -merge ~/.Xresources"
 
 # Fun
 alias hello="figlet hi"

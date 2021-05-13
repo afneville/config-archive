@@ -337,17 +337,17 @@ myKeys =
         --, ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Windows navigation
-        , ("M-h", windows W.focusMaster)  -- Move focus to the master window
-        , ("M-m", windows W.focusMaster)  -- Move focus to the master window
-        , ("M-j", windows W.focusDown)    -- Move focus to the next window
-        , ("M-l", windows W.focusDown)    -- Move focus to the next window
-        , ("M-k", windows W.focusUp)      -- Move focus to the prev window
-        , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
-        , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
-        , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window
-        , ("M-<Backspace>", promote)      -- Moves focused window to master, others maintain order
-        , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
-        , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
+        , ("M-h", windows W.focusMaster)
+        , ("M-m", windows W.focusMaster)
+        , ("M-j", windows W.focusDown)
+        , ("M-l", windows W.focusDown)
+        , ("M-k", windows W.focusUp)
+        , ("M-S-m", windows W.swapMaster)
+        , ("M-S-j", windows W.swapDown)
+        , ("M-S-k", windows W.swapUp)
+        , ("M-<Backspace>", promote)
+        , ("M-S-<Tab>", rotSlavesDown)
+        , ("M-C-<Tab>", rotAllDown)
 
     -- Layouts
         , ("M-S-<Space>", sendMessage NextLayout)           -- Switch to next layout
@@ -415,7 +415,7 @@ main = do
                                <+> serverModeEventHook
                                <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
                                <+> docksEventHook
-                               -- <+> fullscreenEventHook  -- this does NOT work right if using multi-monitors!
+                               -- <+> fullscreenEventHook
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
@@ -427,9 +427,9 @@ main = do
         , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
               -- the following variables beginning with 'pp' are settings for xmobar.
               { ppOutput = \x -> hPutStrLn xmproc x                          -- xmobar on monitor 1
-              , ppCurrent = xmobarColor "#98be65" ""            -- Current workspace
+              , ppCurrent = xmobarColor "#82AAFF" "" . wrap "[" "]"            -- Current workspace
               , ppVisible = xmobarColor "#98be65" ""              -- Visible but not current workspace
-              , ppHidden = xmobarColor "#82AAFF" "" . wrap "" "" -- Hidden workspaces
+              , ppHidden = xmobarColor "#98be65" "" . wrap "" "" -- Hidden workspaces
               , ppHiddenNoWindows = xmobarColor "#c792ea" ""     -- Hidden workspaces (no windows)
               , ppTitle = xmobarColor "#b3afc2" "" . shorten 0               -- Title of active window
               , ppSep =  "<fc=#666666> | </fc>"                    -- Separator character

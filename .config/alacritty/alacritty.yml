@@ -1397,7 +1397,7 @@ schemes:
       cyan:    '0x00ffff'
       white:   '0xffffff'
 
-colors: *dracula
+colors: *nord
 
 
 

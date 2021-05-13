@@ -33,3 +33,4 @@ It can save time to keep this configured httpd (apache) config for arch linux
 ** Misc
 
 Other files include things like =.xinitrc= and =.Xresources=, not very exciting.
+

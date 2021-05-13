@@ -130,11 +130,11 @@
   (setq org-hide-emphasis-markers t)
   (setq org-agenda-files '("~/notes/agenda.org")))
 
-;; (use-package org-bullets
-;;  :after org
-;;  :hook (org-mode . org-bullets-mode)
-;;  :custom
-;;  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(use-package org-bullets
+ :after org
+ :hook (org-mode . org-bullets-mode)
+ :custom
+ (org-bullets-bullet-list '( "●" "✿" "○" "●" "●" "●")))
 
 (use-package! mixed-pitch
    :hook (org-mode . mixed-pitch-mode)
