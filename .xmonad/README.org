@@ -7,50 +7,90 @@ These are my key bindings for Xmonad, inspired by vi keys.
 A /"M"/ represents the windows or super key. /"M1"/ is the /alt/ key. /"S"/ is the shift key and /"C"/ is the control key. If two or more keys are joined by a "-" that means they must be held at the same time. If there is a space between letters, it is  a keychord and the keys should be released and the next one pressed.
 
 
-* Regular Keybindings
+* Xmonad Keybindings
 
 *M-q* reload xmonad if you change the config file
+
 *M-S-q* exit xmonad
 
+* Applications
+
 *M-p* dmenu or other run prompt
+
 *M-<Return>* terminal (alacritty in my case)
+
 *M-r* show/hide a terminal scratchpad on any workspace
 
+* Workspaces
+
 *M-[1,... x]* use the number keys to switch to corresponding workspace
+
 *M-<Down>* switch to workspace below/to the right
+
 *M-<Right>* switch to workspace below/to the right
+
 *M-<Left>* switch to workspace above/to the left
+
 *M-<Up>* switch to workspace above/to the left
 
+
 *M-S-[1,..x]* move current window to corresponding workspace
+
 *M-S-<Down>* move current window downward/to the right
+
 *M-S-<Right>* move current window downward/to the right
+
 *M-S-<Up>* move current window upward/to the left
+
 *M-S-<Left>* move current window upward/to the left
 
+* Window Management
+
 *M-j* shift focus downward (this cycles around clockwise)
+
 *M-k* shift focus upward (this cycles around anti-clockwise)
+
 *M-l* same as /M-k/, used to make WM behave like vim
+
 *M-h* return focus to the master pane on the left
+
 *M-m* return focus to the master pane on the left
 
+
 *M-S-j* swap the current window with the one below
+
 *M-S-k* swap the current window with the one above
+
 *M-S-m* swap the current window with the master window
 
-*M-C-j* combine with window below into tabs
-*M-C-k* combine with window above into tabs
-*M-.* cycle forward through tabs
-*M-,* cycle backward through tabs
-*M-C-/* unmerge all tabs
 
 *M-c* close window with focus
+
 *M-S-c* close all windows in workspace
 
+* Tabs
+
+*M-C-j* combine with window below into tabs
+
+*M-C-k* combine with window above into tabs
+
+*M-.* cycle forward through tabs
+
+*M-,* cycle backward through tabs
+
+*M-C-/* unmerge all tabs
+
+
+* Quality of Life
+
 *M-n* toggle borders around windows
+
 *M-<Space>* completely full screen the current window or exit fullscreen mode
+
 *M-S-<Space>* cycle through layouts
+
 *M-b* kill the bar if it is annoying you (/M-q/ will bring it back)
+
 
 * Using the Mouse
 
