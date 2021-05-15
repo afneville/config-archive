@@ -849,7 +849,7 @@ schemes:
 
   nord: &nord
     primary:
-      background: '0x2E3440'
+      background: '0x394150'
       foreground: '0xD8DEE9'
     normal:
       black:   '0x3B4252'

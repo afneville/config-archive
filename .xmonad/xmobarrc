@@ -1,6 +1,6 @@
 Config { 
 
-     font =         "xft:Ubuntu Mono:size=14:antialias=true",
+     font =         "xft:Ubuntu:weight=bold:size=11:antialias=true",
      additionalFonts= ["xft:FontAwesome:pixelsize=16"]
      --bgColor =      "#222222",
      bgColor =      "#282c34",
@@ -39,12 +39,12 @@ Config {
                                          "-i"	, "<fn=1>\xf240</fn> <left>%"
                              ] 60,
 
-          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y | <fn=1>\xf017</fn> %T" "date" 10
+          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y  |  <fn=1>\xf017</fn> %T" "date" 10
 
 
         ],
 
      -- template = " %StdinReader%}{ %date% | %battery% "
-     template = " <icon=haskell.xpm/> %StdinReader%}{ %date% | %battery% "
+     template = " <icon=haskell.xpm/>  %StdinReader%}{ %date%  |  %battery%  "
      -- template = " <icon=haskell.xpm/> }{ %date% | %battery% "
 }

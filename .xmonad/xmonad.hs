@@ -272,7 +272,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange
                                  ||| tabs
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = ["dev1", "dev2", "www", "chat", "doc", "sys"]
+myWorkspaces = [" dev1 ", " dev2 ", " www ", " chat ", " doc ", " sys "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -286,6 +286,9 @@ myManageHook = composeAll
      , className =? "Brave-browser" --> doShift ( myWorkspaces !! 2 )
      , className =? "firefox" --> doShift ( myWorkspaces !! 2 )
      , className =? "discord" --> doShift ( myWorkspaces !! 3 )
+     , className =? "Nitrogen" --> doShift ( myWorkspaces !! 5 )
+     , className =? "Lxappearance" --> doShift ( myWorkspaces !! 5 )
+     , className =? "libreoffice-startcenter" --> doShift ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -432,7 +435,7 @@ main = do
               , ppHidden = xmobarColor "#98be65" "" . wrap "" "" -- Hidden workspaces
               , ppHiddenNoWindows = xmobarColor "#c792ea" ""     -- Hidden workspaces (no windows)
               , ppTitle = xmobarColor "#b3afc2" "" . shorten 0               -- Title of active window
-              , ppSep =  "<fc=#666666> | </fc>"                    -- Separator character
+              , ppSep =  "<fc=#666666>  |  </fc>"                    -- Separator character
               , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
               , ppExtras  = [windowCount]                                     -- # of windows current workspace
               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]                    -- order of things in xmobar

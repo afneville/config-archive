@@ -14,5 +14,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'tomasiser/vim-code-dark'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()

@@ -33,8 +33,8 @@
 (setq
 
  doom-font (font-spec :family "Roboto Mono" :weight 'regular :size 16 :height 1.0)
- doom-variable-pitch-font (font-spec :family "Roboto" :size 18 :height 1.5)
- doom-theme 'doom-one
+ doom-variable-pitch-font (font-spec :family "Robto" :size 18)
+ doom-theme 'doom-nord
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -53,6 +53,7 @@
 
 (setq
 
+ neo-theme 'icons
  ispell-program-name "aspell"
  ispell-local-dictionary "british-ise"
  org-directory "~/notes"
@@ -84,16 +85,16 @@
 ;; Add some margins to text and prog mode buffers
 
 
-(defun alex/set-up-text-mode ()
-  (setq left-margin-width 10)
-  (setq right-margin-width 10))
+;; (defun alex/set-up-text-mode ()
+;;   (setq left-margin-width 10)
+;;   (setq right-margin-width 10))
 
 ;; (defun alex/set-up-prog-mode ()
 ;;   (setq left-margin-width 2)
 ;;   (setq right-margin-width 2))
 
-(add-hook 'text-mode-hook 'alex/set-up-text-mode)
-;(add-hook 'prog-mode-hook 'alex/set-up-prog-mode)
+;; (add-hook 'text-mode-hook 'alex/set-up-text-mode)
+;; (add-hook 'prog-mode-hook 'alex/set-up-prog-mode)
 
 (custom-set-faces!
   '(font-lock-comment-face :slant italic))
@@ -118,9 +119,12 @@
 (defun alex/org-mode-setup ()
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+                             ;; (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "."))))))
   (org-indent-mode)
-  (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
+  (setq left-margin-width 10)
+  (setq right-margin-width 10)
+  ;(variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
 
 (use-package org
@@ -135,12 +139,12 @@
  :hook (org-mode . org-bullets-mode)
  :custom
  (org-bullets-bullet-list '( "●" "✿" "○" "●" "●" "●")))
-
+(setq org-ellipsis "↴")
 (use-package! mixed-pitch
    :hook (org-mode . mixed-pitch-mode)
    :config
    (setq mixed-pitch-set-heigth t)
-   (set-face-attribute 'variable-pitch nil :height 140))
+   (set-face-attribute 'variable-pitch nil :height 130))
 
 (after! org
 
@@ -175,7 +179,6 @@
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
   (when (file-directory-p "~/code")
     (setq projectile-project-search-path '("~/code")))
   (setq projectile-switch-project-action #'projectile-dired))
@@ -210,19 +213,23 @@
   :after lsp-mode
   :hook
   (lsp-mode . company-mode)
-  ;(lsp-mode . company-tng-mode)
+  ;; (lsp-mode . company-tng-mode)
   :config
   (setq company-selection-wrap-around t)
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
-  ; this line is for tab and go completion
+  ;; this line is for tab and go completion
   (company-tng-configure-default))
 
 
 (with-eval-after-load 'company
-   ; also use my prefered keys for selection
+   ;; also use my prefered keys for selection
    (define-key company-active-map (kbd "C-j") #'company-select-next)
    (define-key company-active-map (kbd "C-k") #'company-select-previous))
 
-;;(add-hook 'python-mode-hook 'lsp-deferred)
+;; (add-hook 'python-mode-hook 'lsp-deferred)
+(add-hook 'html-mode-hook 'web-mode)
+
+;(after! persp-mode
+;  (setq persp-emacsclient-init-frame-behaviour-override "main"))

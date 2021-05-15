@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(doom-themes-neotree-file-icons 'icons)
  '(ispell-dictionary "british-ise")
  '(ispell-personal-dictionary "/home/alex/british-ise.pws")
  '(mixed-pitch-set-height t)
