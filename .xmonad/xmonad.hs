@@ -91,10 +91,10 @@ myBorderWidth :: Dimension
 myBorderWidth = 1
 
 myNormColour :: String
-myNormColour   = "#555555"
+myNormColour   = "#3B4252"
 
 myFocusColour :: String
-myFocusColour  = "#82AAFF"
+myFocusColour  = "#81A1C1"
 
 altMask :: KeyMask
 altMask = mod1Mask
@@ -302,7 +302,7 @@ myKeys =
         , ("M-b", spawn "killall xmobar")
 
         -- , ("M-p", spawn "rofi -show run")
-        , ("M-p", spawn "dmenu_run -i -p \"Launch\"")
+        , ("M-p", spawn "dmenu_run -i -p \"Launch:\"")
         , ("M-C-p c", spawn "edit_config.sh")
         , ("M-C-p p", spawn "open_project.sh")
 

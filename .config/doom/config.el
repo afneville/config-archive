@@ -33,7 +33,7 @@
 (setq
 
  doom-font (font-spec :family "Roboto Mono" :weight 'regular :size 16 :height 1.0)
- doom-variable-pitch-font (font-spec :family "Robto" :size 18)
+ doom-variable-pitch-font (font-spec :family "Roboto" :weight 'regular :size 18 :height 1.5)
  doom-theme 'doom-nord
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -140,6 +140,7 @@
  :custom
  (org-bullets-bullet-list '( "●" "✿" "○" "●" "●" "●")))
 (setq org-ellipsis "↴")
+
 (use-package! mixed-pitch
    :hook (org-mode . mixed-pitch-mode)
    :config
