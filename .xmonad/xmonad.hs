@@ -279,13 +279,14 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      [ className =? "confirm"         --> doFloat
      , className =? "file_progress"   --> doFloat
-     , className =? "dialog"          --> doFloat
-     , className =? "download"        --> doFloat
+     -- , className =? "dialog"          --> doFloat
+     -- , className =? "download"        --> doFloat
      , className =? "notification"    --> doFloat
      -- Browsers go to workspace 3 (www), except qutebrowser which can be summoned on any workspace.
      , className =? "Brave-browser" --> doShift ( myWorkspaces !! 2 )
      , className =? "firefox" --> doShift ( myWorkspaces !! 2 )
      , className =? "discord" --> doShift ( myWorkspaces !! 3 )
+     , className =? "Nitrogen" --> doFloat
      , className =? "Nitrogen" --> doShift ( myWorkspaces !! 5 )
      , className =? "Lxappearance" --> doShift ( myWorkspaces !! 5 )
      , className =? "libreoffice-startcenter" --> doShift ( myWorkspaces !! 4 )
