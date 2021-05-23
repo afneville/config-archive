@@ -38,4 +38,5 @@ nnoremap <M-l>    :vertical resize +2<CR>
 
 " Completion
 
-nnoremap <silent><leader>gd :YcmCompleter GoTo<CR>
+" nnoremap <silent><leader>gd :YcmCompleter GoTo<CR>
+nnoremap gd :YcmCompleter GoTo<CR>

@@ -91,21 +91,21 @@ window:
 #set clipboard^=unnamed,unnamedplus
 font:
   normal:
-    family: Roboto Mono
+    family: Hack
     style: Regular
 
   bold:
-    family: Roboto Mono
+    family: Hack
     style: Bold
 
   italic:
-    family: Roboto Mono
+    family: Hack
     style: Italic
 
   bold_italic:
-    family: Roboto Mono
+    family: Hack
     style: Bold Italic
-  size: 13.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -451,7 +451,7 @@ schemes:
 
   doom_one: &doom_one
     primary:
-      background: '0x282c34'
+      background: '0x323741'
       foreground: '0xbbc2cf'
     normal:
       black:   '0x282c34'
@@ -1397,7 +1397,7 @@ schemes:
       cyan:    '0x00ffff'
       white:   '0xffffff'
 
-colors: *nord
+colors: *dracula
 
 
 

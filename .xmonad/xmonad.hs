@@ -81,10 +81,10 @@ myBrowser :: String
 myBrowser = "brave"
 
 myEmacs :: String
-myEmacs = "emacsclient -c -a 'emacs' "
+myEmacs = "emacsclient -c "
 
 myEditor :: String
-myEditor = "emacsclient -c -a 'emacs' "
+myEditor = "emacsclient -c "
 -- myEditor = myTerminal ++ " -e nvim " -- if you want to use neovim etc.
 
 myBorderWidth :: Dimension
@@ -140,7 +140,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 myAppGrid = [
                    ("Terminal", "alacritty")
                  , ("G-Terminal", "gnome-terminal")
-                 , ("EmacsClient", "emacsclient -c -a emacs")
+                 , ("EmacsClient", "emacsclient -c ")
                  , ("Emacs", "emacs")
                  , ("Neovim", "alacritty -e nvim")
                  , ("Htop", "alacritty -e htop")
@@ -301,18 +301,27 @@ myKeys =
         , ("M-S-q", io exitSuccess)
         , ("M-b", spawn "killall xmobar")
 
+      -- Spawn applications
         -- , ("M-p", spawn "rofi -show run")
         , ("M-p", spawn "dmenu_run -i -p \"Launch:\"")
-        , ("M-C-p c", spawn "edit_config.sh")
-        , ("M-C-p p", spawn "open_project.sh")
+        , ("M1-p c", spawn "edit_config.sh")
+        , ("M1-p p", spawn "open_project.sh")
+
+        , ("M1-s p", spawn "picom --experimental-backends &")
+        , ("M1-s b", spawn "xmobar /home/alex/.xmonad/xmobarrc")
 
         , ("M-<Return>", spawn (myTerminal))
         , ("M-s", spawn (myBrowser))
         , ("M-g", spawn ("screenshot.sh"))
+        , ("M-S-g", spawn ("screenshot.sh save"))
 
-    -- Kill windows
+    -- Kill things
         , ("M-c", kill1)     -- Kill the currently focused client
         , ("M-S-c", killAll)   -- Kill all windows on current workspace
+
+        , ("M1-k x", spawn "xkill" )
+        , ("M1-k p", spawn "killall picom" )
+        , ("M1-k b", spawn "killall xmobar" )
 
     -- Workspaces
         -- , ("M-.", nextScreen)  -- Switch focus to next monitor
@@ -385,12 +394,12 @@ myKeys =
         , ("M-r", namedScratchpadAction myScratchPads "terminal")
 
     -- emacs bindings
-        , ("M-e e", spawn (myEmacs))
-        , ("M-e b", spawn "emacs --daemon")
-        , ("M-e k", spawn "killall emacs")
-        , ("M-e i", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
-        , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
-        , ("M-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
+        , ("M-e", spawn (myEmacs))
+        , ("M1-e b", spawn "emacs --daemon")
+        , ("M1-e k", spawn "killall emacs")
+        , ("M1-e i", spawn (myEmacs ++ ("--eval '(ibuffer)'")))
+        , ("M1-e d", spawn (myEmacs ++ ("--eval '(dired nil)'")))
+        , ("M1-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))
 
     -- Multimedia Keys
         , ("<XF86AudioMute>",   spawn "amixer set Master toggle")
@@ -422,7 +431,9 @@ main = do
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
-        , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
+        -- uncomment following line for message on workspace change
+        -- , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
+        , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColour

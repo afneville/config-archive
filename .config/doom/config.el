@@ -34,7 +34,7 @@
 
  doom-font (font-spec :family "Roboto Mono" :weight 'regular :size 16 :height 1.0)
  doom-variable-pitch-font (font-spec :family "Roboto" :weight 'regular :size 18 :height 1.5)
- doom-theme 'doom-nord
+ doom-theme 'doom-one
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -115,16 +115,19 @@
       "i j"   #'+evil/insert-newline-below)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
+(use-package evil
+  :config
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  )
 (defun alex/org-mode-setup ()
   (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             ;; (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "."))))))
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   (org-indent-mode)
   (setq left-margin-width 10)
   (setq right-margin-width 10)
-  ;(variable-pitch-mode 1) ;; If you want fancy variable width fonts.
+  ;; (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
 
 (use-package org
@@ -138,8 +141,9 @@
  :after org
  :hook (org-mode . org-bullets-mode)
  :custom
- (org-bullets-bullet-list '( "●" "✿" "○" "●" "●" "●")))
-(setq org-ellipsis "↴")
+ (org-bullets-bullet-list '( "◇" "✿" "●" "○" "●" "●")))
+
+;; (setq org-ellipsis "↴")
 
 (use-package! mixed-pitch
    :hook (org-mode . mixed-pitch-mode)
@@ -153,25 +157,25 @@
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  ;(custom-set-faces!
-  ;  '(org-document-title :height 1.3)
-  ;  '(org-level-1 :inherit outline-1 :weight semi-bold :height 1.3)
-  ;  '(org-level-2 :inherit outline-2 :weight semi-bold :height 1.2)
-  ;  '(org-level-3 :inherit outline-3 :weight semi-bold :height 1.1)
-  ;  '(org-level-4 :inherit outline-4 :weight semi-bold)
-  ;  '(org-level-5 :inherit outline-5 :weight semi-bold)
-  ;  '(org-level-6 :inherit outline-6 :weight semi-bold)
-  ;  '(org-level-7 :inherit outline-7 :weight semi-bold)
-  ;  '(org-level-8 :inherit outline-8 :weight semi-bold)
-  ;  ;; Ensure that anything that should be fixed-pitch in org buffers appears that way.
-  ;  '(org-block nil :foreground nil :inherit 'fixed-pitch)
-  ;  '(org-code nil   :inherit '(shadow fixed-pitch))
-  ;  '(org-table nil   :inherit '(shadow fixed-pitch))
-  ;  '(org-verbatim nil :inherit '(shadow fixed-pitch))
-  ;  '(org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  ;  '(org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  ;  '(org-checkbox nil :inherit 'fixed-pitch)))
-  )
+  (custom-set-faces!
+   '(org-document-title :height 1.3)
+   '(org-level-1 :inherit outline-1 :weight bold :height 1.2)
+   '(org-level-2 :inherit outline-2 :weight bold :height 1.15)
+   '(org-level-3 :inherit outline-3 :weight semi-bold :height 1.1)
+   '(org-level-4 :inherit outline-4 :weight semi-bold)
+   '(org-level-5 :inherit outline-5 :weight semi-bold)
+   '(org-level-6 :inherit outline-6 :weight semi-bold)
+   '(org-level-7 :inherit outline-7 :weight semi-bold)
+   '(org-level-8 :inherit outline-8 :weight semi-bold)
+   ;; Ensure that anything that should be fixed-pitch in org buffers appears that way.
+   '(org-block nil :foreground nil :inherit 'fixed-pitch)
+   '(org-code nil   :inherit '(shadow fixed-pitch))
+   '(org-table nil   :inherit '(shadow fixed-pitch))
+   '(org-verbatim nil :inherit '(shadow fixed-pitch))
+   '(org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+   '(org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+   '(org-checkbox nil :inherit 'fixed-pitch)))
+
 
 (use-package projectile
   :diminish projectile-mode
