@@ -106,6 +106,8 @@
       :desc "toggle line highlighting (current buffer)"
       "t h" #'hl-line-mode
       :desc "toggle line highlighting"
+      "t m" #'doom-modeline-mode
+      :desc "toggle modeline"
       "t H" #'global-hl-line-mode
       :desc "toggle treemacs"
       "f t" #'treemacs

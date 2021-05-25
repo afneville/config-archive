@@ -36,11 +36,11 @@ fi
 
 emacs --daemon &
 # picom -m 1 &
-picom --experimental-backends &
+#picom --experimental-backends &
 xrandr_script.sh
 # hsetroot -solid "#334050"
 # hsetroot -solid "#404552"
-nitrogen --restore
+ nitrogen --restore
 xsetroot -name " $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
 #xfce4-power-manager &

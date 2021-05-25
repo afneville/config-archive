@@ -271,8 +271,8 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange
                                  -- ||| noBorders tabs
                                  ||| tabs
 
--- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" dev1 ", " dev2 ", " www ", " chat ", " doc ", " sys "]
+myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+-- myWorkspaces = [" dev1 ", " dev2 ", " www ", " chat ", " doc ", " sys "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -284,12 +284,12 @@ myManageHook = composeAll
      , className =? "notification"    --> doFloat
      -- Browsers go to workspace 3 (www), except qutebrowser which can be summoned on any workspace.
      , className =? "Brave-browser" --> doShift ( myWorkspaces !! 2 )
-     , className =? "firefox" --> doShift ( myWorkspaces !! 2 )
-     , className =? "discord" --> doShift ( myWorkspaces !! 3 )
+     -- , className =? "firefox" --> doShift ( myWorkspaces !! 2 )
+     -- , className =? "discord" --> doShift ( myWorkspaces !! 3 )
      , className =? "Nitrogen" --> doFloat
-     , className =? "Nitrogen" --> doShift ( myWorkspaces !! 5 )
-     , className =? "Lxappearance" --> doShift ( myWorkspaces !! 5 )
-     , className =? "libreoffice-startcenter" --> doShift ( myWorkspaces !! 4 )
+     -- , className =? "Nitrogen" --> doShift ( myWorkspaces !! 5 )
+     -- , className =? "Lxappearance" --> doShift ( myWorkspaces !! 5 )
+     -- , className =? "libreoffice-startcenter" --> doShift ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -324,9 +324,10 @@ myKeys =
         , ("M1-k p", spawn "killall picom" )
         , ("M1-k b", spawn "killall xmobar" )
 
-    -- Workspaces
-        -- , ("M-.", nextScreen)  -- Switch focus to next monitor
-        -- , ("M-,", prevScreen)  -- Switch focus to prev monitor
+    -- movement between workspaces
+
+        -- , ("M-.", nextScreen)  -- next monitor
+        -- , ("M-,", prevScreen)  -- prev monitor
         , ("M-S-<Down>", shiftTo Next nonNSP >> moveTo Next nonNSP)
         , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP)
         , ("M-S-<Up>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
@@ -336,20 +337,12 @@ myKeys =
         , ("M-<Up>", moveTo Prev nonNSP)
         , ("M-<Left>", moveTo Prev nonNSP)
 
-    -- Floating windows
-        , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
-        , ("M-t", withFocused $ windows . W.sink)  -- Push floating window back to tile
-        , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
-
-    -- Increase/decrease spacing (gaps)
-        , ("M-d", decWindowSpacing 2 >> decScreenSpacing 2)
-        , ("M-i", incWindowSpacing 2 >> incScreenSpacing 2)
-
         , ("M-a", spawnSelected' myAppGrid)                 -- grid select favorite apps
         , ("M-<Tab>", goToSelected $ mygridConfig myColorizer)  -- goto selected window
         --, ("M-b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
-    -- Windows navigation
+    -- navigation within a workspace
+
         , ("M-h", windows W.focusMaster)
         , ("M-m", windows W.focusMaster)
         , ("M-j", windows W.focusDown)
@@ -362,20 +355,28 @@ myKeys =
         , ("M-S-<Tab>", rotSlavesDown)
         , ("M-C-<Tab>", rotAllDown)
 
-    -- Layouts
-        , ("M-S-<Space>", sendMessage NextLayout)           -- Switch to next layout
+    -- manipulate window arrangement
+
+        -- , ("M-f", sendMessage (T.Toggle "floats"))           -- floating layout
+        , ("M-t", withFocused $ windows . W.sink)               -- return window to the stack
+        , ("M-S-t", sinkAll)                                    -- return all windows to stack
+
+        , ("M-S-<Space>", sendMessage NextLayout)
         , ("M-C-M1-<Up>", sendMessage Arrange)
         , ("M-C-M1-<Down>", sendMessage DeArrange)
-        , ("M-n", sendMessage $ MT.Toggle NOBORDERS)  -- Toggles noborder
-        , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
-        , ("M-S-<Up>", sendMessage (IncMasterN 1))      -- Increase # of clients master pane
-        , ("M-S-<Down>", sendMessage (IncMasterN (-1))) -- Decrease # of clients master pane
-        , ("M-C-<Up>", increaseLimit)                   -- Increase # of windows
-        , ("M-C-<Down>", decreaseLimit)                 -- Decrease # of windows
+        , ("M-d", decWindowSpacing 2 >> decScreenSpacing 2)     -- increase gap size
+        , ("M-i", incWindowSpacing 2 >> incScreenSpacing 2)     -- decrease gap size
+        , ("M-n", sendMessage $ MT.Toggle NOBORDERS)            -- toggle window borders
+        , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- go fullscreen
 
-    -- Sublayouts
-    -- This is used to push windows to tabbed sublayouts, or pull them out of it.
+        , ("M-S-i", sendMessage (IncMasterN 1))         -- increase # of windows in master pane
+        , ("M-S-d", sendMessage (IncMasterN (-1)))      -- decrease # of windows in master pane
+        -- , ("M-C-<Up>", increaseLimit)                -- Increase # of windows on workspace
+        -- , ("M-C-<Down>", decreaseLimit)              -- Decrease # of windows on workspace
+
+    -- create and manipulate sub layouts
+
         , ("M-C-h", sendMessage $ pullGroup L)
         , ("M-C-l", sendMessage $ pullGroup R)
         , ("M-C-k", sendMessage $ pullGroup U)

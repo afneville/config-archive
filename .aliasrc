@@ -20,6 +20,7 @@ alias merge="xrdb -merge ~/.Xresources"
 # Fun
 alias hello="figlet hi"
 alias say="figlet"
+alias info="echo \"\" && pfetch && echo \"\""
 
 # Safe Commands:
 #alias rm="rm -i"

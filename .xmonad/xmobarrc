@@ -3,7 +3,7 @@ Config {
      font =         "xft:Ubuntu:weight=bold:size=11:antialias=true",
      additionalFonts= ["xft:FontAwesome:pixelsize=16"]
      --bgColor =      "#222222",
-     bgColor =      "#282c34",
+     bgColor =      "#282828",
      fgColor =      "#bbbbbb",
      position =     Top,
      border =       BottomB,

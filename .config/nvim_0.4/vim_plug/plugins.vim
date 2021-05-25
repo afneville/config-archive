@@ -15,5 +15,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'tomasiser/vim-code-dark'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
