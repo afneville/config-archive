@@ -12,5 +12,9 @@ Plug 'morhetz/gruvbox'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 
 call plug#end()

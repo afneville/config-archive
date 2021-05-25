@@ -2,6 +2,11 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+for file in ~/code/scripts/functions/*; do 
+
+    source $file
+
+done
 
 
 # different cursor in different shell modes
