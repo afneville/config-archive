@@ -7,3 +7,4 @@ let g:gruvbox_contrast_dark = "medium"
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
    \ quit | endif
 let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
+" let g:fzf_prefer_tmux = 1

@@ -91,7 +91,7 @@ myBorderWidth :: Dimension
 myBorderWidth = 1
 
 myNormColour :: String
-myNormColour   = "#3B4252"
+myNormColour   = "#111144"
 
 myFocusColour :: String
 myFocusColour  = "#81A1C1"
@@ -175,8 +175,8 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 tall     = renamed [Replace "tall"]
            $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 0
            $ ResizableTall 1 (3/100) (1/2) []
@@ -191,9 +191,9 @@ tall     = renamed [Replace "tall"]
 --            $ ResizableTall 1 (3/100) (1/2) []
 monocle  = renamed [Replace "monocle"]
            $ windowNavigation
-           $ smartBorders
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
+           -- $ smartBorders
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] (smartBorders Simplest)
            $ limitWindows 20 Full
 
 full     = renamed [Replace "full"]
@@ -238,10 +238,10 @@ full     = renamed [Replace "full"]
 --            -- So we are applying Mirror to the ThreeCol layout.
 --            $ Mirror
 --            $ ThreeCol 1 (3/100) (1/2)
-tabs     = renamed [Replace "tabs"]
+-- tabs     = renamed [Replace "tabs"]
            -- I cannot add spacing to this layout because it will
            -- add spacing between window and tabs which looks bad.
-           $ tabbed shrinkText myTabTheme
+           -- $ tabbed shrinkText myTabTheme
 
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
@@ -269,7 +269,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange
                                  ||| full
                                  ||| noBorders monocle
                                  -- ||| noBorders tabs
-                                 ||| tabs
+                                 -- ||| tabs
 
 myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = [" dev1 ", " dev2 ", " www ", " chat ", " doc ", " sys "]

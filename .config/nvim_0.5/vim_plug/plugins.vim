@@ -15,6 +15,9 @@ Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'sainnhe/vim-color-forest-night'
+Plug 'lervag/vimtex'
 
 call plug#end()
