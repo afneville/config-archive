@@ -41,7 +41,7 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>ht :Colors<CR>
 nnoremap <leader>sb :Lines<CR>
 nnoremap / :Lines<CR>
-nnoremap <leader>bs :Bufffers<CR>
+nnoremap <leader>bs :Buffers<CR>
 " latex
 nnoremap <leader>ll :VimtexCompile<CR>
 nnoremap <leader>lc :VimtexClean<CR>
