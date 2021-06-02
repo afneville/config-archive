@@ -45,12 +45,12 @@ xrandr_script.sh
 #xsetroot -cursor_name left_ptr
 #xfce4-power-manager &
 
-#exec qtile
-#exec i3
-#exec bspwm
-#exec xmonad
-#exec dwm
-exec awesome
+# exec qtile
+# exec i3
+exec bspwm
+# exec xmonad
+# exec dwm
+# exec awesome
 
 #export DESKTOP_SESSION=plasma 
 #exec startplasma-x11

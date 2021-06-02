@@ -1398,7 +1398,7 @@ schemes:
       cyan:    '0x00ffff'
       white:   '0xffffff'
 
-colors: *doom_one
+colors: *dracula
 
 
 # Bell
