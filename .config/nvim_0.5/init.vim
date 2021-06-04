@@ -17,6 +17,6 @@ source $HOME/.config/nvim/keys/bindings.vim
 " colorschemes 
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/doom_one.vim
-colorscheme lunar
+colorscheme nord
 
 au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC

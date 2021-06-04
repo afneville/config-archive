@@ -1,30 +1,52 @@
-#
-# wm independent hotkeys
-#
-
 # terminal emulator
 super + Return
 	alacritty
 
 # program launcher
-super + @space
-	dmenu_run
+super + p
+	launcher.sh
+
+super + g
+    screenshot.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-#
-# bspwm hotkeys
-#
+#=======================================#
+#   _                                   #
+#  | |__  ___ _ ____      ___ __ ___    #
+#  | '_ \/ __| '_ \ \ /\ / / '_ ` _ \   #
+#  | |_) \__ \ |_) \ V  V /| | | | | |  #
+#  |_.__/|___/ .__/ \_/\_/ |_| |_| |_|  #
+#            |_|                        #
+#                                       #
+#=======================================#
+
+# set top padding if not correct
+super + b
+
+    bar.sh start
+
+super + shift + b
+
+    bar.sh kill
+
+super + ctrl + b
+
+    bspc config top_padding 24
 
 # quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
+super + shift + q
+    bspc quit
 
 # close and kill
-super + {_,shift + }c
-	bspc node -{c,k}
+super + c
+	bspc node -c
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
 
 # alternate between the tiled and monocle layout
 super + m
@@ -32,6 +54,7 @@ super + m
 
 # send the newest marked node to the newest preselected node
 super + y
+
 	bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest window
@@ -50,21 +73,9 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#
-# focus/swap
-#
-
-# focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
-
 # focus the node for the given path jump
-super + {p,b,comma,period}
+super + {n,slash,comma,period}
 	bspc node -f @{parent,brother,first,second}
-
-# focus the next/previous window in the current desktop
-super + {_,shift + }c
-	bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}

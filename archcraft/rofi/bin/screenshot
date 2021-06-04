@@ -5,9 +5,9 @@ STYLE="default"
 rofi_command="rofi -theme $STYLE/screenshot.rasi"
 
 # Options
-screen=" Whole Desktop"
-area=" Selected Area"
-window=" Focused Window"
+screen="Whole Desktop"
+area="Selected Area"
+window="Focused Window"
 
 # Variable passed to rofi
 options="$screen\n$area\n$window"
@@ -25,3 +25,5 @@ case $chosen in
         ;;
 esac
 
+# time_stamp=`date +"%H:%M:%S_%d-%m-%y"`
+# file=~/image/screenshots/IMG_$time_stamp.png

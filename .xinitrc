@@ -34,16 +34,17 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-emacs --daemon &
+#emacs --daemon &
+#xfce4-power-manager &
+
 #picom -m 1 &
 #picom --experimental-backends &
 xrandr_script.sh
-# hsetroot -solid "#334050"
-#hsetroot -solid "#404552"
-#nitrogen --restore
+# hsetroot -solid "#404552"
+nitrogen --restore
+
 #xsetroot -name " $(whoami) @ $(hostname) "
 #xsetroot -cursor_name left_ptr
-#xfce4-power-manager &
 
 # exec qtile
 # exec i3
