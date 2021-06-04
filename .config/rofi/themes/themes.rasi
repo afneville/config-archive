@@ -1,12 +1,12 @@
 configuration {
-    font:                           "SauceCodePro Nerd Font Mono 12";
+    font:                           "Iosevka 10";
     show-icons:                     false;
 	icon-theme: 					"Papirus";
     display-drun: 					":";
     drun-display-format:            "{name}";
     threads:                        0;
     scroll-method:                  0;
-    disable-history:                true;
+    disable-history:                false;
     fullscreen:                     false;
 	hide-scrollbar: 				true;
 	sidebar-mode: 					false;
@@ -21,8 +21,7 @@ window {
 	border:							1px;
     border-radius:                  0px;
     border-color:					@selected;
-    width:                          250;
-    height:                         97px;
+    width:                          15%;
     location:                       center;
     anchor:                         center;
     x-offset:                       0;
@@ -31,18 +30,18 @@ window {
 
 prompt {
     enabled: 						true;
-	padding: 						5px 0px 0px 0px;
+	padding: 						4px 4px 6px 6px;
 	background-color: 				@background;
-	text-color: 					@comment;
+	text-color: 					@foreground;
 }
 
 textbox-prompt-colon {
 	expand: 						false;
-	str: 							"";
+	str: 							"";
     background-color:               @background;
     text-color:                     @urgent;
-	font:							"SauceCodePro Nerd Font Mono 18";
-    padding:                        0px 5px 10px 0px;
+    padding:                        5px 0px 0px 4px;
+	font:							"feather 10";
 }
 
 inputbar {
@@ -63,11 +62,11 @@ entry {
     background-color:               @background;
     text-color:                     @foreground;
     placeholder-color:              @foreground;
-    expand:                         false;
+    expand:                         true;
     horizontal-align:               0;
     placeholder:                    "Search";
     blink:                          true;
-    padding:                        0px 0px 0px 0px;
+    padding:                        4px 0px 0px 0px;
 }
 
 case-indicator {
@@ -80,51 +79,40 @@ case-indicator {
 listview {
     background-color:               @background;
     columns:                        1;
-    lines:							4;
+    lines:							6;
     spacing:                        5px;
-    cycle:                          false;
+    cycle:                          true;
     dynamic:                        true;
-    layout:                         horizontal;
+    layout:                         vertical;
 }
 
 mainbox {
     background-color:               @background;
     children:                       [ inputbar, listview ];
     spacing:                       	5px;
-    padding:                        0px 5px 5px 5px;
+    padding:                        5px 5px 5px 5px;
 }
 
 element {
     background-color:               @background;
     text-color:                     @foreground;
     orientation:                    horizontal;
-	border:							1px;
+	border:							0px;
     border-radius:                  0px;
     border-color:					@selected;
-    padding:                        0px 0px 0px 0px;
+    padding:                        5px 5px 5px 5px;
 }
 
 element-icon {
-    size:                           0px;
+    size:                           24px;
     border:                         0px;
 }
 
 element-text {
-	font:							"SauceCodePro Nerd Font Mono 30";
-    padding:                        0px 15px 30px 15px;
-}
-
-element normal.urgent,
-element alternate.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
-    border-radius:                  9px;
-}
-
-element normal.active,
-element alternate.active {
-    background-color:               @background;
-    text-color:                     @foreground;
+    expand:                         true;
+    horizontal-align:               0;
+    vertical-align:                 0;
+    margin:                         2px 0px 2px 2px;
 }
 
 element selected {
@@ -135,12 +123,24 @@ element selected {
     border-color:                  	@selected;
 }
 
-element selected.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
+element.active,
+element.selected.urgent {
+  background-color: @on;
+  text-color: @background;
+  border-color: @on;
 }
 
-element selected.active {
-    background-color:               @background;
-    color:                          @foreground;
+element.selected.urgent {
+  border-color: @urgent;
+}
+
+element.urgent,
+element.selected.active {
+  background-color: @off;
+  text-color: @background;
+  border-color: @off;
+}
+
+element.selected.active {
+  border-color: @selected;
 }

@@ -4,10 +4,10 @@ super + Return
 
 # program launcher
 super + p
-	launcher.sh
+	launcher
 
 super + g
-    screenshot.sh
+    screenshot
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -37,8 +37,8 @@ super + ctrl + b
     bspc config top_padding 24
 
 # quit/restart bspwm
-super + shift + q
-    bspc quit
+super + {shift + q, q}
+    bspc {quit, wm -r}
 
 # close and kill
 super + c

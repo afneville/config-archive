@@ -91,7 +91,7 @@ window:
 #set clipboard^=unnamed,unnamedplus
 font:
   normal:
-    family: SauceCodePro Nerd Font Mono
+    family: Roboto Mono Nerd Font
     style: Regular
 
   bold:
@@ -1398,7 +1398,7 @@ schemes:
       cyan:    '0x00ffff'
       white:   '0xffffff'
 
-colors: *nord
+colors: *gruvbox_dark
 
 
 # Bell
