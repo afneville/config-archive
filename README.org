@@ -1,36 +1,63 @@
-#+TITLE: Dotfiles Repository
+#+TITLE: My Config Files
 #+AUTHOR: Alexander Neville
 
-* Introduction
 
-This repository is for storing some configuration files I have for all sorts of software. The layout of this repository does not reflect the layout of my home directory, I just use this repository for storage of certain important files. Some of these files are written from scratch, some are automatically generated and some are more or less default configurations. I keep these files even if they are fairly generic as I will not have to go and find defualt configurations elsewhere.
+Configuration files are usually hidden with a leading =.=, hence the name /dotfiles/. As plain text files, they are suitable to be versioned and backed-up using git.
 
-* Configurations
+Most of the files in this repository are written or edited by hand, while some are application defaults and others are copied. I am storing these files in this repository, even if they exist elsewhere, for my own ease of access. I generally create and manage files within the cloned directory and create symlinks in the right places.
 
-These are the configuration files which I have:
+I have customised configuration files for some of these applications:
 
-** Emacs
+* Vi/Vim/Neovim
 
-I have a configuration for vanilla emacs, including a 'literate' org file and i also have a configuration for doom emacs, a very good configuration framework which you can find here:  https://github.com/hlissner/doom-emacs
-I would really reccomend doom emacs, simply because it is very well optimized and I find it much more performant than a vanilla configuration.
+All of the above are /modal/ command line text-editors. This is a nice feature as you can navigate text with regular letters like =j= and =k= and make changes by dropping into /insert/ mode when you are at the right place. Keyboard driven movement in vi-inspired editors is so fast and easy, there is no need to use the mouse. The vi keybindings have also inspired the keybindings in some of my other config files.
 
-** Window Managers
+I am using Neovim at the moment for most of my editing and programming. I have two configurations, one for the latest unstable Neovim version 0.5 and another for the earlier stable versions. 0.5 is nice because it has native /LSP/ support for things like completion, jump to definition and diagnostics. I use /You Complete Me/ to do these things in older Neovim versions.
 
-I have configured a few X window managers a little bit, including: xmonad, qtile and awesome. I also have a dwm 'configuration' in another repository.
+* Emacs
 
-** Vim/Neovim
+Emacs is a really flexible text-editor / operating system, depending how you see it. I tend to use it most for things other than programming, including writing /org-mode/ documents (like this one!) and using the /magit/ git client. I first configured emacs from scratch and wrote a /literate/ configuration file, stored in =.emacs.d=. Now I used /doom/ emacs, a configuration framework for emacs with sensible defaults and many good optimisations. Find out more here: https://github.com/hlissner/doom-emacs
 
-I followed some tutorials on the internet to create a Neovim configuration including CoC completion: https://github.com/neoclide/coc.nvim
+* Window Managers
 
-** Shell
+While a fully fledged desktop environment can be convenient to begin with, a stand alone /window manager/ has far more potential for comfort and efficiency.
 
-I use a few aliases in shell which i keep in =aliasrc=. These are sourced in both my bash and zsh config. 
+A desktop environment includes a window manager, but also provides a suite of other utilities, like a gui settings app, a file manager, an image viewer, etc. Using a window manager leaves you with just a window manager, giving you greater freedom to configure your graphical environment. Admittedly, most window managers do a bit more than that, like handling hotkeys, setting wallpaper and providing a status bar.
 
-** Apache
+Most stand alone window managers can automatically /tile/ windows on the screen, so you don't have to drag them around with the mouse. These are sometimes called /tiling window managers/.
 
-It can save time to keep this configured httpd (apache) config for arch linux
+** Xmonad
 
-** Misc
+Xmonad is the first WM I tried. It is written and configured in /haskell/, a purely functional programming language. It is quite minimal on its own and the status bar I use is /xmobar/. The default layout is the /master and stack/, where one window is given half the screen, while the others split the second half vertically amongst themselves.
 
-Other files include things like =.xinitrc= and =.Xresources=, not very exciting.
+** Qtile
 
+Qtile is written and configured in python, making it easy for many people to get it working. Qtile has many layouts, including the /MonadTall/, but my favourite is /Columns/ as you can easily create /sub-layouts/ and hide windows you are not using. Qtile had its own bar built-in.
+
+** DWM
+
+DWM is written and configured in C. The window manager needs to be recompiled every time a change is made to the source code. My configuration of DWM is found in my /suckless_tools/ repository.
+
+** Awesome
+
+Awesome is inspired by DWM and was initially a fork of the window manager. Awesome is very flexible and has many features builtin. The configuration is written in lua and the default config file is about 600 lines long! I have split parts of this config into a more manageable folder structure, so I can easily configure Awesome.
+
+** BSPWM
+
+BSPWM is a just a window manager. BSPWM is controlled via the shell using the =bspc= command. The configuration file contains a set of commands to be run when the window manager starts, which may include some BSPWM commands. You can easily make scripts that manage your windows with BSPWM. In addition, you can bind a command to a hotkey, using a hotkey daemon like /sxhkd/, which I have also configured. I use /polybar/ for a status bar.
+
+* Shell
+
+I currently use zsh as my default shell. I am using /Oh my zsh/ to handle plugins, at the moment. Some shell functions are sourced from my /scripts/ repository and available in my shell sessions. Some of these functions allow me to use a shell /fuzzy finder/ to change directory and open files in Neovim. I also have a =.bashrc=, as bash is still a very widespread and useful shell. Both source aliases from my =.aliasrc.=
+
+* Apache
+
+I often use the Apache web server on Arch linux, so I store a configuration file that has all the right settings for a basic PHP set-up.
+
+* Run Launchers
+
+I have used dmenu in the past, but I usually use rofi now. I use these programs for launching applications and selecting custom options from scripts.
+
+* Etc
+
+I also store my copies of all the less interesting files like =.Xresources= and =.Xmodmap=.
