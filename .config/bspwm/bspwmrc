@@ -1,24 +1,47 @@
 #! /bin/sh
+
+# add directories to path
 export PATH=$PATH:$HOME/.config/rofi/bin
 export PATH=$PATH:$HOME/.config/bspwm/bin
 
-# pgrep -x polybar > /dev/null || polybar alex &
+# refresh x resources and apply colours to other apps
+xrdb ~/.Xresources
+set_application_colours.sh
+
+# start polybar via script & launch sxhkd
+bar.sh start
 pgrep -x sxhkd > /dev/null || sxhkd &
 
+# retrieve colours from Xresources
+get_colours () {
+    FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
+    BACKGROUND=$(xrdb -query | grep 'background:'| awk '{print $NF}')
+    BLACK=$(xrdb -query | grep 'color0:'| awk '{print $NF}')
+    RED=$(xrdb -query | grep 'color1:'| awk '{print $NF}')
+    GREEN=$(xrdb -query | grep 'color2:'| awk '{print $NF}')
+    YELLOW=$(xrdb -query | grep 'color3:'| awk '{print $NF}')
+    BLUE=$(xrdb -query | grep 'color4:'| awk '{print $NF}')
+    MAGENTA=$(xrdb -query | grep 'color5:'| awk '{print $NF}')
+    CYAN=$(xrdb -query | grep 'color6:'| awk '{print $NF}')
+    WHITE=$(xrdb -query | grep 'color7:'| awk '{print $NF}')
+}
+get_colours 
+
+# basic wm config
 bspc monitor -d 1 2 3 4 5 6 7 8 9
-
-bspc config border_width         2
+bspc config border_width         1
 bspc config window_gap           0
-bspc config top_padding          0
-
+bspc config top_padding          24
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc config normal_border_color "#44475a"
-bspc config active_border_color "#bd93f9"
-bspc config focused_border_color "#ff79c6"
-bspc config presel_feedback_color "#6272a4"
+# set wm colours
+bspc config focused_border_color "$BLUE"
+#bspc config normal_border_color "$BACKGROUND"
+bspc config normal_border_color "#222222"
+bspc config active_border_color "$MAGENTA"
+bspc config presel_feedback_color "$GREEN"
 
-
+# window rules
 bspc rule -r *:*

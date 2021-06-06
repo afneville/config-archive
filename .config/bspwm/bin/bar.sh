@@ -7,7 +7,9 @@ if [[ $1 == "kill" ]]; then
 
 elif [[ $1 == "start" ]]; then
 
-    pgrep -x polybar > /dev/null || polybar alex &
+    killall polybar
+    while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+    polybar alex &
     bspc config top_padding 24
 
 fi
