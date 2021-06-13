@@ -11,9 +11,10 @@ nnoremap <leader>tr :set relativenumber!<CR>
 " misc
 nnoremap <leader>ft :NERDTreeToggle <CR>
 " nnoremap <leader>ft :Vex <CR>
-nnoremap <leader>t :Texplore<return>
+" nnoremap <leader>t :Texplore<return>
 nnoremap <leader>p :vs \| ter<return>A
 nnoremap <leader>% :source %<CR>
+nnoremap <leader>s :source $MYVIMRC<CR>
 " switch buffers
 nnoremap <TAB> :bnext<CR>
 nnoremap <S-TAB> :bprevious<CR>

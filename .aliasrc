@@ -32,7 +32,7 @@ alias web="cd /srv/http/"
 alias code="cd ~/code/"
 alias config="cd ~/code/dotfiles"
 alias dwm="cd ~/code/suckless_tools/dwm"
-alias test="cd /sandbox/"
+alias sandbox="cd ~/code/sandbox"
 alias nea="cd ~/code/nea"
 alias opt="cd /opt"
 # shopt -s autocd

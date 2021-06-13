@@ -34,28 +34,48 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-#emacs --daemon &
-#xfce4-power-manager &
+#        _   _ _ _ _   _
+#  _   _| |_(_) (_) |_(_) ___  ___
+# | | | | __| | | | __| |/ _ \/ __|
+# | |_| | |_| | | | |_| |  __/\__ \
+#  \__,_|\__|_|_|_|\__|_|\___||___/
 
-#picom -m 1 &
-#picom --experimental-backends &
+# emacs --daemon &
+# xfce4-power-manager &
+
+# picom -m 1 &
+# picom --experimental-backends &
 xrandr_script.sh
 # hsetroot -solid "#404552"
-nitrogen --restore
+# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+# nitrogen --restore
 
 #xsetroot -name " $(whoami) @ $(hostname) "
-#xsetroot -cursor_name left_ptr
+# xsetroot -cursor_name left_ptr
+
+# __      ___ __ ___
+# \ \ /\ / / '_ ` _ \
+#  \ V  V /| | | | | |
+#   \_/\_/ |_| |_| |_|
 
 # exec qtile
 # exec i3
-exec bspwm
+# exec bspwm
 # exec xmonad
 # exec dwm
 # exec awesome
 
-#export DESKTOP_SESSION=plasma 
-#exec startplasma-x11
+#      _
+#   __| | ___
+#  / _` |/ _ \
+# | (_| |  __/
+#  \__,_|\___|
 
-#export XDG_SESSION_TYPE=x11
-#export GDK_BACKEND=x11
-#exec gnome-session
+# export DESKTOP_SESSION=plasma 
+# exec startplasma-x11
+
+# export XDG_SESSION_TYPE=x11
+# export GDK_BACKEND=x11
+# exec gnome-session
+
+exec cinnamon-session

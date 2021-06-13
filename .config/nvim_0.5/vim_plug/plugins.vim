@@ -19,5 +19,7 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'sainnhe/vim-color-forest-night'
 Plug 'lervag/vimtex'
+Plug 'sainnhe/sonokai'
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
