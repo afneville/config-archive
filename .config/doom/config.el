@@ -32,9 +32,9 @@
 ;; font string. You generally only need these two:
 (setq
 
- doom-font (font-spec :family "Roboto Mono" :weight 'regular :size 16 :height 1.0)
- doom-variable-pitch-font (font-spec :family "Roboto" :weight 'regular :size 18 :height 1.5)
- doom-theme 'doom-one
+ doom-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 16 :height 1.0)
+ doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 18 :height 1.5)
+ doom-theme 'doom-dracula
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -136,7 +136,7 @@
   :hook (org-mode . alex/org-mode-setup)
   :config
   (setq org-indent-indentation-per-level 2)
-  (setq org-hide-emphasis-markers t)
+  (setq org-hide-emphasis-markers nil)
   (setq org-agenda-files '("~/notes/agenda.org")))
 
 (use-package org-bullets
@@ -147,11 +147,11 @@
 
 ;; (setq org-ellipsis "↴")
 
-(use-package! mixed-pitch
-   :hook (org-mode . mixed-pitch-mode)
-   :config
-   (setq mixed-pitch-set-heigth t)
-   (set-face-attribute 'variable-pitch nil :height 130))
+;; (use-package! mixed-pitch
+;;    :hook (org-mode . mixed-pitch-mode)
+;;    :config
+;;    (setq mixed-pitch-set-heigth t)
+;;    (set-face-attribute 'variable-pitch nil :height 130))
 
 (after! org
 

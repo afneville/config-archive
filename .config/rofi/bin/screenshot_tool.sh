@@ -3,13 +3,13 @@
 rofi_command="rofi -theme $HOME/.config/rofi/themes/screenshot_tool.rasi"
 
 # Options
-screen=""
+screen=""
 area=""
 clipboard=""
-window=""
+window=""
 
 # Variable passed to rofi
-options="$screen\n$area\n$clipboard\n$window"
+options="$screen\n$clipboard\n$area\n$window"
 
 chosen="$(echo -e "$options" | $rofi_command -p 'Screenshot Tool' -dmenu -selected-row 1)"
 case $chosen in

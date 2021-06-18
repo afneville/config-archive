@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# A script to get colours from xrdb & deploy it to polybar, alacritty & rofi.
+# fetch colors from xrdb and set them in other applications.
 
 get_colours () {
 
@@ -26,6 +26,9 @@ get_colours () {
 }
 
 bar_colours () {
+
+    # set the colours used in polybar 
+
 	cat > $HOME/.config/polybar/colours <<- EOF	
 	[color]
 
@@ -51,6 +54,9 @@ bar_colours () {
 }
 
 term_colours () {
+
+    # set the alacritty terminal colours.
+
 	cat > $HOME/.config/alacritty/colours.yml <<- _EOF_
 		## Colors configuration
 		colors:
@@ -84,6 +90,9 @@ term_colours () {
 }
 
 launcher_colours () {
+
+    # set the colours in rofi.
+
 	cat > $HOME/.config/rofi/themes/colours.rasi <<- EOF	
 	* {
 		background:			${BACKGROUND};
@@ -98,6 +107,8 @@ launcher_colours () {
 }
 
 main () {
+
+    # run all the functions.
 
 	get_colours
 	bar_colours

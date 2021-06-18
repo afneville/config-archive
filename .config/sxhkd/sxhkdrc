@@ -7,6 +7,8 @@
 super + Return
 	alacritty
 
+super + {d, s}
+    {discord, firefox}
 super + p
 	application_launcher.sh
 
@@ -53,7 +55,7 @@ super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # alternate between the tiled and monocle layout
-super + m
+super + space
 	bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
@@ -62,7 +64,7 @@ super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest window
-super + g
+super + space
 	bspc node -s biggest.window
 
 #
@@ -70,7 +72,7 @@ super + g
 #
 
 # set the window state
-super + {t,shift + t,s,f}
+super + {t,shift + t,f,m}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
