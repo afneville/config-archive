@@ -12,7 +12,7 @@ I have customised configuration files for some of these applications:
 
 All of the above are /modal/ command line text-editors. This is a nice feature as you can navigate text with regular letters like =j= and =k= and make changes by dropping into /insert/ mode when you are at the right place. Keyboard driven movement in vi-inspired editors is so fast and easy, there is no need to use the mouse. The vi keybindings have also inspired the keybindings in some of my other config files.
 
-I am using Neovim at the moment for most of my editing and programming. I have two configurations, one for the latest unstable Neovim version 0.5 and another for the earlier stable versions. 0.5 is nice because it has native /LSP/ support for things like completion, jump to definition and diagnostics. I use /You Complete Me/ to do these things in older Neovim versions.
+My configuration for nvim 0.5 is in another repository: =alexander-neville/nvim=. This repo is still home to an old nvim 0.4 config, as this is the latest stable version in most package managers.
 
 * Emacs
 

@@ -40,18 +40,17 @@ fi
 # | |_| | |_| | | | |_| |  __/\__ \
 #  \__,_|\__|_|_|_|\__|_|\___||___/
 
-# emacs --daemon &
+emacs --daemon &
 # xfce4-power-manager &
 
 # picom -m 1 &
 # picom --experimental-backends &
 xrandr_script.sh
-# hsetroot -solid "#404552"
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
-# nitrogen --restore
+nitrogen --restore
 
-#xsetroot -name " $(whoami) @ $(hostname) "
-# xsetroot -cursor_name left_ptr
+xsetroot -name " $(whoami) @ $(hostname) "
+xsetroot -cursor_name left_ptr
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \
@@ -60,7 +59,7 @@ xrandr_script.sh
 
 # exec qtile
 # exec i3
-# exec bspwm
+exec bspwm
 # exec xmonad
 # exec dwm
 # exec awesome
@@ -78,4 +77,4 @@ xrandr_script.sh
 # export GDK_BACKEND=x11
 # exec gnome-session
 
-exec cinnamon-session
+# exec cinnamon-session
