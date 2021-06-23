@@ -9,3 +9,5 @@ export EDITOR=/usr/bin/nvim
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANPAGER="nvim -c 'set ft=man' -"
+
+export ZDOTDIR="$HOME/.config/zsh"
