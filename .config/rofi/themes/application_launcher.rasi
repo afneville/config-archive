@@ -1,7 +1,7 @@
 configuration {
     font:                           "SauceCodePro Nerd Font Mono 10";
     show-icons:                     true;
-	icon-theme: 					"Hybrid";
+	icon-theme: 					"Papirus";
     display-drun: 					":";
     drun-display-format:            "{icon} {name}";
     threads:                        0;
