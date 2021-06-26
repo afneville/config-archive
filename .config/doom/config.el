@@ -34,7 +34,7 @@
 
  doom-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 15 :height 1.0)
  doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 18 :height 1.5)
- doom-theme 'doom-gruvbox
+ doom-theme 'doom-one
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

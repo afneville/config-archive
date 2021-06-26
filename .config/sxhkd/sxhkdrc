@@ -4,14 +4,15 @@
 #  \__,_| .__/| .__/|_|_|\___\__,_|\__|_|\___/|_| |_|___/
 #       |_|   |_|
 
-super + x 
-    xterm
+super + e
+    emacsclient -ca 'emacs'
 
 super + Return
 	alacritty
 
 super + {d, s}
     {discord, firefox}
+
 super + p
 	application_launcher.sh
 
@@ -23,14 +24,17 @@ super + shift + g
 
 super + u
     theme_switcher.sh && bspc wm -r
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
 XF86AudioLowerVolume
 	amixer set Master 5%-
+
 XF86AudioRaiseVolume
 	amixer set Master 5%+
+
 XF86AudioMute
         amixer set Master toggle
 #   _
