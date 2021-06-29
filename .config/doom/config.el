@@ -32,9 +32,9 @@
 ;; font string. You generally only need these two:
 (setq
 
- doom-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 15 :height 1.0)
+ doom-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 14 :height 1.0)
  doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 18 :height 1.5)
- doom-theme 'doom-one
+ doom-theme 'doom-nord
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

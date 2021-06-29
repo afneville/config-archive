@@ -3,5 +3,7 @@ xmonad.hi
 *.o
 xmonad.errors
 xmonad-x86_64-linux
-
+.idea
 plugins/
+.zcompdump
+__pycache__/

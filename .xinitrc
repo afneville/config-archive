@@ -40,7 +40,7 @@ fi
 # | |_| | |_| | | | |_| |  __/\__ \
 #  \__,_|\__|_|_|_|\__|_|\___||___/
 
-# emacs --daemon &
+emacs --daemon &
 # xfce4-power-manager &
 
 # picom -m 1 &
