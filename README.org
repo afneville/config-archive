@@ -1,12 +1,44 @@
+
 #+TITLE: My Config Files
 #+AUTHOR: Alexander Neville
 
+Configuration files are usually hidden with a leading =.=, hence the name /dotfiles/. They typically reside in a user's home directory and work on a user by user basis, i.e. they are not global system settings.
 
-Configuration files are usually hidden with a leading =.=, hence the name /dotfiles/. As plain text files, they are suitable for versioning and back-ups using git.
+Most of the files in this repository are written or edited by hand, while others are copied from elsewhere. I am storing these files in this repository, even if they exist elsewhere, for my own ease of access. Many of the scripts and executables used in these config files are stored and managed in another repository: =alexander-neville/scripts=.
 
-Most of the files in this repository are written or edited by hand, while others are copied from elsewhere. I am storing these files in this repository, even if they exist elsewhere, for my own ease of access.
+* Stow
 
-Many of the scripts and executables fearured in these files are stored and managed in another repository: =alexander-neville/scripts=.
+As plain text files, a user's configs are suitable for versioning with a source control system like git. I use a program called /GNU stow/ for managing the deployment of my dotfiles. It automatically puts symbolic links in the right places when you run:
+
+#+begin_src shell
+
+stow -t ~/ <dir_name>
+
+#+end_src
+
+Each top-level directory in this repo is a conceptual group of configuration files, e.g. =./wm= contains the configuration files for a few different window managers. The contents of the directory resemble my home directory. e.g.
+
+#+begin_src
+
+~/
+|--.xmonad/
+| |-xmobarrc
+| └-xmonad.hs
+└--.config
+  |--bspwm/
+  | |--bspwmrc
+  | └--bin/
+  |--polybar/
+  | |--colours
+  | └--config
+  |--sxhkd/
+  | └--sxhkdrc
+  |--awesome/
+  | └-- ...
+  └--qtile/
+    └--config.py
+
+#+end_src
 
 * Programs
 
@@ -16,7 +48,7 @@ I have customised configuration files for all of these applications:
 
 All of the above are /modal/ command line text-editors. This is a nice feature as you can navigate text with regular letters like =j= and =k= and make changes by dropping into /insert/ mode when you are at the right place. As keyboard driven movement in vi-inspired editors is so fast and easy, there is no need to use the mouse. The vi keybindings have also inspired the keybindings in some of my other config files.
 
-My configuration for nvim 0.5 is in another repository: =alexander-neville/nvim_config=. This repo is still home to an old nvim 0.4 config, as this is the latest stable version, packaged by most distributions.
+My configuration for nvim 0.5 is in another repository: =alexander-neville/nvim_config=. This repo is still home to an old nvim 0.4 config, as this is the version packaged by most distributions.
 
 ** Emacs
 
@@ -40,7 +72,7 @@ Qtile is written and configured in python, making it easy for many people to get
 
 *** DWM
 
-DWM is written and configured in C. The window manager needs to be recompiled every time a change is made to the source code. My configuration of DWM is found in my /suckless_tools/ repository.
+DWM is written and configured in C. The window manager needs to be recompiled every time a change is made to the source code. My configuration of DWM is found in the =alexander-neville/suckless_tools= repository.
 
 *** Awesome
 
@@ -56,12 +88,26 @@ I currently use zsh as my default shell. I also have a =.bashrc=, as bash is sti
 
 ** Apache
 
-I often use the Apache web server on Arch linux, so I store a configuration file that has all the right settings for a basic PHP set-up.
+I often use the Apache web server on Arch Linux, so I store a configuration file that has all the right settings for a basic PHP set-up.
 
 ** Run Launchers
 
-I have used dmenu in the past, but I prefer to use rofi now. I use these programs for launching applications and selecting custom options from scripts.
+I have used dmenu in the past, but I prefer to use rofi now. I use these programs for launching applications and selecting custom options from scripts. The themes for rofi are found in this repository, while the accompanying scripts come from my /scripts/ repo.
 
-** Etc
+** Etc.
 
-I also store copies of all the less interesting files like =.Xresources= and =.Xmodmap=.
+I also store copies of all the less interesting files like =.Xresources= and =.Xmodmap=. I use =.Xresources= to set and deploy colourschemes to other applications. I also keep =.xinitrc= for starting a xorg session.
+
+* Screenshots
+
+[[./screenshots/my_config_nord.png]]
+
+[[./screenshots/my_config_gruvbox.png]]
+
+[[./screenshots/my_config_dracula.png]]
+
+[[./screenshots/old_bspwm_gruvbox.png]]
+
+[[./screenshots/old_bspwm_marine.png]]
+
+[[./screenshots/old_bspwm_pink.png]]
