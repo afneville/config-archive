@@ -1,4 +1,4 @@
-personal_ws-1.1 en 86 
+personal_ws-1.1 en 100 
 ALU
 AQA
 AUR
@@ -7,6 +7,7 @@ CCD
 CFM
 CMOS
 CPUs
+Covid
 DAC
 EAN
 EJ
@@ -23,16 +24,20 @@ Neuman
 Neville
 Nyquist
 Nyquist's
+OMR
 OOP
+PDFs
 Polymorphism
 Pseudocode
 RDMS
+RELU
 REPL
 RGB
 RW
 SSD
 TOC
 TODO
+UI
 USERINPUT
 UTF
 Un
@@ -42,6 +47,8 @@ Xorg
 ZF
 ZSH
 abc
+activations
+backpropogation
 barcode
 barcodes
 bitwise
@@ -51,6 +58,7 @@ ciphertext
 cli
 decrypt
 decrypted
+digitalised
 dir
 distributable
 dll
@@ -72,14 +80,20 @@ nf
 nm
 nmcli
 nmtui
+nn
+onlineocr
 ord
 pcspkr
+percepton
+percepton's
 performant
 pre
 pseudocode
 py
+sigmoid
 str
 substring
+tanh
 vectorised
 xinit
 xodotool

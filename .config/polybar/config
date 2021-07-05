@@ -36,8 +36,8 @@ module-margin-right = 1
 
 font-0 = Roboto Mono Nerd Font:pixelsize=10;2
 
-modules-left = mod bspwm
-modules-center = 
+modules-left = bspwm
+modules-center = wlan eth
 modules-right = date battery
 
 tray-position =
@@ -90,37 +90,54 @@ label-unmounted-foreground = ${color.foreground-alt}
 
 [module/bspwm]
 type = internal/bspwm
-
+format = <label-state>
 pin-workspaces = true
 inline-mode = false
 
 enable-click = true
-enable-scroll = true
-reverse-scroll = true
-
 fuzzy-match = true
 
-label-focused = %name%
-label-focused-foreground = ${color.background}
-label-focused-background = ${color.blue}
+ws-icon-0 = 1; 
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-default = 
+
+label-focused = %icon%
+label-focused-foreground = ${color.blue}
+label-focused-background = ${color.background}
 label-focused-padding = 1
 
-label-occupied = %name%
-label-occupied-foreground = ${color.background}
-label-occupied-background = ${color.green}
+label-occupied = %icon%
+label-occupied-foreground = ${color.yellow}
+label-occupied-background = ${color.background}
 label-occupied-padding = 1
 
-abel-urgent = %name%
-label-urgent-foreground = ${color.background}
-label-urgent-background = ${color.red}
+label-urgent = %icon%
+label-urgent-foreground = ${color.red}
+label-urgent-background = ${color.background}
 label-urgent-padding = 1
 
-label-empty = %name%
-label-empty-foreground = ${color.foreground-alt}
+label-empty = 
+label-empty-foreground = ${color.magenta}
 label-empty-padding = 1
 
+label-monocle = 
+label-tiled =
+label-fullscreen =
+label-floating =
+label-pseudotiled =
+label-locked =
+label-locked-foreground =
+label-sticky =
+label-sticky-foreground =
+label-private =
+label-private-foreground =
+label-marked =
+
 ; Separator in between workspaces
-label-separator = " "
+label-separator = ""
 
 [module/mod]
 
@@ -196,53 +213,40 @@ label = %percentage_used%%
 [module/wlan]
 type = internal/network
 interface = wlp4s0
-interval = 3.0
+interval = 30.0
 
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
+label-connected =   %essid% %local_ip%
+label-connected-foreground = ${color.green}
+format-connected = <label-connected>
 
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${color.foreground-alt}
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${color.foreground-alt}
+label-disconnected =  %ifname%
+label-disconnected-foreground = ${color.yellow}
+format-disconnected = <label-disconnected>
 
 [module/eth]
 type = internal/network
 interface = enp3s0
-interval = 3.0
+interval = 30.0
 
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${color.foreground-alt}
-label-connected = %local_ip%
+label-connected =  %local_ip%
+label-connected-foreground = ${color.green}
 
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${color.foreground-alt}
+label-disconnected =  %ifname%
+label-disconnected-foreground = ${color.yellow}
+format-disconnected = <label-disconnected>
 
 [module/date]
 type = internal/date
-interval = 5
+interval = 30
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = " %d-%m-%Y"
 
 time = %H:%M
-time-alt = %H:%M:%S
+time-alt = %H:%M
 
-format-prefix = 
-format-prefix-foreground = ${color.foreground-alt}
+format-prefix = " " 
+format-prefix-foreground = ${color.cyan}
 format-underline = #0a6cf5
 
 label = %date% %time%

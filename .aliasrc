@@ -4,23 +4,22 @@ alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI
 alias ls='/usr/bin/exa -a --group-directories-first --icons'
 alias lsl='/usr/bin/exa -lag --group-directories-first --icons'
 
-alias ..='cd ..'
-alias ...='cd ../..'
 alias locate='updatedb && locate'
 alias volume='alsamixer'
 alias nm='nm-connection-editor'
-alias off="doas poweroff"
-alias restart="doas reboot now"
+alias off="poweroff"
+alias restart="reboot now"
 alias server="ssh alex@192.168.1.19"
 alias aliases="nvim ~/.aliasrc"
-alias top="htop"
 alias x="startx"
+alias c="clear"
 alias merge="xrdb -merge ~/.Xresources"
 
 # Fun
 alias hello="figlet hi"
 alias say="figlet"
 alias info="echo \"\" && pfetch && echo \"\""
+alias connection="ping archlinux.org"
 
 # Safe Commands:
 #alias rm="rm -i"
@@ -28,10 +27,11 @@ alias info="echo \"\" && pfetch && echo \"\""
 #alias vim="nvim"
 
 # Directories:
+alias ..='cd ..'
+alias ...='cd ../..'
 alias web="cd /srv/http/"
 alias code="cd ~/code/"
 alias config="cd ~/code/dotfiles"
-# alias dwm="cd ~/code/suckless_tools/dwm"
 alias sandbox="cd ~/code/sandbox"
 alias nea="cd ~/code/nea"
 alias opt="cd /opt"
@@ -42,8 +42,8 @@ alias g="git"
 alias p="python3"
 alias s="systemctl"
 alias v="nvim"
+alias top="htop"
 alias t="htop"
-alias c="clear"
 
 # Git
 alias clone="git clone"

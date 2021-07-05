@@ -45,6 +45,7 @@ emacs --daemon &
 
 # picom -m 1 &
 # picom --experimental-backends &
+
 xrandr_script.sh
 
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
