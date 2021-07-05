@@ -49,7 +49,7 @@ emacs --daemon &
 xrandr_script.sh
 
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
-nitrogen --restore
+# nitrogen --restore
 
 xsetroot -name " $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr

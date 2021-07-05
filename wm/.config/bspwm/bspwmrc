@@ -8,8 +8,8 @@ bspc rule -r *:*
 
 # refresh x resources and apply colours to other apps
 xrdb ~/.Xresources
-set_application_colours.sh
-
+deploy_xresources.sh
+hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # start polybar via script & launch sxhkd
 bar.sh start
 pgrep -x sxhkd > /dev/null || sxhkd &
@@ -37,7 +37,7 @@ bspc config active_border_color "$MAGENTA"
 bspc config presel_feedback_color "$GREEN"
 
 # basic wm config
-bspc monitor -d 1 2 3 4 5
+bspc monitor -d 1 2 3 4 5 6 7 8 9
 bspc config border_width         2
 bspc config window_gap           0
 bspc config top_padding          32
