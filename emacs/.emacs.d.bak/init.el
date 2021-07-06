@@ -111,8 +111,8 @@
 (set-display-table-slot standard-display-table 'truncation 32)
 
 (dolist (mode '(org-mode-hook
-		term-mode-hook
-		eshell-mode-hook))
+                term-mode-hook
+                eshell-mode-hook))
   (add-hook mode (lambda () (setq visual-line-mode t))))
 
 (use-package all-the-icons)

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 100 
+personal_ws-1.1 en 111 
 ALU
 AQA
 AUR
@@ -15,6 +15,7 @@ FDE
 GTK
 IC
 IPv
+JSON
 JVM
 LSB
 LSL
@@ -34,6 +35,7 @@ RELU
 REPL
 RGB
 RW
+Rosenblatt
 SSD
 TOC
 TODO
@@ -48,11 +50,15 @@ ZF
 ZSH
 abc
 activations
+amssymb
 backpropogation
 barcode
 barcodes
+bfseries
 bitwise
+bmatrix
 bytecode
+cdot
 chr
 ciphertext
 cli
@@ -63,7 +69,9 @@ dir
 distributable
 dll
 eg
+frac
 fuser
+geq
 gui
 hsetroot
 init
@@ -71,11 +79,13 @@ inkjet
 instantiation
 iterable
 lengthways
+leq
 lossy
 lxapperaance
 mariadb
 mro
 mysql
+nabla
 nf
 nm
 nmcli
@@ -90,6 +100,7 @@ performant
 pre
 pseudocode
 py
+secnumdepth
 sigmoid
 str
 substring

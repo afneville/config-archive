@@ -64,7 +64,7 @@
  mouse-wheel-scroll-amount '(3 ((shift) . 1)) ;; one line at a time
  mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
  mouse-wheel-follow-mouse 't ;; scroll window under mouse
- doom-modeline-height 35
+ doom-modeline-height 15
  doom-modeline-enable-word-count nil
  doom-modeline-buffer-encoding nil
  org-cycle-separator-lines 2
