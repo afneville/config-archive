@@ -1,69 +1,64 @@
-#   __ _ _ __  _ __ | (_) ___ __ _| |_(_) ___  _ __  ___
-#  / _` | '_ \| '_ \| | |/ __/ _` | __| |/ _ \| '_ \/ __|
-# | (_| | |_) | |_) | | | (_| (_| | |_| | (_) | | | \__ \
-#  \__,_| .__/| .__/|_|_|\___\__,_|\__|_|\___/|_| |_|___/
-#       |_|   |_|
 
-super + e
-    emacsclient -ca 'emacs'
-
-super + Return
-	alacritty
-
-super + {d, s}
-    {discord, firefox}
+#        _   _ _ _ _   _
+#  _   _| |_(_) (_) |_(_) ___  ___
+# | | | | __| | | | __| |/ _ \/ __|
+# | |_| | |_| | | | |_| |  __/\__ \
+#  \__,_|\__|_|_|_|\__|_|\___||___/
 
 super + p
 	application_launcher.sh
 
-super + g
-    screenshot_tool.sh
+super + Return
+	alacritty
 
-super + shift + g
-     scrot 'img_%d-%m-%Y_%H:%M:%S_$wx$h.png' -e 'mv $f $$(xdg-user-dir PICTURES)/screenshots'
+super + a ; {d, s, b}
+    {discord, firefox, brave}
 
-super + u
-    theme_switcher.sh && bspc wm -r
+super + e ; {e, d, k}
+    {emacs, emacs --eval '(dired nil)', killall emacs}
 
-# make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
+super + {_, shift, alt} + g
+     {scrot -se 'xclip -selection clipboard -t image/png -i $f ; mv $f $$(xdg-user-dir PICTURES)/screenshots', scrot 'img_%d-%m-%Y_%H:%M:%S_$wx$h.png' -e 'xclip -selection clipboard -t image/png -i $f ; mv $f $$(xdg-user-dir PICTURES)/screenshots', screenshot_tool.sh}
+
+# theme and wallpaper utilities
+super + u ; {t, n, h}
+    {theme_switcher.sh && bspc wm -r, wallpaper.sh image, wallpaper.sh colour}
+
+
+#                  _ _
+#   __ _ _   _  __| (_) ___
+#  / _` | | | |/ _` | |/ _ \
+# | (_| | |_| | (_| | | (_) |
+#  \__,_|\__,_|\__,_|_|\___/
 
 XF86AudioLowerVolume
-	amixer set Master 5%- unmute
+	amixer set Master 10%- unmute
 
 XF86AudioRaiseVolume
-	amixer set Master 5%+ unmute
+	amixer set Master 10%+ unmute
 
 XF86AudioMute
-        amixer set Master toggle
+    amixer set Master toggle
+
 #   _
 #  | |__  ___ _ ____      ___ __ ___
 #  | '_ \/ __| '_ \ \ /\ / / '_ ` _ \
 #  | |_) \__ \ |_) \ V  V /| | | | | |
 #  |_.__/|___/ .__/ \_/\_/ |_| |_| |_|
 #            |_|
-#
 
-# bar settings
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# toggle the bar
 super + b
+    bar.sh toggle
 
-    bar.sh start
-
-super + shift + b
-
-    bar.sh kill
-
-super + ctrl + b
-
-    bspc config top_padding 24
-
-# quit/restart bspwm
-super + {shift + q, q}
+super + {shift + q, r}
     bspc {quit, wm -r}
 
-# close and kill
-super + c
+super + {c, q}
 	bspc node -c
 
 # focus the node in the given direction
@@ -76,12 +71,7 @@ super + space
 
 # send the newest marked node to the newest preselected node
 super + y
-
 	bspc node newest.marked.local -n newest.!automatic.local
-
-# swap the current node and the biggest window
-super + space
-	bspc node -s biggest.window
 
 #
 # state/flags
@@ -152,3 +142,7 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# window
+super + w ; {0-9}
+    bspc config window_gap {0-9}

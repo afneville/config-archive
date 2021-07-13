@@ -12,6 +12,7 @@ deploy_xresources.sh
 hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # start polybar via script & launch sxhkd
 bar.sh start
+pkill -USR1 -x sxhkd
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # retrieve colours from Xresources

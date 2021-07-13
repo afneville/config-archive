@@ -32,9 +32,9 @@
 ;; font string. You generally only need these two:
 (setq
 
- doom-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 14 :height 1.0)
- doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :weight 'regular :size 18 :height 1.5)
- doom-theme 'doom-nord
+ doom-font (font-spec :family "Jetbrains Mono Nerd Font" :weight 'regular :size 14 :height 1.0)
+ doom-variable-pitch-font (font-spec :family "Jetbrains Mono Nerd Font" :weight 'regular :size 18 :height 1.5)
+ doom-theme 'doom-one
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -57,13 +57,13 @@
  ispell-program-name "aspell"
  ispell-local-dictionary "british-ise"
  org-directory "~/notes"
-
  auto-save-default nil
  make-backup-files nil
 
  mouse-wheel-scroll-amount '(3 ((shift) . 1)) ;; one line at a time
  mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
  mouse-wheel-follow-mouse 't ;; scroll window under mouse
+ ;; doom-fallback-buffer "*dashboard*"
  doom-modeline-height 15
  doom-modeline-enable-word-count nil
  doom-modeline-buffer-encoding nil
@@ -80,10 +80,9 @@
 (add-hook 'treemacs-mode-hook (lambda () (setq hl-line-mode 1)))
 ;; Remove bracket completion
 ;;(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+;; (add-hook 'doom-first-buffer-hook #'blink-cursor-mode)
 
-(add-hook 'doom-first-buffer-hook #'blink-cursor-mode)
 ;; Add some margins to text and prog mode buffers
-
 
 ;; (defun alex/set-up-text-mode ()
 ;;   (setq left-margin-width 10)
@@ -131,6 +130,23 @@
   (setq right-margin-width 10)
   ;; (variable-pitch-mode 1) ;; If you want fancy variable width fonts.
   (visual-line-mode 1))
+
+(use-package dashboard
+  :init      ;; tweak dashboard config before loading it
+  (setq dashboard-set-footer nil)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-banner-logo-title "www.gnu.org")
+  (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-items '((recents . 10)
+                          (projects . 10)))
+  :config
+  (dashboard-setup-startup-hook)
+  (dashboard-modify-heading-icons '((recents . "file-text")
+                                       (bookmarks . "book"))))
+
+;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
@@ -202,8 +218,8 @@
  lsp-modeline-diagnostics-enable nil
  lsp-log-io nil
  lsp-restart 'auto-restart
- lsp-enable-snippet nil
- company-lsp-enable-snippet nil
+ ;; lsp-enable-snippet nil
+ ;; company-lsp-enable-snippet nil
 
 )
 

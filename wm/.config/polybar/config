@@ -114,7 +114,8 @@ label-focused-foreground = ${color.blue}
 label-focused-background = ${color.background}
 label-focused-padding = 1
 
-label-occupied = %icon%
+; label-occupied = %icon%
+label-occupied = 
 label-occupied-foreground = ${color.yellow}
 label-occupied-background = ${color.background}
 label-occupied-padding = 1
