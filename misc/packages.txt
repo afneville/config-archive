@@ -18,6 +18,7 @@ bluez-utils
 bspwm
 clang
 cmatrix
+cups
 discord
 dnsmasq
 dosfstools
@@ -31,9 +32,9 @@ flex
 fzf
 gcc
 git
+go
 groff
 grub
-gwenview
 hsetroot
 htop
 imagemagick
@@ -49,8 +50,9 @@ lxappearance
 m4
 make
 mariadb
-minetest
+mlocate
 mtools
+nano
 networkmanager
 nitrogen
 nm-connection-editor
@@ -61,7 +63,6 @@ patch
 pavucontrol
 pcmanfm
 php
-picom
 pkgconf
 powertop
 pulseaudio
@@ -70,10 +71,11 @@ qemu
 qt5ct
 qutebrowser
 ranger
+reflector
 ripgrep
 rofi
+rsync
 scrot
-spectacle
 stow
 sudo
 sxhkd
@@ -92,6 +94,7 @@ texlive-pictures
 texlive-pstricks
 texlive-publishers
 texlive-science
+tk
 tlp
 tlp-rdw
 ttf-font-awesome
@@ -99,6 +102,7 @@ ttf-ubuntu-font-family
 unzip
 vi
 virt-manager
+vivaldi
 which
 xclip
 xdg-user-dirs

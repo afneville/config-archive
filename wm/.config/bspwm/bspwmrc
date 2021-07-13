@@ -9,9 +9,11 @@ bspc rule -r *:*
 # refresh x resources and apply colours to other apps
 xrdb ~/.Xresources
 deploy_xresources.sh
-hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+nitrogen --restore
 # start polybar via script & launch sxhkd
 bar.sh start
+compositor.sh
 pkill -USR1 -x sxhkd
 pgrep -x sxhkd > /dev/null || sxhkd &
 
