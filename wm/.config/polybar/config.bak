@@ -7,14 +7,14 @@
 ;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 
 
-include-file = ~/.config/polybar/colours 
+include-file = ~/.config/polybar/colours
 
-[bar/efficient]
+[bar/alex]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 32
-; offset-x = 10%
-; offset-y = 1%
+;offset-x = 1%
+;offset-y = 1%
 radius = 0.0
 fixed-center = true
 
@@ -24,21 +24,17 @@ foreground = ${color.foreground}
 line-size = 0
 line-color = ${color.blue}
 
-border-bottom-size = 0
-border-bottom-color = ${color.blue}
+border-bottom-size = 1
+border-bottom-color = ${color.secondary}
 border-top-size = 0
-border-top-color = ${color.blue}
-border-left-size = 0
-border-left-color = ${color.blue}
-border-right-size = 0
-border-right-color = ${color.blue}
+border-top-color = ${color.background}
 
 padding = 1
 
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = Jetbrains Mono Nerd Font:pixelsize=10;2
+font-0 = Roboto Mono Nerd Font:pixelsize=10;2
 
 modules-left = bspwm
 ; modules-center = wlan eth
@@ -62,122 +58,6 @@ override-redirect = true
 
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-[bar/fashion_top]
-
-bottom = false
-width = 95%
-height = 32
-offset-x = 2.5%
-offset-y = 1%
-radius = 0.0
-fixed-center = true
-
-background = ${color.background}
-foreground = ${color.foreground}
-
-line-size = 0
-line-color = ${color.blue}
-
-border-bottom-size = 2
-border-bottom-color = ${color.blue}
-border-top-size = 2
-border-top-color = ${color.blue}
-border-left-size = 2
-border-left-color = ${color.blue}
-border-right-size = 2
-border-right-color = ${color.blue}
-
-padding = 1
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = Jetbrains Mono Nerd Font:pixelsize=10;2
-
-modules-left = wlan eth
-; modules-center = wlan eth
-modules-center =
-modules-right = date battery
-
-tray-position =
-tray-padding = 0
-;tray-background = #0063ff
-
-wm-restack = bspwm
-;wm-restack = i3
-
-override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
-[bar/fashion_bottom]
-
-bottom = true
-width = 14%
-height = 32
-offset-x = 43%
-offset-y = 0.7%
-radius = 0.0
-fixed-center = true
-
-background = ${color.background}
-foreground = ${color.foreground}
-
-line-size = 0
-line-color = ${color.blue}
-
-border-bottom-size = 2
-border-bottom-color = ${color.blue}
-border-top-size = 2
-border-top-color = ${color.blue}
-border-left-size = 2
-border-left-color = ${color.blue}
-border-right-size = 2
-border-right-color = ${color.blue}
-
-padding = 1
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = Jetbrains Mono Nerd Font:pixelsize=10;3
-
-modules-left =
-; modules-center = wlan eth
-modules-center = bspwm
-modules-right =
-
-tray-position =
-tray-padding = 0
-;tray-background = #0063ff
-
-wm-restack = bspwm
-;wm-restack = i3
-
-override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
-;                      _       _
-;  _ __ ___   ___   __| |_   _| | ___  ___
-; | '_ ` _ \ / _ \ / _` | | | | |/ _ \/ __|
-; | | | | | | (_) | (_| | |_| | |  __/\__ \
-; |_| |_| |_|\___/ \__,_|\__,_|_|\___||___/
 
 [module/xwindow]
 type = internal/xwindow
@@ -371,7 +251,7 @@ date-alt = " %d-%m-%Y"
 time = %H:%M
 time-alt = %H:%M
 
-format-prefix = "" 
+format-prefix = " " 
 format-prefix-foreground = ${color.cyan}
 format-underline = #0a6cf5
 
@@ -445,7 +325,7 @@ format-charging-underline = #ffb52a
 format-discharging = <ramp-capacity>  <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+format-full-prefix = "  "
 format-full-prefix-foreground = ${color.green}
 format-full-underline = ${self.format-charging-underline}
 

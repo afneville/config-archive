@@ -40,29 +40,20 @@ fi
 # | |_| | |_| | | | |_| |  __/\__ \
 #  \__,_|\__|_|_|_|\__|_|\___||___/
 
-# emacs --daemon &
+emacs --daemon &
 # xfce4-power-manager &
 
 # picom -m 1 &
 # picom --experimental-backends &
 
 xrandr_script.sh
+numlockx &
 
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 
 xsetroot -name " $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
-
-#              _   _
-#  _ __   __ _| |_| |__
-# | '_ \ / _` | __| '_ \
-# | |_) | (_| | |_| | | |
-# | .__/ \__,_|\__|_| |_|
-# |_|
-
-export PATH=$PATH:$HOME/code/scripts/rofi
-export PATH=$PATH:$HOME/code/scripts/dmenu
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \

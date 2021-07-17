@@ -18,7 +18,7 @@ alias merge="xrdb -merge ~/.Xresources"
 # Fun
 alias hello="figlet hi"
 alias say="figlet"
-alias info="echo \"\" && pfetch && echo \"\""
+alias info="echo \"\" && pfetch"
 alias connection="ping archlinux.org"
 
 # Safe Commands:

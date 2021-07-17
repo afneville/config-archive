@@ -20,6 +20,7 @@ function ff(){
 
             pushd $(dirname $choice)
             nvim $choice
+            popd
 
         fi
 
