@@ -49,7 +49,7 @@ emacs --daemon &
 xrandr_script.sh
 numlockx &
 
-# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 
 xsetroot -name " $(whoami) @ $(hostname) "
