@@ -7,9 +7,9 @@ bspc rule -r *:*
 xrdb ~/.Xresources
 deploy_xresources.sh
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
-nitrogen --restore
+# nitrogen --restore
 # start polybar via script & launch sxhkd
-bspwm_layout.sh start fashion
+bspwm_layout.sh start
 pkill -USR1 -x sxhkd
 pgrep -x sxhkd > /dev/null || sxhkd &
 
@@ -48,4 +48,9 @@ bspc config pointer_follows_focus true
 
 # window rules
 bspc rule -a Emacs state=tiled
+bspc rule -a Virt-manager state=floating
+bspc rule -a Nemo state=floating
 bspwm_floating_workspace.sh &
+
+# bspc rule -a scratchpad sticky=on state=floating hidden=on
+# alacritty --class scratchpad -e "$SHELL" &

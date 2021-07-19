@@ -79,13 +79,13 @@ foreground = ${color.foreground}
 line-size = 0
 line-color = ${color.blue}
 
-border-bottom-size = 2
+border-bottom-size = 1
 border-bottom-color = ${color.blue}
-border-top-size = 2
+border-top-size = 1
 border-top-color = ${color.blue}
-border-left-size = 2
+border-left-size = 1
 border-left-color = ${color.blue}
-border-right-size = 2
+border-right-size = 1
 border-right-color = ${color.blue}
 
 padding = 1
@@ -134,13 +134,13 @@ foreground = ${color.foreground}
 line-size = 0
 line-color = ${color.blue}
 
-border-bottom-size = 2
+border-bottom-size = 1
 border-bottom-color = ${color.blue}
-border-top-size = 2
+border-top-size = 1
 border-top-color = ${color.blue}
-border-left-size = 2
+border-left-size = 1
 border-left-color = ${color.blue}
-border-right-size = 2
+border-right-size = 1
 border-right-color = ${color.blue}
 
 padding = 1

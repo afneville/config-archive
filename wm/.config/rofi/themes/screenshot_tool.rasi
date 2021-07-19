@@ -1,5 +1,5 @@
 configuration {
-    font:                           "SauceCodePro Nerd Font Mono 11";
+    font:                           "Jetbrains Mono Nerd Font 11";
     show-icons:                     false;
 	icon-theme: 					"Papirus";
     display-drun: 					":";
@@ -41,7 +41,7 @@ textbox-prompt-colon {
 	str: 							"";
     background-color:               @background;
     text-color:                     @urgent;
-	font:							"SauceCodePro Nerd Font Mono 18";
+	font:							"Jetbrains Mono Nerd Font 18";
     padding:                        0px 5px 10px 0px;
 }
 
@@ -110,7 +110,7 @@ element-icon {
 }
 
 element-text {
-	font:							"SauceCodePro Nerd Font Mono 30";
+	font:							"Jetbrains Mono Nerd Font 30";
     padding:                        0px 15px 30px 15px;
 }
 

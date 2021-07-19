@@ -25,6 +25,9 @@ super + u ; {t, i, c, p, z}
 super + b
     bspwm_layout.sh cycle
 
+super + s
+    bspwm_scratchpad.sh scratchpad
+
 #                          _ _
 #           __ _ _   _  __| (_) ___
 #          / _` | | | |/ _` | |/ _ \
@@ -47,7 +50,6 @@ XF86AudioMute
 #         |_| |_|\__,_| \_/ |_|\__, |\__,_|\__|_|\___/|_| |_|
 #                              |___/
 
-
 super + {d,i}
     bspc config window_gap {$(echo "$(($(bspc config window_gap) - 5))"),$(echo "$(($(bspc config window_gap) + 5))")}
 
@@ -62,7 +64,6 @@ super + {_,shift + }{h,j,k,l}
 
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
-
 
 # set the window state
 super + {t,shift + t,f,m}
