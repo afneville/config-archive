@@ -106,6 +106,6 @@ I also store copies of all the less interesting files like =.Xresources= and =.X
 
 [[./screenshots/my_config_dracula.png]]
 
-[[./screenshots/code_dark.png]]
+[[./screenshots/gruv_hard.png]]
 
-[[./screenshots/panels.png]]
+[[./screenshots/dark.png]]
