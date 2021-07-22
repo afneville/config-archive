@@ -81,3 +81,4 @@ exec bspwm
 # exec gnome-session
 
 # exec cinnamon-session
+# exec mate-session

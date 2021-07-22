@@ -173,6 +173,115 @@ override-redirect = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[bar/hybrid_right]
+
+bottom = false
+width = 84.5%
+height = 32
+offset-x = 15%
+offset-y = 1%
+radius = 0.0
+fixed-center = true
+
+background = ${color.background}
+foreground = ${color.foreground}
+
+line-size = 0
+line-color = ${color.blue}
+
+border-bottom-size = 1
+border-bottom-color = ${color.blue}
+border-top-size = 1
+border-top-color = ${color.blue}
+border-left-size = 1
+border-left-color = ${color.blue}
+border-right-size = 1
+border-right-color = ${color.blue}
+
+padding = 1
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = Jetbrains Mono Nerd Font:pixelsize=10;2
+
+modules-left = wlan eth
+; modules-center = wlan eth
+modules-center =
+modules-right = date battery
+
+tray-position =
+tray-padding = 0
+;tray-background = #0063ff
+
+wm-restack = bspwm
+;wm-restack = i3
+
+override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/hybrid_left]
+
+bottom = false
+width = 14%
+height = 32
+offset-x = 0.5%
+offset-y = 1%
+radius = 0.0
+fixed-center = true
+
+background = ${color.background}
+foreground = ${color.foreground}
+
+line-size = 0
+line-color = ${color.blue}
+
+border-bottom-size = 1
+border-bottom-color = ${color.blue}
+border-top-size = 1
+border-top-color = ${color.blue}
+border-left-size = 1
+border-left-color = ${color.blue}
+border-right-size = 1
+border-right-color = ${color.blue}
+
+padding = 1
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = Jetbrains Mono Nerd Font:pixelsize=10;3
+
+modules-left =
+; modules-center = wlan eth
+modules-center = bspwm
+modules-right =
+
+tray-position =
+tray-padding = 0
+;tray-background = #0063ff
+
+wm-restack = bspwm
+;wm-restack = i3
+
+override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
 ;                      _       _
 ;  _ __ ___   ___   __| |_   _| | ___  ___
 ; | '_ ` _ \ / _ \ / _` | | | | |/ _ \/ __|
