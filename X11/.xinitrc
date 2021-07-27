@@ -40,7 +40,7 @@ fi
 # | |_| | |_| | | | |_| |  __/\__ \
 #  \__,_|\__|_|_|_|\__|_|\___||___/
 
-emacs --daemon &
+# emacs --daemon &
 # xfce4-power-manager &
 
 # picom -m 1 &
@@ -49,11 +49,11 @@ emacs --daemon &
 xrandr_script.sh
 numlockx &
 
-hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 
-xsetroot -name " $(whoami) @ $(hostname) "
-xsetroot -cursor_name left_ptr
+# xsetroot -name " $(whoami) @ $(hostname) "
+# xsetroot -cursor_name left_ptr
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \
