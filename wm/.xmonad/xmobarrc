@@ -44,7 +44,5 @@ Config {
 
         ],
 
-     -- template = " %StdinReader%}{ %date% | %battery% "
      template = " <icon=haskell.xpm/>  %StdinReader%}{ %date%  |  %battery% "
-     -- template = " <icon=haskell.xpm/> }{ %date% | %battery% "
 }

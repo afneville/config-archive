@@ -48,7 +48,7 @@ import XMonad.Layout.Magnifier
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Renamed
+import qualified XMonad.Layout.Renamed as R
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
@@ -57,6 +57,7 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import XMonad.Layout.BoringWindows
 
    -- Utilities
 import XMonad.Util.Dmenu
@@ -91,7 +92,7 @@ myBorderWidth :: Dimension
 myBorderWidth = 1
 
 myNormColour :: String
-myNormColour   = "#111144"
+myNormColour   = "#222222"
 
 myFocusColour :: String
 myFocusColour  = "#81A1C1"
@@ -173,10 +174,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-tall     = renamed [Replace "tall"]
+tall     = R.renamed [R.Replace "tall"]
            $ windowNavigation
-           -- $ addTabs shrinkText myTabTheme
-           -- $ subLayout [] (smartBorders Simplest)
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 0
            $ ResizableTall 1 (3/100) (1/2) []
@@ -189,14 +190,14 @@ tall     = renamed [Replace "tall"]
 --            $ limitWindows 12
 --            $ mySpacing 5
 --            $ ResizableTall 1 (3/100) (1/2) []
-monocle  = renamed [Replace "monocle"]
+monocle  = R.renamed [R.Replace "monocle"]
            $ windowNavigation
            -- $ smartBorders
            -- $ addTabs shrinkText myTabTheme
            -- $ subLayout [] (smartBorders Simplest)
            $ limitWindows 20 Full
 
-full     = renamed [Replace "full"]
+full     = R.renamed [R.Replace "full"]
            $ windowNavigation
            $ mySpacing 0
            $ limitWindows 20 Full
@@ -238,10 +239,8 @@ full     = renamed [Replace "full"]
 --            -- So we are applying Mirror to the ThreeCol layout.
 --            $ Mirror
 --            $ ThreeCol 1 (3/100) (1/2)
--- tabs     = renamed [Replace "tabs"]
-           -- I cannot add spacing to this layout because it will
-           -- add spacing between window and tabs which looks bad.
-           -- $ tabbed shrinkText myTabTheme
+tabs     = R.renamed [R.Replace "tabs"]
+           $ tabbed shrinkText myTabTheme
 
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
@@ -262,14 +261,14 @@ myShowWNameTheme = def
     }
 
 -- The layout hook
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange
+myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ boringWindows
              $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
                myDefaultLayout =     withBorder myBorderWidth tall
                                  ||| full
                                  ||| noBorders monocle
                                  -- ||| noBorders tabs
-                                 -- ||| tabs
+                                 ||| tabs
 
 myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = [" dev1 ", " dev2 ", " www ", " chat ", " doc ", " sys "]

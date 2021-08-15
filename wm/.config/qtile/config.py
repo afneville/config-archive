@@ -48,7 +48,7 @@ keys = [
 
     # Applications
 
-    Key([mod], "p", lazy.spawn("rofi -show run"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "p", lazy.spawn("application_launcher.sh"), desc="Spawn a command using a prompt widget"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     #Key([mod], "e", lazy.spawn("emacsclient -c"), desc="Launch emacs"),
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch emacs"),
@@ -79,19 +79,21 @@ for i in groups:
 
 window_colours = ['#adb1b5', '#51afef', '#000000', '#333333']
 
-layouts = [
-    layout.Columns(border_width=1, border_focus=window_colours[1], border_focus_stack=window_colours[1], border_on_single=True, margin=[0, 0, 0, 0]),
-    layout.Stack(border_width=1, border_focus=window_colours[2], num_stacks=1, margin=[0, 0, 0, 0]),
-]
-
-colors = [["#282c34", "#282c34"], # panel background
+colors = [["#232731", "#232731"], # panel background
           ["#3d3f4b", "#434758"], # background for current screen tab
           ["#ffffff", "#ffffff"], # font color for group names
           ["#ff5555", "#ff5555"], # border line color for current tab
           ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
           ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
           ["#e1acff", "#e1acff"], # window name
-          ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
+          ["#ecbbfb", "#ecbbfb"],
+          ["#4f80c7", "#4f80c7"]] # backbround for inactive screens
+
+layouts = [
+    layout.Columns(border_width=2, border_focus=colors[5][0], border_focus_stack=colors[5][0], border_normal=colors[1][0], border_on_single=True, margin=[0, 0, 0, 0]),
+    layout.Stack(border_width=0, border_focus=window_colours[2], num_stacks=1, margin=[0, 0, 0, 0]),
+]
+
 
 # prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -104,10 +106,34 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Sep( linewidth = 0, padding = 6, foreground = colors[2], background = colors[0]),
+                # widget.Sep( linewidth = 0, padding = 6, foreground = colors[2], background = colors[0]),
                 # widget.Image( filename = "~/.config/qtile/icons/python-white.png", scale = "False", mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}), 
-                widget.Sep( linewidth = 0, padding = 6, foreground = colors[2], background = colors[0]),
-                widget.GroupBox( font = "Ubuntu Bold", fontsize = 9, margin_y = 3, margin_x = 0, padding_y = 5, padding_x = 3, borderwidth = 3, active = colors[2], inactive = colors[7], rounded = False, highlight_color = colors[1], highlight_method = "line", this_current_screen_border = colors[6], this_screen_border = colors [4], other_current_screen_border = colors[6], other_screen_border = colors[4], foreground = colors[2], background = colors[0]),
+                widget.Sep(linewidth = 0, padding = 6, foreground = colors[4], background = colors[4]),
+                widget.CurrentLayoutIcon(background=colors[4], padding=0, scale = 0.6),
+                widget.CurrentLayout( foreground = colors[2], background = colors[4], padding=5),
+                widget.TextBox( text = '', background=colors[5], foreground = colors[4], padding=0, fontsize=30),
+                widget.Sep(linewidth = 0, padding = 6, foreground = colors[5], background = colors[5]),
+                widget.GroupBox(
+                    disable_drag=True,
+                    hide_unused=True,
+                    margin_y = 3,
+                    margin_x = 0,
+                    padding_y = 5,
+                    padding_x = 3,
+                    borderwidth = 3,
+                    active = colors[0],
+                    inactive = colors[1],
+                    rounded = False,
+                    highlight_color = colors[8],
+                    highlight_method = "block",
+                    this_current_screen_border = colors[8],
+                    this_screen_border = colors [4],
+                    other_current_screen_border = colors[6],
+                    other_screen_border = colors[4],
+                    foreground = colors[2],
+                    background = colors[5]
+                ),
+                widget.TextBox( text = '', background=colors[0], foreground = colors[5], padding=0, fontsize=30),
                 # widget.Prompt( prompt = prompt, font = "Ubuntu Mono", padding = 10, foreground = colors[3], background = colors[1]),
                 widget.Sep( linewidth = 0, padding = 40, foreground = colors[2], background = colors[0]),
                 widget.Spacer(background=colors[0]),
@@ -129,15 +155,17 @@ screens = [
                 # widget.TextBox( text = '', background = colors[4], foreground = colors[5], padding = 0, fontsize = 37),
                 # widget.TextBox( text = " Vol:", foreground = colors[2], background = colors[5], padding = 0),
                 # widget.Volume( foreground = colors[2], background = colors[5], padding = 5),
-                widget.TextBox( text = '', background = colors[5], foreground = colors[4], padding = 0, fontsize = 37),
-                # widget.CurrentLayoutIcon( custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")], foreground = colors[0], background = colors[4], padding = 0, scale = 0.7),
-                widget.CurrentLayout( foreground = colors[2], background = colors[4], padding = 5),
-                widget.TextBox( text = '', background = colors[4], foreground = colors[5], padding = 0, fontsize = 37),
-                widget.Sep(linewidth = 0, padding = 6, foreground = colors[5], background = colors[5]),
-                widget.Clock(foreground = colors[2], background = colors[5], format = "%A, %B %d - %H:%M "),
+
+                # widget.TextBox( text = '', background=colors[0], foreground = colors[4], padding=0, fontsize=30),
+                # widget.CurrentLayoutIcon(background=colors[4], padding=0, scale = 0.7),
+                widget.CurrentLayout( foreground = colors[2], background = colors[4], padding=5),
+                widget.TextBox( text = '', background = colors[4], foreground = colors[5], padding=0, fontsize=30),
+                # widget.Sep( linewidth = 0, padding=0, foreground = colors[5], background = colors[5]),
+                # widget.Sep(linewidth = 0, padding = 6, foreground = colors[5], background = colors[5]),
+                widget.Clock(foreground = colors[2], background = colors[5], format = "%d %B - %H:%M ", padding=0),
             ],
             opacity=1.0,
-            size=20,
+            size=24,
             background=colors[0]
         )
     )
