@@ -1,11 +1,9 @@
 typeset -U PATH path
-path=("$path[@]" "$HOME/.config/composer/vendor/bin" "$HOME/.local/bin" "$HOME/code/scripts" "$HOME/.emacs.d/bin" "$HOME/code/scripts/dmenu")
+path=("$HOME/.local/bin" "$HOME/code/scripts" "$HOME/.emacs.d/bin")
 
 export PATH=$PATH:$HOME/code/scripts/rofi
 export PATH=$PATH:$HOME/code/scripts/dmenu
-export PATH=$PATH:$HOME/code/scripts/wm
-
-export PATH
+# export PATH=$PATH:$HOME/code/scripts/wm
 
 export TERM="xterm-256color"
 export QT_QPA_PLATFORMTHEME=qt5ct

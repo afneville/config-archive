@@ -46,21 +46,29 @@ fi
 # picom -m 1 &
 # picom --experimental-backends &
 
-xrandr_script.sh
+# check if a monitor is connected
+
+monitor=`xrandr | grep 'HDMI-A-0 connected'`
+if [ ! -z  "$monitor" ]; then
+
+    xrandr --output HDMI1-A-0 --mode 1920x1080 --output eDP --off
+
+fi
+
 numlockx &
 
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 
-# xsetroot -name " $(whoami) @ $(hostname) "
-# xsetroot -cursor_name left_ptr
+xsetroot -name "  $(whoami) @ $(hostname) "
+xsetroot -cursor_name left_ptr
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \
 #  \ V  V /| | | | | |
 #   \_/\_/ |_| |_| |_|
 
-# exec qtile
+# exec qtile start
 # exec i3
 exec bspwm
 # exec xmonad
@@ -82,3 +90,4 @@ exec bspwm
 
 # exec cinnamon-session
 # exec mate-session
+# exec startxfce4
