@@ -1,9 +1,7 @@
 Config { 
 
-     font =         "xft:Ubuntu:weight=bold:size=11:antialias=true",
-     additionalFonts= ["xft:FontAwesome:pixelsize=16"]
-     --bgColor =      "#222222",
-     bgColor =      "#282828",
+     font =         "xft:Jetbrains Mono Nerd Font:weight=regular:size=10:antialias=true",
+     bgColor =      "#2e3440",
      fgColor =      "#bbbbbb",
      position =     Top,
      border =       BottomB,
@@ -32,17 +30,17 @@ Config {
 
                                "--", 
                                        -- discharging status
-                                         "-o"	, "<fn=1>\xf241</fn> <left>%",
+                                         "-o"	, "   <left>%",
                                        -- AC "on" status
-                                         "-O"	, "<fn=1>\xf1e6</fn> <left>%",
+                                         "-O"	, "   <left>%",
                                        -- charged status
-                                         "-i"	, "<fn=1>\xf240</fn> <left>%"
+                                         "-i"	, "   <left>%"
                              ] 60,
 
-          Run Date           "<fn=1>\xf274</fn> %d-%m-%Y  |  <fn=1>\xf017</fn> %T" "date" 10
+          Run Date           "   %d-%m-%Y  |    %T" "date" 10
 
 
         ],
 
-     template = " <icon=haskell.xpm/>  %StdinReader%}{ %date%  |  %battery% "
+     template = " <icon=haskell.xpm/>  %StdinReader%}{%date%  |  %battery% "
 }
