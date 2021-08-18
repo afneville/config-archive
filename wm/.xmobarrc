@@ -10,7 +10,7 @@ Config {
      sepChar =  "%"   -- delineator between plugin names and straight text,
      alignSep = "}{"  -- separator between left-right alignment,
 
-     lowerOnStart =     True    -- send to bottom of window stack on start,
+     lowerOnStart =     False    -- send to bottom of window stack on start,
      hideOnStart =      False   -- start with window unmapped (hidden),
      allDesktops =      True    -- show on all desktops,
      overrideRedirect = True    -- set the Override Redirect flag (Xlib),
@@ -26,21 +26,21 @@ Config {
                                "--High"     , "80",      
                                "--low"      , "red",
                                "--normal"   , "orange",
-                               "--high"     , "green",
+                               "--high"     , "#a3be8c",
 
                                "--", 
                                        -- discharging status
-                                         "-o"	, "   <left>%",
+                                         "-o"	, " <left>%",
                                        -- AC "on" status
-                                         "-O"	, "   <left>%",
+                                         "-O"	, " <left>%",
                                        -- charged status
-                                         "-i"	, "   <left>%"
+                                         "-i"	, " <left>%"
                              ] 60,
 
-          Run Date           "   %d-%m-%Y  |    %T" "date" 10
+          Run Date           " %d-%m-%Y  |  %T" "date" 10
 
 
         ],
 
-     template = " <icon=haskell.xpm/>  %StdinReader%}{%date%  |  %battery% "
+     template = " <icon=haskell.xpm/> | %StdinReader% |}{| %date%  |  %battery% "
 }
