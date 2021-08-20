@@ -37,8 +37,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
 _comp_options+=(globdots)
 
-# basic prompt variable
-# PS1='%B%F{cyan}%0d%f%b %F{yellow}>>%f '
 
 # source aliases
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"

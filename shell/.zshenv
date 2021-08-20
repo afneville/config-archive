@@ -5,7 +5,7 @@ export PATH=$PATH:$HOME/code/scripts/rofi
 export PATH=$PATH:$HOME/code/scripts/dmenu
 # export PATH=$PATH:$HOME/code/scripts/wm
 
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 export QT_QPA_PLATFORMTHEME=qt5ct
 export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim

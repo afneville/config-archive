@@ -58,7 +58,7 @@ fi
 numlockx &
 
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
-# nitrogen --restore
+nitrogen --restore
 
 xsetroot -name "  $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
@@ -70,8 +70,9 @@ xsetroot -cursor_name left_ptr
 
 # exec qtile start
 # exec i3
-exec bspwm
-# exec xmonad
+# exec bspwm
+exec xmonad
+# /home/alex/code/xorg_applications/wm/dwm_bar.sh &
 # exec dwm
 # exec awesome
 
