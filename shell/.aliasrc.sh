@@ -10,10 +10,20 @@ alias nm='nm-connection-editor'
 alias off="poweroff"
 alias restart="reboot now"
 alias server="ssh alex@192.168.1.19"
-alias aliases="nvim ~/.aliasrc"
+alias aliases="nvim ~/.aliasrc.sh"
 alias x="startx"
 alias c="clear"
 alias merge="xrdb -merge ~/.Xresources"
+
+# tmux
+alias tls="tmux ls"
+alias tat="tmux attach -t"
+alias tdat="tmux detach"
+alias tnew="tmux new -s"
+alias trens="tmux rename-session"
+alias trenw="tmux rename-window"
+alias tkill="tmux kill-session -t"
+alias tend="tmux kill-server"
 
 # Fun
 alias hello="figlet hi"

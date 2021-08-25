@@ -39,7 +39,7 @@ _comp_options+=(globdots)
 
 
 # source aliases
-[ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
+[ -f "$HOME/.aliasrc.sh" ] && source "$HOME/.aliasrc.sh"
 
 # custom "plugin manager"
 [ -f "$ZDOTDIR/functions.sh" ] && source "$ZDOTDIR/functions.sh"
