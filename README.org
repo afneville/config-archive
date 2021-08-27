@@ -4,7 +4,9 @@
 
 Configuration files are usually hidden with a leading =.=, hence the name /dotfiles/. They typically reside in a user's home directory and work on a user by user basis, i.e. they are not global system settings.
 
-Most of the files in this repository are written or edited by hand, while others are copied from elsewhere. I am storing these files in this repository, even if they exist elsewhere, for my own ease of access. Many of the scripts and executables used in these config files are stored and managed in another repository: =alexander-neville/scripts=.
+Most of the files in this repository are written or edited by hand, while others are copied from elsewhere. I am storing these files in this repository, even if they exist elsewhere, for my own ease of access.
+
+Many of the scripts and executables used in these config files are stored in another repository: =alexander-neville/scripts=. Additionally, some applications warrant their own repository, like my build/fork of dwm/st/tabbed/dmenu and my Neovim configuration.
 
 * Stow
 
@@ -108,4 +110,6 @@ I also store copies of all the less interesting files like =.Xresources= and =.X
 
 [[./screenshots/gruv_hard.png]]
 
-[[./screenshots/dark.png]]
+[[./screenshots/many_tabs.png]]
+
+[[./screenshots/many_tiles.png]]

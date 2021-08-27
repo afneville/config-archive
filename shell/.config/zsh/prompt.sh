@@ -12,29 +12,17 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
-preexec() {
-
-    echo ""
-
-}
-
-# precmd() {
-#     precmd() {
-#         echo
-#     }
+# uncomment for space before and after output.
+# preexec() {
+# 
+#     echo ""
+# 
 # }
 
-precmd() {
-    if [ -z "$OPTIONAL_NEW_LINE" ]; then
-        OPTIONAL_NEW_LINE=1
-    elif [ "$OPTIONAL_NEW_LINE" -eq 1 ]; then
-        echo "\n"
-    fi
-}
 # precmd() {
-#     if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
-#         NEW_LINE_BEFORE_PROMPT=1
-#     elif [ "$NEW_LINE_BEFORE_PROMPT" -eq 1 ]; then
+#     if [ -z "$OPTIONAL_NEW_LINE" ]; then
+#         OPTIONAL_NEW_LINE=1
+#     elif [ "$OPTIONAL_NEW_LINE" -eq 1 ]; then
 #         echo "\n"
 #     fi
 # }
