@@ -12,7 +12,8 @@ alias restart="reboot now"
 alias server="ssh alex@192.168.1.19"
 alias aliases="nvim ~/.aliasrc.sh"
 alias x="startx"
-alias c="clear"
+alias c="unset OPTIONAL_NEW_LINE && clear"
+alias clear="unset OPTIONAL_NEW_LINE && clear"
 alias merge="xrdb -merge ~/.Xresources"
 
 # tmux
