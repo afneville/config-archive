@@ -1,0 +1,22 @@
+
+@-moz-document url("about:home"),url(about:preferences),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
+    body{
+        background-color: #2E3440 !important;
+    }
+    #newtab-search-text {
+        background-color: #2E3440 !important;
+    }
+    .search-wrapper {
+
+        background-color: #2e3440 !important;
+    }
+    .search-inner-wrapper {
+
+        background-color: #2e3440 !important;
+    }
+    .search-handoff-button {
+
+        background-color: #353C4A !important;
+    }
+}
+
