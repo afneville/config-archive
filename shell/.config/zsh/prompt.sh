@@ -18,6 +18,12 @@ preexec() {
 
 }
 
+precmd() {
+
+    echo ""
+
+}
+
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 +vi-git-untracked(){
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
@@ -34,9 +40,11 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
-# PS1='%B%F{cyan}%0d%f%b %F{yellow}>>%f '
-# PROMPT="%B%{$fg[blue]%}[%{$fg[yellow]%}%n%{$fg[red]%}@%{$fg[cyan]%}%m%{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
-# PROMPT=$'\n %{$fg[blue]%}┌[%{$fg_bold[white]%}%n%{$reset_color%}%{$fg[blue]%}@%{$fg_bold[white]%}%m%{$reset_color%}%{$fg[blue]%}] [%{$fg_bold[white]%}/dev/%y%{$reset_color%}%{$fg[blue]%}]\n |\n └[%{$fg_bold[white]%}%~%{$reset_color%}%{$fg[blue]%}]>%{$reset_color%} '
-PROMPT=$'\n %{$fg[blue]%}┌[%{$fg_bold[cyan]%}%n%{$reset_color%}%{$fg[blue]%}@%{$fg_bold[cyan]%}%m%{$reset_color%}%{$fg[blue]%}] [%{$fg_bold[cyan]%}/dev/%y%{$reset_color%}%{$fg[blue]%}]\n |\n └[%{$fg_bold[cyan]%}%~%{$reset_color%}%{$fg[blue]%}]>%{$reset_color%} '
-# PROMPT="%{$fg[green]%}%n@%m %~ %{$reset_color%}%#> "
+PROMPT="%B%{$fg[blue]%}[%{$fg[yellow]%}%n%{$fg[cyan]%}@%{$fg[green]%}%m%{$fg[blue]%}] %{$fg[blue]%}[%{$fg[cyan]%}%~%{$reset_color%}%{$fg[blue]%}]\$vcs_info_msg_0_ %(?:%{$fg_bold[blue]%}➜ "
+
+
+# 3 line prompt
+# PROMPT=$'\n %{$fg[blue]%}┌[%{$fg_bold[cyan]%}%n%{$reset_color%}%{$fg[blue]%}@%{$fg_bold[cyan]%}%m%{$reset_color%}%{$fg[blue]%}] [%{$fg_bold[cyan]%}/dev/%y%{$reset_color%}%{$fg[blue]%}]\n |\n └[%{$fg_bold[cyan]%}%~%{$reset_color%}%{$fg[blue]%}]>%{$reset_color%} '
+
+# optinal git info
 # PROMPT+="\$vcs_info_msg_0_ "
