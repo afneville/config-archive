@@ -64,7 +64,7 @@ set norunexec
 
 " List of color schemes to try (picks the first one supported by the terminal)
 
-colorscheme Default-256 Default
+colorscheme nord Default-256 Default
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -110,7 +110,7 @@ endif
 
 " Set custom status line look
 
-set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+set statusline=" %A %u:%-7g"
 
 " ------------------------------------------------------------------------------
 
@@ -253,6 +253,11 @@ filextype *.vym
         \ {Open with VYM}
         \ vym %f &,
 
+" Org
+filextype *.org
+        \ {Open with Emacs}
+        \ emacs %f &,
+
 " MD5
 filetype *.md5
        \ {Check MD5 hash sum}
@@ -388,7 +393,7 @@ filextype */
 
 " What should be saved automatically between vifm sessions.  Drop "savedirs"
 " value if you don't want vifm to remember last visited directories for you.
-set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
+set vifminfo=dhistory,chistory,state,tui,shistory,
     \phistory,fhistory,dirstack,registers,bookmarks,bmarks
 
 " ------------------------------------------------------------------------------
@@ -501,3 +506,8 @@ nnoremap <c-u> <c-w>x
 "     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
 "
 " let $VIFM_SERVER_NAME = v:servername
+
+" My config
+
+set confirm-=delete,permdelete
+source /home/alex/code/misc/vifm_devicons/favicons.vifm

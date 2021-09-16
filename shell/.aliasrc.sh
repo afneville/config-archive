@@ -32,11 +32,6 @@ alias say="figlet"
 alias info="echo \"\" && pfetch"
 alias connection="ping archlinux.org"
 
-# Safe Commands:
-#alias rm="rm -i"
-#alias mv="mv -i"
-#alias vim="nvim"
-
 # Directories:
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -46,7 +41,6 @@ alias config="cd ~/code/dotfiles"
 alias sand="cd ~/code/sandbox"
 alias nea="cd ~/code/nea && source env/bin/activate"
 alias opt="cd /opt"
-# shopt -s autocd
 
 # Utilities
 alias g="git"
@@ -62,7 +56,8 @@ alias push="git push"
 alias pull="git pull"
 alias add="git add"
 alias commit="git commit -m"
-alias gpom="git add . && git commit -m \"automated backup\" && git push origin main"
+alias gbak="git add . && git commit -m \"automated backup\" && git push origin main"
+alias gpom="git push origin main"
 
 # Systemctl
 alias status="systemctl status"

@@ -74,7 +74,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "alacritty"
+myTerminal = "tabbed -r 2 st -w ''"
 
 myBrowser :: String
 myBrowser = "brave"
@@ -309,6 +309,7 @@ myKeys =
         -- , ("M1-s b", spawn "xmobar /home/alex/.xmobarrc")
 
         , ("M-<Return>", spawn (myTerminal))
+        , ("M-f", spawn (myTerminal ++ " -e vifm"))
         , ("M-s", spawn (myBrowser))
 
         -- Kill things
@@ -399,7 +400,7 @@ myKeys =
         , ("<XF86AudioMute>",        spawn "amixer set Master toggle"     )
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 10%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 10%+ unmute")
-        , ("<XF86Eject>",            spawn "")
+        , ("<XF86Eject>",            spawn "dm_screenshot.sh")
         ]
     -- The following lines are needed for named scratchpads.
           -- where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
