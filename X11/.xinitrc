@@ -57,11 +57,11 @@ fi
 
 numlockx &
 
-hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 
-xsetroot -name "  $(whoami) @ $(hostname) "
-xsetroot -cursor_name left_ptr
+# xsetroot -name "  $(whoami) @ $(hostname) "
+# xsetroot -cursor_name left_ptr
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \

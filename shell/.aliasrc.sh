@@ -3,6 +3,7 @@ alias grep='grep --color=auto'
 alias config_monitor='xrandr --output eDP1 --mode 1920x1080 --auto --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary  --auto'
 alias ls='/usr/bin/exa -a --group-directories-first --icons'
 alias lsl='/usr/bin/exa -lag --group-directories-first --icons'
+alias sudo="doas"
 
 alias locate='updatedb && locate'
 alias volume='alsamixer'
@@ -31,6 +32,8 @@ alias hello="figlet hi"
 alias say="figlet"
 alias info="echo \"\" && pfetch"
 alias connection="ping archlinux.org"
+alias todo="nvim ~/TODO"
+alias pls="doas"
 
 # Directories:
 alias ..='cd ..'

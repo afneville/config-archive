@@ -33,7 +33,7 @@
 (setq
 
  doom-font (font-spec :family "Jetbrains Mono Nerd Font" :weight 'regular :size 14 :height 1.0)
- doom-variable-pitch-font (font-spec :family "Jetbrains Mono Nerd Font" :weight 'regular :size 18 :height 1.5)
+ doom-variable-pitch-font (font-spec :family "ETBookOT" :weight 'regular :size 18 :height 1.0)
  doom-theme 'doom-one
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -155,19 +155,19 @@
   (setq org-hide-emphasis-markers nil)
   (setq org-agenda-files '("~/notes/agenda.org")))
 
-;; (use-package org-bullets
-;;  :after org
-;;  :hook (org-mode . org-bullets-mode)
-;;  :custom
-;;  (org-bullets-bullet-list '( "◇" "✿" "●" "○" "●" "●")))
+(use-package org-bullets
+ :after org
+ :hook (org-mode . org-bullets-mode)
+ :custom
+ (org-bullets-bullet-list '( "◇" "✿" "●" "○" "●" "●")))
 
-;; (setq org-ellipsis "↴")
+(setq org-ellipsis "↴")
 
-;; (use-package! mixed-pitch
-;;    :hook (org-mode . mixed-pitch-mode)
-;;    :config
-;;    (setq mixed-pitch-set-heigth t)
-;;    (set-face-attribute 'variable-pitch nil :height 130))
+(use-package! mixed-pitch
+   :hook (org-mode . mixed-pitch-mode)
+   :config
+   (setq mixed-pitch-set-heigth t)
+   (set-face-attribute 'variable-pitch nil :height 130))
 
 (after! org
 

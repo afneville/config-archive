@@ -1,29 +1,16 @@
--- awesome_mode: api-level=4:screen=on
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
--- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
--- Declarative object management
 local ruled = require("ruled")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
 naughty.connect_signal("request::display_error", function(message, startup)
     naughty.notification {
         urgency = "critical",
@@ -31,29 +18,14 @@ naughty.connect_signal("request::display_error", function(message, startup)
         message = message
     }
 end)
--- }}}
 
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "default")
-beautiful.init("/home/code/alex/.config/awesome/themes/default/theme.lua")
--- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init("/home/alex/.config/awesome/theme/theme.lua")
 
--- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
--- }}}
-
--- {{{ Menu
--- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "manual", terminal .. " -e man awesome" },
@@ -70,50 +42,22 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
+menubar.utils.terminal = terminal
 
--- {{{ Tag
--- Table of layouts to cover with awful.layout.inc, order matters.
 tag.connect_signal("request::default_layouts", function()
     awful.layout.append_default_layouts({
         awful.layout.suit.floating,
-        awful.layout.suit.tile,
-        awful.layout.suit.tile.left,
-        awful.layout.suit.tile.bottom,
-        awful.layout.suit.tile.top,
         awful.layout.suit.fair,
-        awful.layout.suit.fair.horizontal,
-        awful.layout.suit.spiral,
-        awful.layout.suit.spiral.dwindle,
         awful.layout.suit.max,
         awful.layout.suit.max.fullscreen,
-        awful.layout.suit.magnifier,
-        awful.layout.suit.corner.nw,
     })
 end)
--- }}}
 
--- {{{ Wibar
-
--- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
-screen.connect_signal("request::wallpaper", function(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end)
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
@@ -389,6 +333,12 @@ client.connect_signal("request::default_mousebindings", function()
     })
 end)
 
+client.connect_signal("manage", function (c)
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,8)
+    end
+end)
+
 client.connect_signal("request::default_keybindings", function()
     awful.keyboard.append_client_keybindings({
         awful.key({ modkey,           }, "f",
@@ -397,7 +347,7 @@ client.connect_signal("request::default_keybindings", function()
                 c:raise()
             end,
             {description = "toggle fullscreen", group = "client"}),
-        awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+        awful.key({ modkey }, "c",      function (c) c:kill()                         end,
                 {description = "close", group = "client"}),
         awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
                 {description = "toggle floating", group = "client"}),
@@ -504,58 +454,31 @@ client.connect_signal("request::titlebars", function(c)
         end),
     }
 
-    awful.titlebar(c, { position = "left" }) : setup {
-        {
-            awful.titlebar.widget.iconwidget(c),
+    awful.titlebar(c).widget = {
+        { -- Left
+            -- awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
-            layout  = wibox.layout.fixed.vertical
+            layout  = wibox.layout.fixed.horizontal
         },
-        {
-            {
-                {
-                    align  = "center",
-                    widget = awful.titlebar.widget.titlewidget(c)
-                },
-                buttons = buttons,
-                layout  = wibox.layout.flex.vertical
-            },
-            widget = wibox.container.rotate,
-            direction = "east",
+        { -- Middle
+            -- { -- Title
+            --     align  = "center",
+            --     widget = awful.titlebar.widget.titlewidget(c)
+            -- },
+            buttons = buttons,
+            layout  = wibox.layout.flex.horizontal
         },
-        {
+        { -- Right
+            awful.titlebar.widget.minimizebutton (c),
             awful.titlebar.widget.floatingbutton (c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton   (c),
             awful.titlebar.widget.ontopbutton    (c),
             awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.vertical()
+            layout = wibox.layout.fixed.horizontal()
         },
-        layout = wibox.layout.align.vertical
-    }  
-    -- awful.titlebar(c).widget = {
-    --     { -- Left
-    --         awful.titlebar.widget.iconwidget(c),
-    --         buttons = buttons,
-    --         layout  = wibox.layout.fixed.horizontal
-    --     },
-    --     { -- Middle
-    --         { -- Title
-    --             align  = "center",
-    --             widget = awful.titlebar.widget.titlewidget(c)
-    --         },
-    --         buttons = buttons,
-    --         layout  = wibox.layout.flex.horizontal
-    --     },
-    --     { -- Right
-    --         awful.titlebar.widget.floatingbutton (c),
-    --         awful.titlebar.widget.maximizedbutton(c),
-    --         awful.titlebar.widget.stickybutton   (c),
-    --         awful.titlebar.widget.ontopbutton    (c),
-    --         awful.titlebar.widget.closebutton    (c),
-    --         layout = wibox.layout.fixed.horizontal()
-    --     },
-    --     layout = wibox.layout.align.horizontal
-    -- }
+        layout = wibox.layout.align.horizontal
+    }
 end)
 
 -- {{{ Notifications

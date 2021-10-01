@@ -258,6 +258,11 @@ filextype *.org
         \ {Open with Emacs}
         \ emacs %f &,
 
+" Org
+filextype *.drawio
+        \ {Open with drawio}
+        \ drawio %f &,
+
 " MD5
 filetype *.md5
        \ {Check MD5 hash sum}
