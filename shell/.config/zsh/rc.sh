@@ -2,6 +2,7 @@ HISTFILE=~/.cache/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+export PATH=$PATH:$HOME/.local/bin:$HOME/.emacs.d/bin:$HOME/.npm_global/bin
 # vim mode
 bindkey -v
 export KEYTIMEOUT=1

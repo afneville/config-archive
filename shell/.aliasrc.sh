@@ -67,3 +67,9 @@ alias status="systemctl status"
 alias start="systemctl start"
 alias stop="systemctl stop"
 alias restart="systemctl restart"
+
+# Gentoo
+
+alias accept="doas nvim /etc/portage/package.accept_keywords"
+alias package.use="doas nvim /etc/portage/package.use"
+alias make.conf="doas nvim /etc/portage/make.conf"
