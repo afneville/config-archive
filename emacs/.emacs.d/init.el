@@ -35,8 +35,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(fixed-pitch ((t (:family "RobotoMono Nerd Font" :height 130))))
- '(variable-pitch ((t (:family "ETBembo" :height 150)))))
+ '(fixed-pitch ((t (:family "Jetbrains Mono Nerd Font" :height 130))))
+ '(variable-pitch ((t (:family "Linux Libertine" :height 150)))))
 
 (load-theme 'spacemacs-light t)
 (tool-bar-mode -1)
@@ -53,9 +53,9 @@
 (setq scroll-margin 1)
 
 (defun alex/font-faces ()
-  (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height 130)
-  (set-face-attribute 'fixed-pitch nil :font "RobotoMono Nerd Font" :height 130)
-  (set-face-attribute 'variable-pitch nil :font "ETBembo" :weight 'regular :height 150))
+  (set-face-attribute 'default nil :font "Jetbrains Mono Nerd Font" :height 130)
+  (set-face-attribute 'fixed-pitch nil :font "Jetbrains Mono Nerd Font" :height 130)
+  (set-face-attribute 'variable-pitch nil :font "Linux Libertine" :weight 'regular :height 150))
 
 (defun alex/daemon-setup (frame)
   (modify-frame-parameters frame
@@ -246,7 +246,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "ETBembo" :weight 'regular :height 150))
+    (set-face-attribute (car face) nil :font "Linux Libertine" :weight 'regular :height 150))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
