@@ -43,7 +43,8 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
-PROMPT="%B%{$fg[blue]%}[%{$fg[yellow]%}%n%{$fg[cyan]%}@%{$fg[green]%}%m%{$fg[blue]%}] %{$fg[blue]%}[%{$fg[cyan]%}%~%{$fg[blue]%}]\$vcs_info_msg_0_ >> "
+PROMPT="%F{cyan}%~ %F{yellow}>>%f "
+# PROMPT="%B%{$fg[blue]%}[%{$fg[yellow]%}%n%{$fg[cyan]%}@%{$fg[green]%}%m%{$fg[blue]%}] %{$fg[blue]%}[%{$fg[cyan]%}%~%{$fg[blue]%}]\$vcs_info_msg_0_ >> \e[0m "
 
 
 # 3 line prompt
