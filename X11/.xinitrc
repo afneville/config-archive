@@ -55,7 +55,7 @@ if [ ! -z  "$monitor" ]; then
 
 fi
 
-# numlockx &
+numlockx &
 
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
@@ -71,10 +71,10 @@ fi
 # sxhkd -c /home/alex/.config/sxhkd/applications &
 # exec qtile
 # exec i3
-# exec bspwm
+exec bspwm
 # exec xmonad
 # /home/alex/code/dwm/dwm_bar.sh &
-exec dwm
+# exec dwm
 # exec awesome
 
 #      _
