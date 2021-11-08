@@ -87,7 +87,7 @@ myEditor = "emacsclient -c "
 -- myEditor = myTerminal ++ " -e nvim " -- if you want to use neovim etc.
 
 myBorderWidth :: Dimension
-myBorderWidth = 1
+myBorderWidth = 2
 
 myNormColour :: String
 myNormColour   = "#353C4A"
@@ -409,7 +409,7 @@ myKeys =
 blue, lowWhite, purple, red, white, yellow, green :: String -> String
 purple   = xmobarColor "#b48ead" ""
 green    = xmobarColor "#a3be8c" ""
-blue     = xmobarColor "#81a1c1" ""
+blue     = xmobarColor "#51afef" ""
 white    = xmobarColor "#d8dee9" ""
 yellow   = xmobarColor "#ebcb8b" ""
 red      = xmobarColor "#bf616a" ""
