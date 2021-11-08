@@ -45,9 +45,27 @@ _comp_options+=(globdots)
 # custom "plugin manager"
 [ -f "$ZDOTDIR/functions.sh" ] && source "$ZDOTDIR/functions.sh"
 source_zsh_file "search.sh"
-source_zsh_file "prompt.sh"
+# source_zsh_file "prompt.sh"
 # add_zsh_plugin "zsh-users/zsh-autosuggestions"
 # add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
+
+source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
+
+
+# uncomment for space before and after output.
+# preexec() {
+# 
+#     echo ""
+# 
+# }
+# 
+# precmd() {
+#     if [ -z "$OPTIONAL_NEW_LINE" ]; then
+#         OPTIONAL_NEW_LINE=1
+#     elif [ "$OPTIONAL_NEW_LINE" -eq 1 ]; then
+#         echo "\n"
+#     fi
+# }
 
 # copied from the arch wiki
 typeset -g -A key
