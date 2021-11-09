@@ -61,7 +61,7 @@ numlockx &
 # nitrogen --restore
 
 # xsetroot -name "  $(whoami) @ $(hostname) "
-# xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \
@@ -71,8 +71,8 @@ numlockx &
 # sxhkd -c /home/alex/.config/sxhkd/applications &
 # exec qtile
 # exec i3
-# exec bspwm
-exec xmonad
+exec bspwm
+# exec xmonad
 # /home/alex/code/dwm/dwm_bar.sh &
 # exec dwm
 # exec awesome
