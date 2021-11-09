@@ -2,7 +2,7 @@
 
 function fd() {
 
-    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code/misc' \) -prune -false -o -type d)\nquit" | fzf)
+    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type d)\nquit" | fzf)
     if [[ $choice != "quit" ]]; then
 
         pushd $choice
@@ -12,7 +12,7 @@ function fd() {
 
 function ff(){
 
-    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code/misc' \) -prune -false -o -type f)\nquit" | fzf)
+    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type f)\nquit" | fzf)
 
     if [[ ! -z "$choice" ]]; then
 
@@ -30,7 +30,7 @@ function ff(){
 
 function f.(){
 
-    choice=$(echo "$(find ./* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code/misc' \) -prune -false -o -type f)\nquit" | fzf)
+    choice=$(echo "$(find ./* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type f)\nquit" | fzf)
 
     if [[ ! -z "$choice" ]]; then
 
