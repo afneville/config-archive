@@ -8,6 +8,20 @@ Most of the files in this repository are written or edited by hand, while others
 
 Many of the scripts and executables used in these config files are stored in another repository: =alexander-neville/scripts=. Additionally, some applications warrant their own repository, like my build/fork of dwm/st/tabbed/dmenu and my Neovim configuration.
 
+* Screenshots
+
+[[./screenshots/my_config_nord.png]]
+
+[[./screenshots/my_config_gruvbox.png]]
+
+[[./screenshots/my_config_dracula.png]]
+
+[[./screenshots/gruv_hard.png]]
+
+[[./screenshots/many_tabs.png]]
+
+[[./screenshots/many_tiles.png]]
+
 * Stow
 
 As plain text files, a user's configs are suitable for versioning with a source control system like git. I use a program called /GNU stow/ for managing the deployment of my dotfiles. It automatically puts symbolic links in the right places when you run:
@@ -100,16 +114,3 @@ I have used dmenu in the past, but I prefer to use rofi now. I use these program
 
 I also store copies of all the less interesting files like =.Xresources= and =.Xmodmap=. I use =.Xresources= to set and deploy colourschemes to other applications. I also keep =.xinitrc= for starting a xorg session.
 
-* Screenshots
-
-[[./screenshots/my_config_nord.png]]
-
-[[./screenshots/my_config_gruvbox.png]]
-
-[[./screenshots/my_config_dracula.png]]
-
-[[./screenshots/gruv_hard.png]]
-
-[[./screenshots/many_tabs.png]]
-
-[[./screenshots/many_tiles.png]]
