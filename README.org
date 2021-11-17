@@ -16,11 +16,11 @@ Many of the scripts and executables used in these config files are stored in ano
 
 [[./screenshots/my_config_dracula.png]]
 
-[[./screenshots/gruv_hard.png]]
-
 [[./screenshots/many_tabs.png]]
 
 [[./screenshots/many_tiles.png]]
+
+[[./screenshots/onedark.png]]
 
 * Stow
 
