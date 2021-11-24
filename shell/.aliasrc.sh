@@ -61,15 +61,18 @@ alias add="git add"
 alias commit="git commit -m"
 alias gbak="git add . && git commit -m \"automated backup\" && git push origin main"
 alias gpom="git push origin main"
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
 
 # Systemctl
-alias status="systemctl status"
-alias start="systemctl start"
-alias stop="systemctl stop"
-alias restart="systemctl restart"
+alias sstat="systemctl status"
+alias sstart="systemctl start"
+alias sstop="systemctl stop"
+alias srestart="systemctl restart"
+alias senable="systemctl enable"
 
 # Gentoo
-
 alias accept="doas nvim /etc/portage/package.accept_keywords"
 alias package.use="doas nvim /etc/portage/package.use"
 alias make.conf="doas nvim /etc/portage/make.conf"
