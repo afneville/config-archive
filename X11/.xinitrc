@@ -50,7 +50,7 @@ fi
 monitor=`xrandr | grep 'HDMI-A-0 connected'`
 if [ ! -z  "$monitor" ]; then
 
-    xrandr --output HDMI1-A-0 --mode 1920x1080 --output eDP --off
+    xrandr --output HDMI-A-0 --primary --mode 1920x1080 --right-of eDP
 
 fi
 
@@ -70,10 +70,10 @@ xsetroot -cursor_name left_ptr
 # sxhkd -c /home/alex/.config/sxhkd/applications &
 # exec qtile
 # exec i3
-exec bspwm
+# exec bspwm
 # exec xmonad
 # /home/alex/code/dwm/dwm_bar.sh &
-# exec dwm
+exec dwm
 # exec awesome
 
 #      _
