@@ -1,0 +1,11 @@
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+        alacritty
+
+# program launcher
+super + p
+        dmenu_run
