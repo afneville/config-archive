@@ -4,8 +4,18 @@
 
 # terminal emulator
 super + Return
-        alacritty
+        kitty
 
 # program launcher
 super + p
         dmenu_run
+
+#audio
+XF86AudioLowerVolume
+	amixer set Master 5%-
+
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+
+XF86AudioMute
+    amixer -q -D pulse sset Master toggle

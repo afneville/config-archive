@@ -1,16 +1,4 @@
 #
-# wm independent hotkeys
-#
-
-# terminal emulator
-super + Return
-	alacritty
-
-# program launcher
-super + @space
-	dmenu_run
-
-#
 # bspwm hotkeys
 #
 
