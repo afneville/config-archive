@@ -51,7 +51,7 @@ if [ ! -z  "$monitor" ]; then
     # make external monitor the primary
     xrandr --output HDMI-A-0 --primary --mode 1920x1080 --right-of eDP
     # disable laptop monitor
-    xrandr --output HDMI1-A-0 --mode 1920x1080 --output eDP --off
+    # xrandr --output HDMI1-A-0 --mode 1920x1080 --output eDP --off
 
 fi
 
@@ -62,6 +62,8 @@ numlockx &
 
 # xsetroot -name "  $(whoami) @ $(hostname) "
 xsetroot -cursor_name left_ptr
+killall sxhkd
+sxhkd -c ~/.config/sxhkd/application_bindings &
 
 # __      ___ __ ___
 # \ \ /\ / / '_ ` _ \
@@ -71,8 +73,9 @@ xsetroot -cursor_name left_ptr
 # sxhkd -c /home/alex/.config/sxhkd/applications &
 # exec qtile
 # exec i3
-exec bspwm
-# exec xmonad
+# exec bspwm
+exec xmonad
+
 # /home/alex/code/dwm/dwm_bar.sh &
 # exec dwm
 # exec awesome

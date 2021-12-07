@@ -19,3 +19,7 @@ XF86AudioRaiseVolume
 
 XF86AudioMute
     amixer -q -D pulse sset Master toggle
+
+
+super + shift + q
+    killall xinit

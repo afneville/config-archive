@@ -74,7 +74,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myTerminal :: String
-myTerminal = "tabbed -r 2 st -w ''"
+myTerminal = "alacritty"
 
 myBrowser :: String
 myBrowser = "brave"
@@ -94,6 +94,7 @@ myNormColour   = "#353C4A"
 
 myFocusColour :: String
 myFocusColour  = "#81A1C1"
+-- myFocusColour = "#353C4A"
 
 altMask :: KeyMask
 altMask = mod1Mask
@@ -319,8 +320,8 @@ myKeys =
 
         -- movement between workspaces
 
-        -- , ("M-.", nextScreen)  -- next monitor
-        -- , ("M-,", prevScreen)  -- prev monitor
+        , ("M-S-.", nextScreen)  -- next monitor
+        , ("M-S-,", prevScreen)  -- prev monitor
         -- , ("M-S-<Down>", shiftTo Next nonNSP >> moveTo Next nonNSP)
         -- , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP)
         -- , ("M-S-<Up>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
@@ -442,7 +443,7 @@ main = do
         , focusedBorderColor = myFocusColour
         , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
                         { ppOutput          = hPutStrLn xmproc
-                        , ppSep             = white " | "
+                        , ppSep             = white " : "
                         , ppTitleSanitize   = xmobarStrip
                         , ppCurrent         = blue . wrap (blue "[") (blue "]")
                         , ppHidden          = green . wrap " " " "
