@@ -1,5 +1,5 @@
 #+TITLE: Emacs Literate Configuration File
-#+PROPERTY: header-args:emacs-lisp :tangle ~/code/dotfiles/emacs/init.el
+#+PROPERTY: header-args:emacs-lisp :tangle ~/.emacs.d/init.el
 
 * Initial Setup
 ** Initialisation Timer
@@ -22,7 +22,8 @@ Time exactly how long it takes to load emacs.
 ** Setup Package Repositories
 
 #+begin_src emacs-lisp
-
+(setq package-native-compile t)
+(setq native-comp-async-report-warnings-errors nil)
 (require 'package)
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
 			 ("org" . "http://orgmode.org/elpa/")
@@ -41,38 +42,34 @@ Time exactly how long it takes to load emacs.
 ** Custom Set Variables
 
 #+begin_src emacs-lisp
-;; Auto generated stuff, see my config below
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-box-doc-enable nil)
- '(company-box-scrollbar nil)
- '(evil-want-keybinding nil)
- '(lsp-enable-snippet nil)
- '(org-startup-folded t)
- '(org-directory "~/code
-/org")
- '(package-selected-packages
-   '(toc-org evil-org yasnippet company-tabnine undo-tree nlinum lua-mode typescript-mode web-mode json-mode exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets treemacs-all-the-icons treemacs-projectile lsp-treemacs projectile treemacs-evil python-mode company-lsp ivy-rich eglot lsp-jedi elpy company-box company lsp-mode hydra evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
- '(projectile-mode t nil (projectile)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fixed-pitch ((t (:family "Roboto Mono" :height 130))))
- '(org-ellipsis ((t (:foreground "dark gray" :underline nil))))
- '(variable-pitch ((t (:family "Roboto" :height 150)))))
-(setq org-agenda-diary-file "~/code/org/agenda.org")
+
+  ;; Auto generated stuff, see my config below
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(evil-want-keybinding nil)
+   '(org-startup-folded t)
+   '(org-directory "~/code/org")
+   '(package-selected-packages
+     '(toc-org evil-org yasnippet undo-tree nlinum exec-path-from-shell all-the-icons-dired dired-single evil-magit magit visual-fill-column org-bullets org-mode yasnippet-snippets ivy-rich evil-collection general which-key rainbow-delimiters doom-themes doom-modeline counsel ivy use-package evil))
+   )
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(fixed-pitch ((t (:family "Iosevka Nerd Font" :height 110))))
+   '(org-ellipsis ((t (:foreground "dark gray" :underline nil))))
+   '(variable-pitch ((t (:family "Roboto" :height 130)))))
+  (setq org-agenda-diary-file "~/code/org/agenda.org")
 
 #+end_src
 
 * Improving Emacs
 
-Emacs has certain default behaviours which are just confusing.
-These settings are used to make emacs generally more satisfying.
+Emacs has certain default behaviours which are just confusing. These settings are used to make emacs generally more satisfying.
 
 ** Override Default Look and Feel
 
@@ -110,10 +107,11 @@ These settings help make scrolling more manageable.
 #+begin_src emacs-lisp
 
 (setq scroll-conservatively 101)
-(setq scroll-margin 1)
+(setq scroll-margin 5)
 (setq redisplay-dont-pause t)
 (setq jit-lock-defer-time 0)
-;(setq fast-but-imprecise-scrolling t)
+(setq scroll-preserve-screen-position 1)
+(setq fast-but-imprecise-scrolling nil)
 
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
@@ -132,9 +130,9 @@ These settings help make scrolling more manageable.
 
 #+begin_src emacs-lisp
   (defun alex/font-faces ()
-    (set-face-attribute 'default nil :font "Roboto Mono" :height 130)
-    (set-face-attribute 'fixed-pitch nil :font "Roboto Mono" :height 130)
-    (set-face-attribute 'variable-pitch nil :font "Roboto" :height 150 :weight 'regular))
+    (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 110)
+    (set-face-attribute 'fixed-pitch nil :font "Iosevka Nerd Font" :height 110)
+    (set-face-attribute 'variable-pitch nil :font "Roboto" :height 130 :weight 'regular))
 
 #+end_src
 
@@ -142,12 +140,12 @@ Call the function whenever a frame is created. If in daemon mode, select the cur
 
 #+begin_src emacs-lisp
 
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                 (with-selected-frame frame
-                    (alex/font-faces))))
-      (alex/font-faces))
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+               (with-selected-frame frame
+                  (alex/font-faces))))
+    (alex/font-faces))
 
 #+end_src
 
@@ -182,8 +180,7 @@ This config will leave enough room for a three digit number.
 
 ** Line Wrapping
 
-For =prog-mode=, I prefer lines to be truncated.
-I am also changing the default truncation symbol: ~$~ to a space.
+For =prog-mode=, I prefer lines to be truncated. I am also changing the default truncation symbol: ~$~ to a space.
 
 #+begin_src emacs-lisp
 
@@ -205,9 +202,7 @@ In some other modes I would prefer that the lines are wrapped.
 
 ** Aesthetic Changes
 
-Install all the decorations from doom emacs.
-Make sure to use: =M-x RET all-the-icons-install-fonts RET= to install all the icons.
-I am also setting the doom modeline height to a sensible value.
+Install all the decorations from doom emacs. Make sure to use: =M-x RET all-the-icons-install-fonts RET= to install all the icons. I am also setting the doom modeline height to a sensible value.
 
 #+begin_src emacs-lisp
 
@@ -215,11 +210,14 @@ I am also setting the doom modeline height to a sensible value.
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 35)))
+  :custom ((doom-modeline-height 25)))
+(setq doom-modeline-height 1)
+(set-face-attribute 'mode-line nil :family "Iosevka Nerd Font" :height 110)
+(set-face-attribute 'mode-line-inactive nil :family "Iosevka Nerd Font" :height 110)
 (setq doom-modeline-enable-word-count nil)
 (setq doom-modeline-buffer-encoding nil)
 (use-package doom-themes)
-(load-theme 'doom-one t)
+(load-theme 'doom-nord t)
 
 #+end_src
 
@@ -299,14 +297,12 @@ Make sure that emacs is using the correct path for your preffered shell
 ** Tabbing
 
 Inserting tabs (usually 4 spaces) can be difficult in emacs.
-I have bound =C-u= to insert 4 spaces for me.
-This is more useful than scrolling upwards as it would do in vim.
 
 #+begin_src emacs-lisp
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(global-set-key (kbd "C-u") 'tab-to-tab-stop)
+;; (global-set-key (kbd "C-u") 'tab-to-tab-stop)
 
 #+end_src
 
@@ -330,7 +326,6 @@ General is a very useful way of setting up a leader key like in vim and other di
    "ff" '(counsel-find-file :which-key "quick-find")
    "ft" '(treemacs :which-key "toggle treemacs")
    "fs" '(lsp-treemacs-symbols :which-key "toggle lsp symbols")
-   "fp" '(projectile-switch-project :which-key "open project")
    "fd" '(dired-jump :which-key "dired-mode"))
   (alex/leader-keys
     "a" '(:ignore t :which-key "actions")
@@ -364,7 +359,8 @@ General is a very useful way of setting up a leader key like in vim and other di
     "ob" '(org-babel-tangle :which-key "export blocks")
     "ol" '(org-store-link :which-key "store link")
     "oi" '(org-insert-last-stored-link :which-key "insert link")
-    "or" '(org-mode-restart :which-key "reload"))
+    "or" '(org-mode-restart :which-key "restart")
+    "oR" '(org-reload :which-key "reload"))
   (alex/leader-keys
     "s" '(swiper :which-key "search this file")
     "m" '(magit-status :which-key "magit")
@@ -406,7 +402,7 @@ In =prog-mode= this has no effect, but in org mode it makes the keys work like a
   :init
   (setq evil-want-integration t)
   (setq evil-want-fine-undo 'fine)
-  ;(setq evil-want-C-u-scroll t); Use this option if you want C-u to scroll. I do not.
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
   (evil-set-undo-system 'undo-tree)
@@ -414,6 +410,7 @@ In =prog-mode= this has no effect, but in org mode it makes the keys work like a
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
   (define-key evil-normal-state-map (kbd "C-j") 'counsel-ibuffer)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
@@ -473,17 +470,17 @@ When a project is selected, it is opened in a dired buffer, which is useful to k
 
 #+begin_src emacs-lisp
 
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/code")
-    (setq projectile-project-search-path '("~/code")))
-  (setq projectile-switch-project-action #'projectile-dired))
+;; (use-package projectile
+;;   :diminish projectile-mode
+;;   :config (projectile-mode)
+;;   :custom ((projectile-completion-system 'ivy))
+;;   :bind-keymap
+;;   ("C-c p" . projectile-command-map)
+;;   :init
+;;   ;; NOTE: Set this to the folder where you keep your Git repos!
+;;   (when (file-directory-p "~/code")
+;;     (setq projectile-project-search-path '("~/code")))
+;;   (setq projectile-switch-project-action #'projectile-dired))
 
 #+end_src
 
@@ -521,6 +518,26 @@ I am also using nice icons in dired.
   :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 
+** Dashboard
+
+#+begin_src emacs-lisp
+
+(use-package page-break-lines)
+(use-package dashboard
+  :ensure t
+  :init
+  (setq dashboard-set-footer nil)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-banner-logo-title "www.gnu.org")
+  (setq dashboard-startup-banner 'official)
+  ;; (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content nil)
+  (setq dashboard-items '())
+  :config
+  (dashboard-setup-startup-hook))
+#+end_src
+
 * Org Mode
 
 Org mode is very useful for notes, programming and both at the same time.
@@ -548,13 +565,13 @@ They set up better looking, variable-pitch fonts in org mode.
 
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
+                  (org-level-3 . 1.1)
+                  (org-level-4 . 1.1)
                   (org-level-5 . 1.1)
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height 150))
+    (set-face-attribute (car face) nil :font "Roboto" :weight 'semi-bold :height 1.0))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -573,12 +590,17 @@ They set up better looking, variable-pitch fonts in org mode.
 
 (require 'org)
 (setq org-cycle-separator-lines 2)
+(setq org-src-fontify-natively t
+      org-src-window-setup 'current-window
+      org-src-strip-leading-and-trailing-blank-lines t
+      org-src-preserve-indentation t
+      org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t)
 
 (use-package org
   :hook (org-mode . alex/org-mode-setup)
   :config
   ;(setq org-ellipsis " ")
-  ;;(setq org-ellipsis " ⤵")
   (setq org-indent-indentation-per-level 2)
   (setq org-hide-emphasis-markers t)
   (setq org-agenda-files '("~/code/org/agenda.org"))
@@ -637,7 +659,7 @@ This prevents text being pushed right up against the side.
 #+begin_src emacs-lisp
 
 (defun alex/org-mode-visual-fill ()
-  (setq visual-fill-column-width 180
+  (setq visual-fill-column-width 100
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
@@ -656,15 +678,15 @@ I don't like lots of elements all at once, so I have disabled a few ui options.
 
 #+begin_src emacs-lisp
 
-(setq lsp-headerline-breadcrumb-enable nil)
-(setq lsp-ui-doc-mode 0)
-(setq lsp-diagnostics-provider :none)
-(setq lsp-signature-auto-activate nil)
-(setq lsp-signature-render-documentation nil)
-(setq lsp-modeline-code-actions-enable nil)
-(setq lsp-modeline-diagnostics-enable nil)
-(setq lsp-log-io nil)
-(setq lsp-restart 'auto-restart)
+;; (setq lsp-headerline-breadcrumb-enable nil)
+;; (setq lsp-ui-doc-mode 0)
+;; (setq lsp-diagnostics-provider :none)
+;; (setq lsp-signature-auto-activate nil)
+;; (setq lsp-signature-render-documentation nil)
+;; (setq lsp-modeline-code-actions-enable nil)
+;; (setq lsp-modeline-diagnostics-enable nil)
+;; (setq lsp-log-io nil)
+;; (setq lsp-restart 'auto-restart)
 
 #+end_src
 
@@ -674,15 +696,16 @@ This is the initialisation of =lsp-mode=.
 
 #+begin_src emacs-lisp
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook
-  (web-mode . lsp-deferred)
-  :config
-  (lsp-enable-which-key-integration t))
-(require 'lsp-mode)
+  ;; (use-package lsp-mode
+  ;;   :commands (lsp lsp-deferred)
+  ;;   :init
+  ;;   (setq lsp-keymap-prefix "C-c l")
+  ;;   :hook
+  ;;   (web-mode . lsp-deferred)
+  ;;   :config
+  ;;   (lsp-enable-which-key-integration t))
+  ;; (require 'lsp-mode)
+
 #+end_src
 
 ** Company Mode
@@ -694,20 +717,20 @@ Completion cycling is also enabled in case I miss the right completion.
 
 #+begin_src emacs-lisp
 
-(use-package company
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
-  :config
-  (setq company-selection-wrap-around t)
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
-  ; this line is for tab and go completion
-  (company-tng-configure-default))
-(with-eval-after-load 'company
-  ; also use my prefered keys for selection
-  (define-key company-active-map (kbd "C-j") #'company-select-next)
-  (define-key company-active-map (kbd "C-k") #'company-select-previous))
+;; (use-package company
+;;   :after lsp-mode
+;;   :hook (lsp-mode . company-mode)
+;;   :config
+;;   (setq company-selection-wrap-around t)
+;;   :custom
+;;   (company-minimum-prefix-length 1)
+;;   (company-idle-delay 0.0)
+;;   ; this line is for tab and go completion
+;;   (company-tng-configure-default))
+;; (with-eval-after-load 'company
+;;   ; also use my prefered keys for selection
+;;   (define-key company-active-map (kbd "C-j") #'company-select-next)
+;;   (define-key company-active-map (kbd "C-k") #'company-select-previous))
 
 #+end_src
 
@@ -742,28 +765,26 @@ Use any language server needed and start =lsp-mode= in certain =prog-mode= buffe
 
 #+begin_src emacs-lisp
 
-(use-package lsp-jedi
-  :ensure t)
-
-(add-hook 'python-mode-hook 'lsp-deferred)
-(add-hook 'c++-mode-hook 'lsp-deferred)
-(add-hook 'c-mode-hook 'lsp-deferred)
-
-(use-package web-mode
-  :mode "\\.js\\'"
-  :hook (web-mode . lsp-deferred))
+;; (use-package lsp-jedi
+;;   :ensure t)
+;; 
+;; (add-hook 'python-mode-hook 'lsp-deferred)
+;; (add-hook 'c++-mode-hook 'lsp-deferred)
+;; (add-hook 'c-mode-hook 'lsp-deferred)
+;; 
+;; (use-package web-mode
+;;   :mode "\\.js\\'"
+;;   :hook (web-mode . lsp-deferred))
 
 #+end_src
 
 #+begin_src emacs-lisp
 
-      ; lua mode for configuring awesome window manager
- (use-package lua-mode
-        :hook (lua-mode-hook . lua-mode))
-    ; Haskell mode for configuring xmonad window manager
-
-  (use-package haskell-mode
-        :hook (haskell-mode-hook .haskell-mode))
+;; (use-package lua-mode
+;;        :hook (lua-mode-hook . lua-mode))
+;; 
+;;  (use-package haskell-mode
+;;        :hook (haskell-mode-hook .haskell-mode))
 
 #+end_src
 
@@ -771,21 +792,22 @@ Use any language server needed and start =lsp-mode= in certain =prog-mode= buffe
 
 Use the treemacs file explorer including:
 
-  - projectile support
-  - all the icons
-  - evil mode keys
+ - projectile support
+ - all the icons
+ - evil mode keys
 
 #+begin_src emacs-lisp
 
-(use-package lsp-treemacs
-  :after lsp)
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
-(use-package treemacs-all-the-icons
-  :after treemacs)
-(use-package treemacs-evil
-  :after treemacs)
+;; (use-package lsp-treemacs
+;;   :after lsp)
+;; (use-package treemacs-projectile
+;;   :after (treemacs projectile)
+;;   :ensure t)
+;; (use-package treemacs-all-the-icons
+;;   :after treemacs)
+;; (use-package treemacs-evil
+;;   :after treemacs)
+;; 
+;; (add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
 
-(add-hook 'treemacs-mode-hook (lambda () (treemacs-load-theme "all-the-icons")))
 #+end_src
