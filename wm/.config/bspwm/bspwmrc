@@ -44,4 +44,5 @@ bspc config window_gap 5
 
 # RULES
 bspc rule -a Emacs state=tiled
+bspc rule -a Zathura state=tiled
 bspc rule -a Virt-manager state=floating

@@ -19,3 +19,5 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 umask 0022 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
