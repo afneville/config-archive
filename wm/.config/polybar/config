@@ -10,7 +10,7 @@ include-file = ~/.config/polybar/colours
 
 [bar/default]
 
-monitor = HDMI-A-0
+# monitor = HDMI-A-0
 bottom = false
 width = 12.5%
 height = 32
