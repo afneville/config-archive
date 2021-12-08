@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "Alexander Neville"
-      user-mail-address "alexander.neville@icloud.com")
+(setq user-full-name "John Doe"
+      user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,13 +19,13 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "JetbrainsMono Nerd Font" :size 13 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15))
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 14 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Roboto" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -33,7 +33,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -52,9 +52,12 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-;;
-;; PERSONAL CONFIG
 
+
+(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
+;;(add-hook 'treemacs-mode-hook (lambda () (setq hl-line-mode 1)))
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+(add-hook 'doom-first-buffer-hook #'blink-cursor-mode)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (use-package evil
@@ -64,34 +67,7 @@
 )
 
 
-(setq
- display-line-numbers-type nil
- ispell-program-name "aspell"
- ispell-local-dictionary "british-ise"
- org-directory "~/notes"
- auto-save-default nil
- make-backup-files nil
- mouse-wheel-scroll-amount '(3 ((shift) . 1)) ;; one line at a time
- mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
- mouse-wheel-follow-mouse 't ;; scroll window under mouse
- ;; neo-theme 'icons
- ;; doom-fallback-buffer "*dashboard*"
- ;; doom-modeline-height 15
- doom-modeline-enable-word-count nil
- doom-modeline-buffer-encoding nil
- which-key-idle-delay 0.4
- confirm-kill-emacs nil
- blink-cursor-mode 1
-)
-
-(remove-hook 'doom-first-buffer-hook #'global-hl-line-mode)
-(add-hook 'treemacs-mode-hook (lambda () (setq hl-line-mode 1)))
-(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
-(add-hook 'doom-first-buffer-hook #'blink-cursor-mode)
-
-;;
-;; ORG CONFIG
-;;
+;; ORG
 
 (defun alex/org-mode-setup ()
   (font-lock-add-keywords 'org-mode
@@ -111,7 +87,7 @@
 
 (add-hook! org-mode :append
            #'visual-line-mode
-           #'org-appear-mode
+           #'visual-fill-column-mode
            #'variable-pitch-mode)
 
 (after! org
@@ -149,3 +125,12 @@
  :hook (org-mode . org-bullets-mode)
  :custom
  (org-bullets-bullet-list '( "●" "●" "●" "●" "●" "●")))
+
+
+(defun alex/org-mode-visual-fill ()
+  (setq visual-fill-column-width 120
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . alex/org-mode-visual-fill))

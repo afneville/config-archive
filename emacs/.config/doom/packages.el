@@ -48,24 +48,9 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
-
-
-;;
-;; PERSONAL CONFIG
-;;
-
-(package! org-appear
-  :recipe (:host github
-           :repo "awth13/org-appear"))
-
 (package! git-gutter :disable t)
 (package! lsp-ui :disable t)
 (package! saveplace :disable t)
 (package! org-bullets)
-;; (package! lsp-jedi)
 (package! mixed-pitch)
-;; (package! spacemacs-theme)
-;; (package! company-lsp)
-;; (package! web-mode)
-;; (package! dashboard)
-;; (package! asm-mode)
+(package! visual-fill-column)
