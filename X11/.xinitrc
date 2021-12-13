@@ -58,7 +58,7 @@ exec bspwm
 # /home/alex/code/dwm/dwm_bar.sh &
 # exec dwm
 # exec awesome
-# export DESKTOP_SESSION=plasma 
+# export DESKTOP_SESSION=plasma
 # exec startplasma-x11
 # exec dbus-launch --exit-with-session startplasma-x11
 # export XDG_SESSION_TYPE=x11

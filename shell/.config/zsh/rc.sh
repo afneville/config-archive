@@ -46,8 +46,8 @@ _comp_options+=(globdots)
 [ -f "$ZDOTDIR/functions.sh" ] && source "$ZDOTDIR/functions.sh"
 source_zsh_file "search.sh"
 # source_zsh_file "prompt.sh"
-# add_zsh_plugin "zsh-users/zsh-autosuggestions"
-# add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
+add_zsh_plugin "zsh-users/zsh-autosuggestions"
+add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 
 source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
 

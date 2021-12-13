@@ -8,7 +8,8 @@ super + Return
 
 # program launcher
 super + p
-        dmenu_run
+        rofi -show run
+        # dmenu_run
 
 #audio
 XF86AudioLowerVolume

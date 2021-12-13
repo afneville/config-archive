@@ -26,13 +26,13 @@ line-size = 0
 line-color = ${color.blue}
 
 border-bottom-size = 2
-border-bottom-color = #353C4A
+border-bottom-color = #353A3C
 border-top-size = 0
-border-top-color = #353C4A
+border-top-color = #353A3C
 border-left-size = 0
-border-left-color = #353C4A
+border-left-color = #353A3C
 border-right-size = 2
-border-right-color = #353C4A
+border-right-color = #353A3C
 
 padding = 1
 

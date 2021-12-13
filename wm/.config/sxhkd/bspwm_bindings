@@ -10,13 +10,15 @@ super + r
 super + c
 	bspc node -c
 
-#
-# state/flags
-#
-
 # set the window state
 super + {t,f,m}
 	bspc node -t {tiled,floating,fullscreen}
+
+super + z
+    bspc config focused_border_color "#353A3C"
+
+super + b
+    bspc config top_padding 0 && bspc config window_gap 0
 
 #
 # focus/swap
@@ -27,8 +29,8 @@ super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+# super + {p,b,comma,period}
+#     bspc node -f @{parent,brother,first,second}
 
 
 # focus the next/previous desktop in the current monitor
