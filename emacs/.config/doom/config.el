@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Alexander Neville"
+      user-mail-address "alexander.neville@icloud.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,11 +19,9 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 14 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "CMU Typewriter Text" :size 15))
-      ;; doom-variable-pitch-font (font-spec :family "CMU Typewriter Text Variable Width" :size 15))
-      ;; doom-variable-pitch-font (font-spec :family "CMU Serif" :size 15))
-      ;; doom-variable-pitch-font (font-spec :family "CMU Bright" :size 15))
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 14 :weight 'regular :height 1.0)
+      doom-variable-pitch-font (font-spec :family "CMU Typewriter Text" :size 16 :height 1.0))
+      ;; doom-variable-pitch-font (font-spec :family "ETBembo" :size 16 :height 1.1))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -69,24 +67,33 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 )
 
+(map! :leader
+      :desc "Insert line above"
+      "i k"   #'+evil/insert-newline-above
+      :desc "Insert line below"
+      "i j"   #'+evil/insert-newline-below
+      :desc "Preview Latex"
+      "o l"   #'org-latex-preview)
 
 ;; ORG
 
-
+(setq org-image-actual-width (/ (display-pixel-width) 5))
+(after! org (plist-put org-format-latex-options :scale 2))
 (setq
  ispell-program-name "aspell"
  ispell-local-dictionary "british-ise"
  ispell-personal-dictionary "~/british-ise.pws"
 )
+(setq org-highlight-latex-and-related '(latex script entities))
 
 (defun alex/org-mode-setup ()
   (font-lock-add-keywords 'org-mode
                             '(("^ *\\([-]\\) "
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   (org-indent-mode)
-  (setq left-margin-width 10)
-  (setq right-margin-width 10)
-  (variable-pitch-mode 1)
+  ;; (setq left-margin-width 10)
+  ;; (setq right-margin-width 10)
+  ;; (variable-pitch-mode 1)
   (visual-line-mode 1))
 
 (setq org-directory "~/org/")
@@ -97,8 +104,9 @@
 
 (add-hook! org-mode :append
            #'visual-line-mode
-           #'visual-fill-column-mode
-           #'variable-pitch-mode)
+           #'visual-fill-column-mode)
+           ;; #'visual-fill-column-mode
+           ;; #'variable-pitch-mode)
 
 (after! org
 
@@ -108,8 +116,8 @@
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (custom-set-faces!
    '(org-document-title :height 1.3)
-   '(org-level-1 :inherit outline-1 :weight bold :height 1.2)
-   '(org-level-2 :inherit outline-2 :weight bold :height 1.15)
+   '(org-level-1 :inherit outline-1 :weight semi-bold :height 1.3)
+   '(org-level-2 :inherit outline-2 :weight semi-bold :height 1.1)
    '(org-level-3 :inherit outline-3 :weight semi-bold :height 1.1)
    '(org-level-4 :inherit outline-4 :weight semi-bold)
    '(org-level-5 :inherit outline-5 :weight semi-bold)
@@ -127,8 +135,11 @@
 
 (add-hook 'org-mode-hook #'alex/org-mode-setup)
 
-(use-package mixed-pitch
-   :hook (org-mode . mixed-pitch-mode))
+;; (use-package mixed-pitch
+;;   :hook (org-mode . mixed-pitch-mode)
+;;   :config
+;;   (setq mixed-pitch-set-height t)
+;;   (set-face-attribute 'variable-pitch nil :height 1.0))
 
 (use-package org-bullets
  :after org
@@ -136,9 +147,8 @@
  :custom
  (org-bullets-bullet-list '( "●" "●" "●" "●" "●" "●")))
 
-
 (defun alex/org-mode-visual-fill ()
-  (setq visual-fill-column-width 120
+  (setq visual-fill-column-width 100
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
