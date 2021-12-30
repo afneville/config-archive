@@ -1,4 +1,4 @@
-personal_ws-1.1 en 171 
+personal_ws-1.1 en 179 
 ADT
 ALU
 APIs
@@ -47,6 +47,7 @@ OSI
 PDFs
 PNG
 POSIX
+Parametrics
 Polymorphism
 Pseudocode
 RDMS
@@ -78,6 +79,7 @@ abc
 activations
 allocators
 amssymb
+args
 atomicity
 backpropogation
 barcode
@@ -85,6 +87,8 @@ barcodes
 bfseries
 bitwise
 bmatrix
+bool
+boson
 bytecode
 cdot
 chr
@@ -103,6 +107,8 @@ dir
 distributable
 dll
 eg
+equipotential
+equipotentials
 facto
 frac
 fuser
@@ -137,6 +143,7 @@ nm
 nmcli
 nmtui
 nn
+nuclide
 numpy
 ocr
 onlineocr
@@ -152,6 +159,7 @@ prototyped
 pseudocode
 pthreads
 py
+retval
 sbrk
 secnumdepth
 sho

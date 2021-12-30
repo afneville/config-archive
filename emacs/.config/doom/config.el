@@ -78,7 +78,7 @@
 ;; ORG
 
 (setq org-image-actual-width (/ (display-pixel-width) 5))
-(after! org (plist-put org-format-latex-options :scale 2))
+(after! org (plist-put org-format-latex-options :scale 1.5))
 (setq
  ispell-program-name "aspell"
  ispell-local-dictionary "british-ise"
@@ -91,7 +91,7 @@
                             '(("^ *\\([-]\\) "
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
   (org-indent-mode)
-  ;; (setq left-margin-width 10)
+  ;; (setq left-margin-width 20)
   ;; (setq right-margin-width 10)
   ;; (variable-pitch-mode 1)
   (visual-line-mode 1))
@@ -104,9 +104,9 @@
 
 (add-hook! org-mode :append
            #'visual-line-mode
-           #'visual-fill-column-mode)
-           ;; #'visual-fill-column-mode
-           ;; #'variable-pitch-mode)
+           ;; #'visual-fill-column-mode)
+           #'visual-fill-column-mode
+           #'variable-pitch-mode)
 
 (after! org
 
@@ -135,17 +135,17 @@
 
 (add-hook 'org-mode-hook #'alex/org-mode-setup)
 
-;; (use-package mixed-pitch
-;;   :hook (org-mode . mixed-pitch-mode)
-;;   :config
-;;   (setq mixed-pitch-set-height t)
-;;   (set-face-attribute 'variable-pitch nil :height 1.0))
+(use-package mixed-pitch
+  :hook (org-mode . mixed-pitch-mode)
+  :config
+  (setq mixed-pitch-set-height t)
+  (set-face-attribute 'variable-pitch nil :height 1.0))
 
-(use-package org-bullets
- :after org
- :hook (org-mode . org-bullets-mode)
- :custom
- (org-bullets-bullet-list '( "●" "●" "●" "●" "●" "●")))
+;; (use-package org-bullets
+;;  :after org
+;;  :hook (org-mode . org-bullets-mode)
+;;  :custom
+;;  (org-bullets-bullet-list '( "●" "●" "●" "●" "●" "●")))
 
 (defun alex/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
