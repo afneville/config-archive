@@ -19,14 +19,15 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 14 :weight 'regular :height 1.0)
-      doom-variable-pitch-font (font-spec :family "CMU Typewriter Text" :size 16 :height 1.0))
+(setq doom-font (font-spec :family "Jetbrains Mono Nerd Font" :size 14 :weight 'regular :height 1.0)
+      ;; doom-variable-pitch-font (font-spec :family "CMU Typewriter Text" :size 16 :height 1.0))
+      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 16 :height 1.0))
       ;; doom-variable-pitch-font (font-spec :family "ETBembo" :size 16 :height 1.1))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-dark+)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -104,9 +105,9 @@
 
 (add-hook! org-mode :append
            #'visual-line-mode
-           ;; #'visual-fill-column-mode)
-           #'visual-fill-column-mode
-           #'variable-pitch-mode)
+           #'visual-fill-column-mode)
+           ;; #'visual-fill-column-mode
+           ;; #'variable-pitch-mode)
 
 (after! org
 
@@ -135,11 +136,11 @@
 
 (add-hook 'org-mode-hook #'alex/org-mode-setup)
 
-(use-package mixed-pitch
-  :hook (org-mode . mixed-pitch-mode)
-  :config
-  (setq mixed-pitch-set-height t)
-  (set-face-attribute 'variable-pitch nil :height 1.0))
+;; (use-package mixed-pitch
+;;   :hook (org-mode . mixed-pitch-mode)
+;;   :config
+;;   (setq mixed-pitch-set-height t)
+;;   (set-face-attribute 'variable-pitch nil :height 1.0))
 
 ;; (use-package org-bullets
 ;;  :after org

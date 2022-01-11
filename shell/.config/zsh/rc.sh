@@ -22,7 +22,9 @@ export KEYTIMEOUT=1
 # echo -ne '\e[5 q'
 # preexec() { echo -ne '\e[5 q' ;}
 
-
+eval "$(mcfly init zsh)"
+export MCFLY_KEY_SCHEME=vim
+export MCFLY_RESULTS=25
 # features
 setopt extendedglob nomatch menucomplete
 setopt interactive_comments
