@@ -32,10 +32,9 @@ fi
 
 monitor=`xrandr | grep 'HDMI-A-0 connected'`
 if [ ! -z  "$monitor" ]; then
-
     # make external monitor the primary
     # xrandr --output HDMI-A-0 --primary --mode 1920x1080 --right-of eDP
-    # disable laptop monitor
+    # disable one monitor
     xrandr --output HDMI1-A-0 --mode 1920x1080 --output eDP --off
 fi
 
@@ -43,24 +42,23 @@ fi
 # xfce4-power-manager &
 # picom -m 1 &
 # picom --experimental-backends &
-numlockx &
+# numlockx &
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 # xsetroot -name "  $(whoami) @ $(hostname) "
-xsetroot -cursor_name left_ptr
+# xsetroot -cursor_name left_ptr
 # killall sxhkd
 # sxhkd -c ~/.config/sxhkd/application_bindings &
-# sxhkd -c /home/alex/.config/sxhkd/applications &
 # exec qtile
 # exec i3
-exec bspwm
+# exec bspwm
 # exec xmonad
 # /home/alex/code/dwm/dwm_bar.sh &
 # exec dwm
 # exec awesome
-# export DESKTOP_SESSION=plasma
-# exec startplasma-x11
-# exec dbus-launch --exit-with-session startplasma-x11
+export DESKTOP_SESSION=plasma
+exec startplasma-x11
+exec dbus-launch --exit-with-session startplasma-x11
 # export XDG_SESSION_TYPE=x11
 # export GDK_BACKEND=x11
 # exec gnome-session
