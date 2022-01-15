@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function fd() {
-    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type d)\nquit" | fzf --height=30 --border=sharp)
+    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type d)\nquit" | fzf --height=20 --border=sharp)
     if [[ $choice != "quit" ]]; then
         pushd $choice
 
@@ -9,7 +9,7 @@ function fd() {
 }
 
 function ff(){
-    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type f)\nquit" | fzf --height=30 --border=sharp)
+    choice=$(echo "$(find ~/* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type f)\nquit" | fzf --height=20 --border=sharp)
     if [[ ! -z "$choice" ]]; then
         if [[ $choice != "quit" ]]; then
             pushd $(dirname $choice)
@@ -20,7 +20,7 @@ function ff(){
 }
 
 function f.(){
-    choice=$(echo "$(find ./* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type f)\nquit" | fzf --height=30 --border=sharp)
+    choice=$(echo "$(find ./* \( -name '.git' -o -name 'env' -o -wholename '/home/alex/code' \) -prune -false -o -type f)\nquit" | fzf --height=20 --border=sharp)
     if [[ ! -z "$choice" ]]; then
         if [[ $choice != "quit" ]]; then
             nvim $choice

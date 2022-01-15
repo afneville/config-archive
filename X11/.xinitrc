@@ -43,25 +43,25 @@ fi
 # picom -m 1 &
 # picom --experimental-backends &
 # numlockx &
-# hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
+hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 # xsetroot -name "  $(whoami) @ $(hostname) "
 # xsetroot -cursor_name left_ptr
-# killall sxhkd
-# sxhkd -c ~/.config/sxhkd/application_bindings &
+killall sxhkd
+sxhkd -c ~/.config/sxhkd/application_bindings &
 # exec qtile
 # exec i3
-# exec bspwm
+exec bspwm
 # exec xmonad
 # /home/alex/code/dwm/dwm_bar.sh &
 # exec dwm
 # exec awesome
-export DESKTOP_SESSION=plasma
-exec startplasma-x11
-exec dbus-launch --exit-with-session startplasma-x11
+# export DESKTOP_SESSION=plasma
+# exec startplasma-x11
+# exec dbus-launch --exit-with-session startplasma-x11
 # export XDG_SESSION_TYPE=x11
 # export GDK_BACKEND=x11
 # exec gnome-session
 # exec cinnamon-session
 # exec mate-session
-# exec startxfce4 
+# exec startxfce4

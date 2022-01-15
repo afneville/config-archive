@@ -1,15 +1,15 @@
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;;
+;;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 
 
-include-file = ~/.config/polybar/colours 
+include-file = ~/.config/polybar/colours
 
-[bar/default]
-
+[bar/ws]
 # monitor = HDMI-A-0
 bottom = false
 width = 12.5%
@@ -18,13 +18,10 @@ offset-x = 0%
 offset-y = 0%
 radius = 0.0
 fixed-center = true
-
 background = ${color.background}
 foreground = ${color.foreground}
-
 line-size = 0
 line-color = ${color.blue}
-
 border-bottom-size = 2
 border-bottom-color = #353A3C
 border-top-size = 0
@@ -33,36 +30,68 @@ border-left-size = 0
 border-left-color = #353A3C
 border-right-size = 2
 border-right-color = #353A3C
-
 padding = 1
-
 module-margin-left = 1
 module-margin-right = 1
-
 font-0 = Jetbrains Mono Nerd Font:pixelsize=10;3
-
 modules-left = bspwm
-; modules-center = wlan eth
-modules-center = 
+modules-center =
 modules-right =
-
 tray-position =
 tray-padding = 0
 ;tray-background = #0063ff
-
 wm-restack = bspwm
 ;wm-restack = i3
-
 override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
 ;scroll-up = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
-
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+
+[bar/status]
+# monitor = HDMI-A-0
+bottom = false
+width = 22.5%
+height = 32
+offset-x = 77.5%
+offset-y = 0%
+radius = 0.0
+fixed-center = true
+background = ${color.background}
+foreground = ${color.foreground}
+line-size = 0
+line-color = ${color.blue}
+border-bottom-size = 2
+border-bottom-color = #353A3C
+border-top-size = 0
+border-top-color = #353A3C
+border-left-size = 2
+border-left-color = #353A3C
+border-right-size = 0
+border-right-color = #353A3C
+padding = 1
+module-margin-left = 1
+module-margin-right = 1
+font-0 = Jetbrains Mono Nerd Font:pixelsize=10;3
+modules-left =
+modules-center =
+modules-right = eth wlan date battery
+tray-position =
+tray-padding = 0
+;tray-background = #0063ff
+wm-restack = bspwm
+;wm-restack = i3
+override-redirect = true
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+cursor-click = pointer
+cursor-scroll = ns-resize
+
 
 ;                      _       _
 ;  _ __ ___   ___   __| |_   _| | ___  ___
@@ -119,12 +148,12 @@ fuzzy-match = true
 ;; ws-icon-7 = 8;
 ;; ws-icon-8 = 9;
 ;; ws-icon-default = ﱡ
-ws-icon-0 = 1; 
+ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
-ws-icon-5 = 6; 
+ws-icon-5 = 6;
 ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-8 = 9;
@@ -152,7 +181,7 @@ label-empty = 
 label-empty-foreground = ${color.magenta}
 label-empty-padding = 1
 
-label-monocle = 
+label-monocle =
 label-tiled =
 label-fullscreen =
 label-floating =
@@ -169,24 +198,19 @@ label-marked =
 label-separator = ""
 
 [module/mod]
-
 type = internal/bspwm
-
 format = <label-mode>
-format-background = ${color.yellow}
-format-foreground = ${color.background}
+format-background = ${color.background}
+format-foreground = ${color.foreground}
 format-padding = 1
-
-label-monocle = "Monocle"
-label-tiled = "Tiled"
-
-label-floating = ", Float"
-label-pseudotiled = ", Pseudo"
-label-fullscreen = ", Full"
-
-label-locked = " Locked"
-label-sticky = " Sticky"
-label-private = " Private"
+label-monocle = ""
+label-tiled = 舘
+label-floating = 禎
+label-pseudotiled = 舘
+label-fullscreen = ""
+label-locked = ""
+label-sticky = ""
+label-private = ""
 
 [module/mpd]
 type = internal/mpd
@@ -244,41 +268,36 @@ type = internal/network
 interface = wlp4s0
 interval = 30.0
 
-label-connected =   %essid% %local_ip%
-label-connected-foreground = ${color.green}
+label-connected =   %ifname% %local_ip%
+label-connected-foreground = ${color.magenta}
 format-connected = <label-connected>
 
 label-disconnected =  %ifname%
-label-disconnected-foreground = ${color.yellow}
+label-disconnected-foreground = ${color.red}
 format-disconnected = <label-disconnected>
 
 [module/eth]
 type = internal/network
 interface = enp3s0
 interval = 30.0
-
-label-connected =  %local_ip%
-label-connected-foreground = ${color.green}
-
+label-connected =  %ifname% %local_ip%
+label-connected-foreground = ${color.magenta}
 label-disconnected =  %ifname%
-label-disconnected-foreground = ${color.yellow}
+label-disconnected-foreground = ${color.red}
 format-disconnected = <label-disconnected>
 
 [module/date]
 type = internal/date
 interval = 30
-
-date =
-date-alt = " %d-%m-%Y"
-
-time = %H:%M
-time-alt = %H:%M
-
-format-prefix = "" 
+date = ""
+date-alt = "%d-%m-%Y"
+time = "%H:%M"
+time-alt = ""
+format-prefix = ""
+format-foreground = ${color.cyan}
 format-prefix-foreground = ${color.cyan}
 format-underline = #0a6cf5
-
-label = %date% %time%
+label = " %date%%time%"
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -341,33 +360,27 @@ battery = BAT1
 adapter = ACAD
 full-at = 98
 poll-interval = 2
-
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
-
+format-charging-foreground = ${color.altgreen}
 format-discharging = <ramp-capacity>  <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
-
-format-full-prefix = " "
-format-full-prefix-foreground = ${color.green}
-format-full-underline = ${self.format-charging-underline}
-
+format-discharging-foreground = ${color.altyellow}
+format-full-prefix = "  "
+format-full-prefix-foreground = ${color.altgreen}
+format-full-foreground = ${color.altgreen}
 label-charging = %percentage%%
 label-discharging =  %percentage%%
 label-full = %percentage%%
-
-ramp-capacity-0 = " "
-ramp-capacity-1 = " "
-ramp-capacity-2 = " "
-ramp-capacity-3 = " "
-ramp-capacity-4 = " "
+ramp-capacity-0 = "  "
+ramp-capacity-1 = "  "
+ramp-capacity-2 = "  "
+ramp-capacity-3 = "  "
+ramp-capacity-4 = "  "
 ;;ramp-capacity-font = 2
 ramp-capacity-foreground = ${color.yellow}
-
-animation-charging-0 = " "
-animation-charging-1 = " "
-animation-charging-2 = " "
-animation-charging-3 = " "
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-3 = "  "
 animation-charging-font = 2
 animation-charging-foreground = ${color.green}
 animation-charging-framerate = 750
