@@ -6,13 +6,17 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'lervag/vimtex'
 Plug 'SirVer/ultisnips'
 Plug 'arcticicestudio/nord-vim'
-Plug 'KeitaNakamura/tex-conceal.vim'
+" Plug 'KeitaNakamura/tex-conceal.vim'
+Plug 'tomasiser/vim-code-dark'
 
 call plug#end()
 
 " GENERAL CONFIG OPTIONS
 
 syntax enable
+set t_Co=256
+set t_ut=
+colorscheme codedark
 filetype plugin on
 filetype indent on
 set autoread
@@ -43,7 +47,7 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 set lbr
-set tw=500
+set tw=80
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
@@ -60,7 +64,7 @@ set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ %=\ \ Line:\ %l\ \ Colum
 
 " COLORSCHEME
 
-colorscheme nord
+colorscheme codedark
 " MAPPINGS
 
 let mapleader = " "
@@ -80,6 +84,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:vimtex_view_method = 'zathura'
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
-set conceallevel=1
+" set conceallevel=1
 let g:tex_conceal='abdmg'
 hi Conceal ctermbg=none

@@ -24,8 +24,8 @@ get_colours () {
 }
 deploy_colours.sh
 get_colours
-# hsetroot -solid "$BACKGROUND"
-nitrogen --restore
+hsetroot -solid "$BACKGROUND"
+# nitrogen --restore
 bspc config focused_border_color "$WHITE"
 bspc config normal_border_color "$WHITE"
 bspc config active_border_color "$WHITE"

@@ -77,7 +77,8 @@
       "o l"   #'org-latex-preview)
 
 ;; ORG
-
+ (setq org-latex-default-packages-alist
+                 '(("hidelinks" "hyperref" nil)))
 (setq org-image-actual-width (/ (display-pixel-width) 5))
 (after! org (plist-put org-format-latex-options :scale 1.5))
 (setq

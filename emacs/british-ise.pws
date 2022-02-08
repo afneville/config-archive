@@ -1,4 +1,4 @@
-personal_ws-1.1 en 182 
+personal_ws-1.1 en 195 
 ADT
 ALU
 APIs
@@ -23,17 +23,20 @@ EJ
 FDE
 Fi
 GTK
+Hadrons
 IC
 IPv
 ISBNs
 JSON
 JVM
+Kaons
 LANs
 LSB
 LSL
 LSR
 MBR
 MVC
+Muons
 NIC
 NRZ
 Neuman
@@ -81,11 +84,14 @@ abc
 activations
 allocators
 amssymb
+antibaryon
+antiquark
 args
 atomicity
 backpropogation
 barcode
 barcodes
+baryonic
 bfseries
 bitwise
 bmatrix
@@ -117,6 +123,7 @@ fuser
 geq
 glibc
 gui
+hadrons
 hsetroot
 http
 ie
@@ -134,8 +141,10 @@ lossy
 lxapperaance
 malloc
 mariadb
+mesonic
 modularity
 mro
+muon
 mutex
 mysql
 nabla
@@ -154,6 +163,9 @@ pcspkr
 percepton
 percepton's
 performant
+photocathode
+photoelectrons
+pions
 png
 pre
 printf
@@ -161,6 +173,7 @@ prototyped
 pseudocode
 pthreads
 py
+quantised
 resending
 retval
 sbrk
