@@ -22,9 +22,9 @@ zle -N zle-line-init
 echo -ne '\e[4 q'
 preexec() { echo -ne '\e[4 q' ;}
 
-eval "$(mcfly init zsh)"
-export MCFLY_KEY_SCHEME=vim
-export MCFLY_RESULTS=25
+# eval "$(mcfly init zsh)"
+# export MCFLY_KEY_SCHEME=vim
+# export MCFLY_RESULTS=25
 # features
 setopt extendedglob nomatch menucomplete
 setopt interactive_comments
@@ -50,9 +50,7 @@ source_zsh_file "search.sh"
 # source_zsh_file "prompt.sh"
 add_zsh_plugin "zsh-users/zsh-autosuggestions"
 add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
-
-source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
-
+add_zsh_plugin "romkatv/powerlevel10k"
 
 # uncomment for space before and after output.
 # preexec() {

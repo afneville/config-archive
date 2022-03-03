@@ -11,6 +11,7 @@ function add_zsh_plugin() {
     if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
 
         source_zsh_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        source_zsh_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh-theme" || \
         source_zsh_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
 
     else
