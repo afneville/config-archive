@@ -4,13 +4,15 @@
 
 # terminal emulator
 super + Return
-        kitty
+        alacritty
 
 # program launcher
 super + p
         rofi -show run
         # dmenu_run
 
+super + shift + q
+        killall xinit
 #audio
 XF86AudioLowerVolume
 	amixer set Master 5%-
@@ -21,6 +23,5 @@ XF86AudioRaiseVolume
 XF86AudioMute
     amixer -q -D pulse sset Master toggle
 
-
-super + shift + q
-    killall xinit
+# super + shift + q
+#     killall xinit
