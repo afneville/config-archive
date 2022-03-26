@@ -38,11 +38,14 @@ fi
 #     # xrandr --output HDMI1-A-0 --mode 1920x1080 --output eDP --off
 # fi
 
+xrandr --output eDP --set TearFree on
+
 # emacs --daemon &
 # xfce4-power-manager &
 # picom -m 1 &
 # picom --experimental-backends &
-# numlockx &
+numlockx &
+xbanish &
 # hsetroot -solid $(xrdb -query | grep 'background:'| awk '{print $NF}')
 # nitrogen --restore
 # xsetroot -name "  $(whoami) @ $(hostname) "
@@ -56,12 +59,12 @@ fi
 # /home/alex/code/dwm/dwm_bar.sh &
 # exec dwm
 # exec awesome
-export DESKTOP_SESSION=plasma
-exec startplasma-x11
-exec dbus-launch --exit-with-session startplasma-x11
+# export DESKTOP_SESSION=plasma
+# exec startplasma-x11
+# exec dbus-launch --exit-with-session startplasma-x11
 # export XDG_SESSION_TYPE=x11
 # export GDK_BACKEND=x11
 # exec gnome-session
 # exec cinnamon-session
 # exec mate-session
-# exec startxfce4
+exec startxfce4

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 195 
+personal_ws-1.1 en 200 
 ADT
 ALU
 APIs
@@ -64,6 +64,9 @@ RW
 Rosenblatt
 SSD
 SSID
+SSL
+TCP
+TLS
 TOC
 TODO
 UI
@@ -107,6 +110,7 @@ data's
 de
 decrypt
 decrypted
+decrypts
 dereference
 dereferences
 dereferencing
@@ -181,6 +185,7 @@ secnumdepth
 sho
 sigmoid
 src
+stateful
 str
 struct
 structs

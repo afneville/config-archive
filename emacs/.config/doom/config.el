@@ -21,13 +21,13 @@
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Jetbrains Mono Nerd Font" :size 14 :weight 'regular :height 1.0)
       ;; doom-variable-pitch-font (font-spec :family "CMU Typewriter Text" :size 16 :height 1.0))
-      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 16 :height 1.0))
+      doom-variable-pitch-font (font-spec :family "Sans" :size 16 :height 1.0))
       ;; doom-variable-pitch-font (font-spec :family "ETBembo" :size 16 :height 1.1))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dark+)
+(setq doom-theme 'doom-gruvbox)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
