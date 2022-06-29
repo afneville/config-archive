@@ -1,6 +1,6 @@
 #include ".Xresources.d/colours"
 XTerm.termName: xterm-256color
-Xft.dpi: 96
+Xft.dpi: 192
 
 xterm*faceName: Monospace
 xterm*faceSize: 12

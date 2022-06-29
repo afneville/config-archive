@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-        kitty
+        alacritty
 
 # program launcher
 super + p
@@ -22,6 +22,3 @@ XF86AudioRaiseVolume
 
 XF86AudioMute
     amixer -q -D pulse sset Master toggle
-
-# super + shift + q
-#     killall xinit
