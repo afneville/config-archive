@@ -52,6 +52,11 @@ add_zsh_plugin "zsh-users/zsh-autosuggestions"
 add_zsh_plugin "zsh-users/zsh-syntax-highlighting"
 add_zsh_plugin "romkatv/powerlevel10k"
 
+# BASE16_SHELL="$ZDOTDIR/plugins/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 # uncomment for space before and after output.
 # preexec() {
 # 
